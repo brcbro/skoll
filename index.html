@@ -260,6 +260,7 @@
 
         loadAllWithProgress(setBar).then(function (anyLoaded) {
           setBar(1);
+
           if (gsap && letters.length) {
             gsap.to(letters, {
               opacity: 1,
@@ -272,9 +273,33 @@
           } else {
             letters.forEach(function (s) { s.style.opacity = 1; s.style.transform = 'none'; });
           }
-          setTimeout(function () {
+
+          // Keep preloader visible until hero video is ready (or we time out)
+          var hasFinished = false;
+          function finishPreloader() {
+            if (hasFinished) return;
+            hasFinished = true;
             if (!anyLoaded) showLoadErrorMessage();
             hidePreloader();
+          }
+
+          // Slight delay so the word animation can play
+          setTimeout(function () {
+            var heroVideo = document.querySelector('.skoll-hero-video');
+
+            // If there's no video, or it's already buffered enough, just finish
+            if (!heroVideo || heroVideo.readyState >= 3 /* HAVE_FUTURE_DATA */) {
+              finishPreloader();
+              return;
+            }
+
+            var timeoutId = setTimeout(finishPreloader, 5000); // safety fallback
+            ['canplaythrough', 'loadeddata', 'error', 'stalled'].forEach(function (evt) {
+              heroVideo.addEventListener(evt, function () {
+                clearTimeout(timeoutId);
+                finishPreloader();
+              }, { once: true });
+            });
           }, 600);
         }).catch(function () {
           setBar(1);
