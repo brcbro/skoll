@@ -1,0 +1,347 @@
+/* ==========================================================================
+   Skoll Digital – Global styles
+   Premium dark theme, design tokens, reset, typography, utilities
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Google Fonts
+   Inter (body), Space Grotesk (headings)
+   -------------------------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap');
+
+/* --------------------------------------------------------------------------
+   2. CSS Custom Properties (Design tokens)
+   Use these across sections for consistency.
+   -------------------------------------------------------------------------- */
+:root {
+  /* Backgrounds */
+  --bg-primary: #0A0A0A;
+  --bg-secondary: #111111;
+  --bg-card: #161616;
+
+  /* Accent */
+  --accent-gold: #C9A84C;
+  --accent-gold-dim: rgba(201, 168, 76, 0.3);
+
+  /* Text */
+  --text-primary: #FAFAFA;
+  --text-secondary: #888888;
+  --text-muted: #555555;
+
+  /* Glass (matte liquid glass) */
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.06);
+  --glass-blur: 20px;
+
+  /* Border radius */
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-lg: 28px;
+  --radius-pill: 999px;
+
+  /* Typography – fallbacks */
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Space Grotesk', 'Outfit', var(--font-sans);
+
+  /* Transitions */
+  --transition-default: 0.3s ease;
+}
+
+/* --------------------------------------------------------------------------
+   3. CSS Reset (minimal, modern)
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Allow percentage heights; remove default list/appearance where needed */
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   4. Base typography
+   -------------------------------------------------------------------------- */
+body {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Disable blue tap highlight on mobile */
+  -webkit-tap-highlight-color: transparent;
+  tap-highlight-color: transparent;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+/* Smooth transitions on interactive elements */
+a,
+button,
+[role="button"],
+input,
+select,
+textarea {
+  transition: color var(--transition-default),
+              background-color var(--transition-default),
+              border-color var(--transition-default),
+              box-shadow var(--transition-default),
+              opacity var(--transition-default),
+              transform var(--transition-default);
+}
+
+/* --------------------------------------------------------------------------
+   5. Text selection
+   -------------------------------------------------------------------------- */
+::selection {
+  background: var(--accent-gold);
+  color: var(--bg-primary);
+}
+
+::-moz-selection {
+  background: var(--accent-gold);
+  color: var(--bg-primary);
+}
+
+/* --------------------------------------------------------------------------
+   6. Scrollbar styling (thin, dark track, gold thumb)
+   -------------------------------------------------------------------------- */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent-gold-dim);
+  border-radius: var(--radius-pill);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-gold);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-gold-dim) var(--bg-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   7. Responsive breakpoints (reference only – use in media queries)
+   Mobile-first: 500px, 768px, 900px, 1200px
+   -------------------------------------------------------------------------- */
+/* Breakpoint reference:
+   --bp-sm: 500px
+   --bp-md: 768px
+   --bp-lg: 900px
+   --bp-xl: 1200px
+*/
+
+/* --------------------------------------------------------------------------
+   8. Utility classes
+   -------------------------------------------------------------------------- */
+
+/* Container: max-width centered with horizontal padding */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+@media (max-width: 500px) {
+  .container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
+/* Section vertical padding: 120px desktop, 80px mobile */
+.section-padding {
+  padding-top: 120px;
+  padding-bottom: 120px;
+}
+
+@media (max-width: 768px) {
+  .section-padding {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+}
+
+/* Matte liquid glass effect */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+}
+
+/* Glass with enhanced hover (slightly brighter, subtle border) */
+.glass-hover {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  transition: background var(--transition-default),
+              border-color var(--transition-default),
+              box-shadow var(--transition-default);
+}
+
+.glass-hover:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Pill-shaped button base */
+.pill-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: var(--radius-pill);
+  border: none;
+  cursor: pointer;
+  transition: box-shadow var(--transition-default),
+              transform var(--transition-default),
+              border-color var(--transition-default);
+}
+
+/* Gold filled variant */
+.pill-btn-gold {
+  background: var(--accent-gold);
+  color: var(--bg-primary);
+}
+
+.pill-btn-gold:hover {
+  box-shadow: 0 0 24px var(--accent-gold-dim);
+  transform: translateY(-1px);
+}
+
+/* Transparent / glass variant */
+.pill-btn-ghost {
+  background: var(--glass-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+}
+
+.pill-btn-ghost:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+/* Text utilities */
+.text-gold {
+  color: var(--accent-gold);
+}
+
+.text-muted {
+  color: var(--text-secondary);
+}
+
+/* Section container placeholder (for dynamic section wrappers) */
+.section-container {
+  min-height: 1px;
+}
+
+/* ==========================================================================
+   Custom cursor (cursor.js)
+   Hide default cursor when custom cursor is active.
+   ========================================================================== */
+html.skoll-cursor-active,
+html.skoll-cursor-active * {
+  cursor: none !important;
+}
+
+.skoll-cursor {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 99999;
+  visibility: hidden;
+}
+
+.skoll-cursor.skoll-cursor-visible {
+  visibility: visible;
+}
+
+.skoll-cursor-dot {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 8px;
+  height: 8px;
+  background: var(--accent-gold);
+  border-radius: 50%;
+  will-change: transform;
+  transition: background 0.25s ease;
+}
+
+.skoll-cursor-ring {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 40px;
+  height: 40px;
+  margin-left: -20px;
+  margin-top: -20px;
+  border: 1px solid var(--accent-gold-dim);
+  border-radius: 50%;
+  will-change: transform;
+  transform-origin: center center;
+  transition: border-color 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.skoll-cursor-view-text {
+  font-family: var(--font-display);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  mix-blend-mode: difference;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.skoll-cursor-link .skoll-cursor-dot {
+  background: var(--text-primary);
+}
+
+.skoll-cursor-link .skoll-cursor-ring {
+  border-color: var(--accent-gold);
+}
+
+.skoll-cursor-view .skoll-cursor-view-text {
+  opacity: 1;
+}

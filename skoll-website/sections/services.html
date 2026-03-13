@@ -1,0 +1,376 @@
+<!-- Skoll Digital – Standalone Services Accordion (HTML + scoped CSS + JS) -->
+<section class="skoll-services-wrapper" data-section="services">
+  <style>
+    /* —— Scoped Services Styles (ultra-dark, accordion) —— */
+    .skoll-services-wrapper {
+      --svc-bg: #0A0A0A;
+      --svc-gold: #C9A84C;
+      --svc-text: #FAFAFA;
+      --svc-muted: #888888;
+      --svc-glass: rgba(255, 255, 255, 0.03);
+      --svc-glass-border: rgba(255, 255, 255, 0.06);
+      --svc-border: rgba(255, 255, 255, 0.08);
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--svc-bg);
+      padding: 120px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .skoll-services-wrapper * {
+      box-sizing: border-box;
+    }
+    .skoll-services-wrapper::selection {
+      background: var(--svc-gold);
+      color: #0A0A0A;
+    }
+    .skoll-services-wrapper *::selection {
+      background: var(--svc-gold);
+      color: #0A0A0A;
+    }
+
+    /* Shadertoy shader background layer, sits behind content */
+    .skoll-services-shader-bg {
+      position: absolute;
+      inset: 0;
+      background: #000;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .skoll-services-shader-bg img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      object-fit: cover;
+      object-position: center;
+      filter: saturate(0.75) contrast(1.05) brightness(0.9);
+      transform: scale(1.05);
+      transform-origin: center;
+    }
+
+    .skoll-services-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .skoll-services-title {
+      font-family: 'Space Grotesk', 'Outfit', sans-serif;
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--svc-text);
+      text-align: center;
+      margin: 0 0 48px;
+    }
+
+    .skoll-services-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .skoll-services-row {
+      border-top: 1px solid var(--svc-border);
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    .skoll-services-row:last-child {
+      border-bottom: 1px solid var(--svc-border);
+    }
+
+    .skoll-services-row-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 32px 0;
+      cursor: pointer;
+      transition: transform 0.35s ease;
+      position: relative;
+      width: 100%;
+      text-align: left;
+      background: transparent;
+      border: none;
+      outline: none;
+      -webkit-tap-highlight-color: transparent;
+      color: inherit;
+    }
+    .skoll-services-row-header:focus-visible {
+      outline: 1px solid var(--svc-gold);
+      outline-offset: 4px;
+    }
+    .skoll-services-row-header:hover {
+      transform: translateX(8px);
+    }
+    .skoll-services-row.is-open .skoll-services-row-header:hover {
+      transform: none;
+    }
+    .skoll-services-row-num {
+      flex-shrink: 0;
+      font-family: 'Space Grotesk', 'Outfit', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--svc-gold);
+      letter-spacing: 0.05em;
+      transition: text-shadow 0.35s ease, color 0.35s ease;
+    }
+    .skoll-services-row-header:hover .skoll-services-row-num {
+      text-shadow: 0 0 20px rgba(201, 168, 76, 0.5);
+      color: var(--svc-gold);
+    }
+    .skoll-services-row-title {
+      flex: 1;
+      font-family: 'Space Grotesk', 'Outfit', sans-serif;
+      font-size: clamp(1.25rem, 2vw, 1.5rem);
+      font-weight: 600;
+      color: var(--svc-text);
+      letter-spacing: -0.02em;
+      text-align: center;
+      padding: 0 16px;
+    }
+    .skoll-services-row-toggle {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--svc-border);
+      border-radius: 50%;
+      color: var(--svc-text);
+      font-size: 1.25rem;
+      font-weight: 300;
+      transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+    .skoll-services-row-toggle-icon {
+      display: block;
+      line-height: 1;
+    }
+    .skoll-services-row.is-open .skoll-services-row-toggle {
+      border-color: rgba(201, 168, 76, 0.4);
+    }
+
+    /* Expandable content */
+    .skoll-services-row-content {
+      overflow: hidden;
+      height: 0;
+    }
+    .skoll-services-row-content-inner {
+      padding: 0 0 32px;
+    }
+    .skoll-services-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .skoll-services-pill {
+      display: inline-block;
+      padding: 10px 20px;
+      background: var(--svc-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--svc-glass-border);
+      border-radius: 999px;
+      font-size: 0.875rem;
+      color: var(--svc-muted);
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    .skoll-services-pill:hover {
+      color: var(--svc-text);
+      border-color: rgba(255, 255, 255, 0.12);
+    }
+  </style>
+
+  <div class="skoll-services-shader-bg" aria-hidden="true">
+    <img
+      decoding="auto"
+      sizes="100vw"
+      srcset="
+        https://framerusercontent.com/images/0o77rPWLjh7WWr9PbJ9YRchjA.jpg?scale-down-to=1024&amp;width=1000&amp;height=1250 819w,
+        https://framerusercontent.com/images/0o77rPWLjh7WWr9PbJ9YRchjA.jpg?width=1000&amp;height=1250 1000w
+      "
+      src="https://framerusercontent.com/images/0o77rPWLjh7WWr9PbJ9YRchjA.jpg?width=1000&amp;height=1250"
+      alt=""
+    />
+  </div>
+
+  <div class="skoll-services-inner">
+    <h2 class="skoll-services-title" id="skoll-services-title">What We Build.</h2>
+
+    <ul class="skoll-services-list" id="skoll-services-list">
+      <li class="skoll-services-row" data-row="1">
+        <button type="button" class="skoll-services-row-header" aria-expanded="false" aria-controls="skoll-svc-content-1" id="skoll-svc-header-1">
+          <span class="skoll-services-row-num">01</span>
+          <span class="skoll-services-row-title">Growth Strategy & Consulting</span>
+          <span class="skoll-services-row-toggle" aria-hidden="true">
+            <span class="skoll-services-row-toggle-icon">+</span>
+          </span>
+        </button>
+        <div class="skoll-services-row-content" id="skoll-svc-content-1" role="region" aria-labelledby="skoll-svc-header-1">
+          <div class="skoll-services-row-content-inner">
+            <div class="skoll-services-pills">
+              <span class="skoll-services-pill">Market Research</span>
+              <span class="skoll-services-pill">GTM Strategy</span>
+              <span class="skoll-services-pill">Growth Audits</span>
+              <span class="skoll-services-pill">Funnel Architecture</span>
+              <span class="skoll-services-pill">Competitive Analysis</span>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li class="skoll-services-row" data-row="2">
+        <button type="button" class="skoll-services-row-header" aria-expanded="false" aria-controls="skoll-svc-content-2" id="skoll-svc-header-2">
+          <span class="skoll-services-row-num">02</span>
+          <span class="skoll-services-row-title">Product Design & Development</span>
+          <span class="skoll-services-row-toggle" aria-hidden="true">
+            <span class="skoll-services-row-toggle-icon">+</span>
+          </span>
+        </button>
+        <div class="skoll-services-row-content" id="skoll-svc-content-2" role="region" aria-labelledby="skoll-svc-header-2">
+          <div class="skoll-services-row-content-inner">
+            <div class="skoll-services-pills">
+              <span class="skoll-services-pill">Website Design</span>
+              <span class="skoll-services-pill">Web App Development</span>
+              <span class="skoll-services-pill">E-commerce (Shopify/Custom)</span>
+              <span class="skoll-services-pill">Mobile App UI/UX</span>
+              <span class="skoll-services-pill">Landing Pages</span>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li class="skoll-services-row" data-row="3">
+        <button type="button" class="skoll-services-row-header" aria-expanded="false" aria-controls="skoll-svc-content-3" id="skoll-svc-header-3">
+          <span class="skoll-services-row-num">03</span>
+          <span class="skoll-services-row-title">Performance Marketing</span>
+          <span class="skoll-services-row-toggle" aria-hidden="true">
+            <span class="skoll-services-row-toggle-icon">+</span>
+          </span>
+        </button>
+        <div class="skoll-services-row-content" id="skoll-svc-content-3" role="region" aria-labelledby="skoll-svc-header-3">
+          <div class="skoll-services-row-content-inner">
+            <div class="skoll-services-pills">
+              <span class="skoll-services-pill">Meta Ads</span>
+              <span class="skoll-services-pill">Google Ads</span>
+              <span class="skoll-services-pill">SEO & Content</span>
+              <span class="skoll-services-pill">Analytics & Dashboards</span>
+              <span class="skoll-services-pill">CRO (Conversion Rate Optimization)</span>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li class="skoll-services-row" data-row="4">
+        <button type="button" class="skoll-services-row-header" aria-expanded="false" aria-controls="skoll-svc-content-4" id="skoll-svc-header-4">
+          <span class="skoll-services-row-num">04</span>
+          <span class="skoll-services-row-title">Brand Building</span>
+          <span class="skoll-services-row-toggle" aria-hidden="true">
+            <span class="skoll-services-row-toggle-icon">+</span>
+          </span>
+        </button>
+        <div class="skoll-services-row-content" id="skoll-svc-content-4" role="region" aria-labelledby="skoll-svc-header-4">
+          <div class="skoll-services-row-content-inner">
+            <div class="skoll-services-pills">
+              <span class="skoll-services-pill">Brand Identity & Logo</span>
+              <span class="skoll-services-pill">Brand Strategy & Positioning</span>
+              <span class="skoll-services-pill">Content Systems</span>
+              <span class="skoll-services-pill">Social Media Narratives</span>
+              <span class="skoll-services-pill">Pitch Decks & Collateral</span>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <script>
+    (function () {
+      var wrapper = document.querySelector('.skoll-services-wrapper');
+      if (!wrapper) return;
+
+      function runServicesJS() {
+        var gsap = window.gsap;
+        var ScrollTrigger = window.ScrollTrigger;
+        if (!gsap || !ScrollTrigger) {
+          setTimeout(runServicesJS, 50);
+          return;
+        }
+        gsap.registerPlugin(ScrollTrigger);
+
+        var listEl = document.getElementById('skoll-services-list');
+        var rows = listEl ? listEl.querySelectorAll('.skoll-services-row') : [];
+
+        // —— Scroll-enter: rows stagger in from below ——
+        gsap.to(rows, {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          stagger: 0.12,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: wrapper,
+            start: 'top 72%',
+            toggleActions: 'play none none none'
+          }
+        });
+
+        // —— Accordion: only one open at a time ——
+        function closeRow(row) {
+          var content = row.querySelector('.skoll-services-row-content');
+          var header = row.querySelector('.skoll-services-row-header');
+          var iconWrap = row.querySelector('.skoll-services-row-toggle');
+          var pills = content ? content.querySelectorAll('.skoll-services-pill') : [];
+          if (!content || !header) return;
+          row.classList.remove('is-open');
+          header.setAttribute('aria-expanded', 'false');
+          gsap.to(content, { height: 0, duration: 0.5, ease: 'power3.inOut' });
+          gsap.to(iconWrap, { rotation: 0, duration: 0.35, ease: 'power2.out' });
+          gsap.set(pills, { x: -20, opacity: 0 });
+        }
+
+        function openRow(row) {
+          var content = row.querySelector('.skoll-services-row-content');
+          var inner = content ? content.querySelector('.skoll-services-row-content-inner') : null;
+          var header = row.querySelector('.skoll-services-row-header');
+          var iconWrap = row.querySelector('.skoll-services-row-toggle');
+          var pills = content ? content.querySelectorAll('.skoll-services-pill') : [];
+          if (!content || !inner) return;
+
+          row.classList.add('is-open');
+          header.setAttribute('aria-expanded', 'true');
+
+          var h = inner.scrollHeight;
+          gsap.fromTo(content, { height: 0 }, { height: h, duration: 0.5, ease: 'power3.inOut' });
+
+          gsap.to(iconWrap, { rotation: 45, duration: 0.35, ease: 'power2.out' });
+
+          gsap.set(pills, { x: -20, opacity: 0 });
+          gsap.to(pills, { x: 0, opacity: 1, duration: 0.4, stagger: 0.08, ease: 'power2.out', delay: 0.15 });
+        }
+
+        rows.forEach(function (row) {
+          var header = row.querySelector('.skoll-services-row-header');
+          var content = row.querySelector('.skoll-services-row-content');
+          if (!header || !content) return;
+
+          header.addEventListener('click', function () {
+            var isOpen = row.classList.contains('is-open');
+            rows.forEach(function (r) { if (r !== row) closeRow(r); });
+            if (isOpen) closeRow(row);
+            else openRow(row);
+          });
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', runServicesJS);
+      } else {
+        runServicesJS();
+      }
+    })();
+  </script>
+</section>

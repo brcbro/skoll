@@ -1,0 +1,316 @@
+<!-- Skoll Digital – Standalone CTA (HTML + scoped CSS + JS) -->
+<section class="skoll-cta-wrapper" data-section="cta">
+  <style>
+    /* —— Scoped CTA Styles (dramatic, full-viewport) —— */
+    .skoll-cta-wrapper {
+      --cta-bg: #0A0A0A;
+      --cta-gold: #C9A84C;
+      --cta-text: #FAFAFA;
+      --cta-muted: #888888;
+      font-family: 'Inter', system-ui, sans-serif;
+      position: relative;
+      min-height: 100vh;
+      width: 100%;
+      background: var(--cta-bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .skoll-cta-wrapper * {
+      box-sizing: border-box;
+    }
+
+    /* Golden gradient (blooms on scroll-enter) */
+    .skoll-cta-gradient {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 120vmax;
+      height: 120vmax;
+      margin-left: -60vmax;
+      margin-top: -60vmax;
+      background: radial-gradient(
+        circle 50% at 50% 50%,
+        rgba(201, 168, 76, 0.2) 0%,
+        rgba(201, 168, 76, 0.08) 35%,
+        transparent 65%
+      );
+      border-radius: 50%;
+      pointer-events: none;
+      transform: scale(0);
+    }
+
+    /* Decorative rays (faint gold lines radiating) */
+    .skoll-cta-rays {
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      width: 200vmax;
+      height: 60vh;
+      margin-left: -100vmax;
+      pointer-events: none;
+      opacity: 0.05;
+      background: repeating-conic-gradient(
+        from 0deg at 50% 100%,
+        transparent 0deg 2deg,
+        rgba(201, 168, 76, 0.6) 2deg 2.5deg
+      );
+      mask-image: linear-gradient(to top, black 20%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to top, black 20%, transparent 100%);
+    }
+
+    /* Floating particles container */
+    .skoll-cta-particles {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    .skoll-cta-particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: var(--cta-gold);
+      border-radius: 50%;
+      opacity: 0.4;
+    }
+
+    /* Content */
+    .skoll-cta-inner {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 0 24px;
+    }
+    .skoll-cta-headline {
+      font-family: 'Space Grotesk', 'Outfit', sans-serif;
+      font-size: clamp(2.25rem, 5vw, 3.5rem);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      color: var(--cta-text);
+      margin: 0 0 20px;
+    }
+    .skoll-cta-headline .skoll-cta-char {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(0.5em);
+    }
+    .skoll-cta-headline .skoll-cta-sun {
+      color: var(--cta-gold);
+      position: relative;
+      display: inline-block;
+    }
+    .skoll-cta-headline .skoll-cta-sun::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 160%;
+      height: 160%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(201, 168, 76, 0.3) 0%, transparent 65%);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: -1;
+    }
+    .skoll-cta-subtext {
+      font-size: clamp(1rem, 1.5vw, 1.125rem);
+      color: var(--cta-muted);
+      margin: 0 0 40px;
+      line-height: 1.5;
+    }
+    .skoll-cta-button-wrap {
+      margin-bottom: 24px;
+      transform: translateY(40px);
+      opacity: 0;
+    }
+    .skoll-cta-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 48px;
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 1.0625rem;
+      font-weight: 600;
+      color: #0A0A0A;
+      background: var(--cta-gold);
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: box-shadow 0.3s ease;
+    }
+    .skoll-cta-button:hover {
+      box-shadow: 0 0 40px rgba(201, 168, 76, 0.45);
+    }
+    .skoll-cta-email {
+      font-size: 0.9375rem;
+      color: var(--cta-muted);
+      text-decoration: none;
+      transition: color 0.25s ease;
+    }
+    .skoll-cta-email:hover {
+      color: var(--cta-gold);
+    }
+  </style>
+
+  <div class="skoll-cta-gradient" id="skoll-cta-gradient" aria-hidden="true"></div>
+  <div class="skoll-cta-rays" aria-hidden="true"></div>
+  <div class="skoll-cta-particles" id="skoll-cta-particles" aria-hidden="true"></div>
+
+  <div class="skoll-cta-inner">
+    <h2 class="skoll-cta-headline" id="skoll-cta-headline">
+      Ready to Chase the <span class="skoll-cta-sun">Sun</span>?
+    </h2>
+    <p class="skoll-cta-subtext">Let's build something that compounds.</p>
+    <div class="skoll-cta-button-wrap" id="skoll-cta-button-wrap">
+      <a href="#contact" class="skoll-cta-button" id="skoll-cta-button">Start the Conversation</a>
+    </div>
+    <a href="mailto:hello@skolldigital.com" class="skoll-cta-email">hello@skolldigital.com</a>
+  </div>
+
+  <script>
+    (function () {
+      var wrapper = document.querySelector('.skoll-cta-wrapper');
+      if (!wrapper) return;
+
+      function runCtaJS() {
+        var gsap = window.gsap;
+        var ScrollTrigger = window.ScrollTrigger;
+        if (!gsap || !ScrollTrigger) {
+          setTimeout(runCtaJS, 50);
+          return;
+        }
+        gsap.registerPlugin(ScrollTrigger);
+
+        var gradient = document.getElementById('skoll-cta-gradient');
+        var headline = document.getElementById('skoll-cta-headline');
+        var buttonWrap = document.getElementById('skoll-cta-button-wrap');
+        var button = document.getElementById('skoll-cta-button');
+        var particlesEl = document.getElementById('skoll-cta-particles');
+
+        // —— Split headline into chars (keep "Sun" as one span for gold + glow) ——
+        if (headline) {
+          var fullText = (headline.innerText || headline.textContent || '').trim();
+          headline.innerHTML = '';
+          var i = 0;
+          while (i < fullText.length) {
+            if (fullText.substring(i, i + 3) === 'Sun') {
+              var sunSpan = document.createElement('span');
+              sunSpan.className = 'skoll-cta-sun skoll-cta-char';
+              sunSpan.textContent = 'Sun';
+              headline.appendChild(sunSpan);
+              i += 3;
+              continue;
+            }
+            var span = document.createElement('span');
+            span.className = 'skoll-cta-char';
+            span.textContent = fullText[i];
+            if (fullText[i] === ' ') span.style.width = '0.25em';
+            headline.appendChild(span);
+            i++;
+          }
+        }
+
+        var chars = headline ? headline.querySelectorAll('.skoll-cta-char') : [];
+
+        // —— Scroll-enter: gradient blooms (scale 0 → 1) ——
+        gsap.to(gradient, {
+          scale: 1,
+          duration: 1.2,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: wrapper,
+            start: 'top 70%',
+            toggleActions: 'play none none none'
+          }
+        });
+
+        // —— Headline: split-text reveal with y stagger ——
+        gsap.to(chars, {
+          opacity: 1,
+          y: 0,
+          duration: 0.55,
+          stagger: 0.04,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: wrapper,
+            start: 'top 70%',
+            toggleActions: 'play none none none'
+          },
+          delay: 0.2
+        });
+
+        // —— Button: slide up with spring ——
+        gsap.to(buttonWrap, {
+          y: 0,
+          opacity: 1,
+          duration: 0.9,
+          ease: 'back.out(1.15)',
+          scrollTrigger: {
+            trigger: wrapper,
+            start: 'top 70%',
+            toggleActions: 'play none none none'
+          },
+          delay: 0.5
+        });
+
+        // —— Magnetic effect: button shifts toward cursor when within 100px ——
+        if (buttonWrap && button) {
+          var magneticRadius = 100;
+          var magneticStrength = 0.25;
+          var xTo = gsap.quickTo(buttonWrap, 'x', { duration: 0.4, ease: 'power2.out' });
+          var yTo = gsap.quickTo(buttonWrap, 'y', { duration: 0.4, ease: 'power2.out' });
+
+          wrapper.addEventListener('mousemove', function (e) {
+            var rect = buttonWrap.getBoundingClientRect();
+            var cx = rect.left + rect.width / 2;
+            var cy = rect.top + rect.height / 2;
+            var dx = e.clientX - cx;
+            var dy = e.clientY - cy;
+            var dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < magneticRadius) {
+              var f = (1 - dist / magneticRadius) * magneticStrength;
+              xTo(dx * f);
+              yTo(dy * f);
+            } else {
+              xTo(0);
+              yTo(0);
+            }
+          });
+          wrapper.addEventListener('mouseleave', function () {
+            xTo(0);
+            yTo(0);
+          });
+        }
+
+        // —— Floating gold particles (5–10, drift upward) ——
+        if (particlesEl) {
+          var count = 8;
+          for (var p = 0; p < count; p++) {
+            var dot = document.createElement('div');
+            dot.className = 'skoll-cta-particle';
+            dot.style.left = (30 + Math.random() * 40) + '%';
+            dot.style.top = (20 + Math.random() * 60) + '%';
+            dot.style.animationDelay = Math.random() * 5 + 's';
+            dot.style.animationDuration = (8 + Math.random() * 6) + 's';
+            dot.style.opacity = 0.2 + Math.random() * 0.3;
+            particlesEl.appendChild(dot);
+          }
+          var style = document.createElement('style');
+          style.textContent = '.skoll-cta-particle { animation: skoll-cta-float 10s ease-in-out infinite; } @keyframes skoll-cta-float { 0%, 100% { transform: translate(0, 0); opacity: inherit; } 50% { transform: translate(6px, -40px); opacity: 0.6; } }';
+          wrapper.appendChild(style);
+        }
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', runCtaJS);
+      } else {
+        runCtaJS();
+      }
+    })();
+  </script>
+</section>

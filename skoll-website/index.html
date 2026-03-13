@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skoll Digital — Grow with Intent</title>
+  <meta name="description" content="The growth partner founders wish they had from day one. Strategy. Product. Performance. Brand.">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Skoll Digital — Grow with Intent">
+  <meta property="og:description" content="The growth partner founders wish they had from day one. Strategy. Product. Performance. Brand.">
+  <meta property="og:image" content="">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Skoll Digital — Grow with Intent">
+  <meta name="twitter:description" content="The growth partner founders wish they had from day one. Strategy. Product. Performance. Brand.">
+  <!-- Favicon (gold wolf placeholder) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='24' font-size='24'>🐺</text></svg>" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/global.css">
+  <style>
+    body { background: #0A0A0A; margin: 0; }
+    #skoll-preloader {
+      position: fixed;
+      inset: 0;
+      background: #0A0A0A;
+      z-index: 100000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+    }
+    #skoll-preloader.skoll-preloader-out {
+      pointer-events: none;
+    }
+    .skoll-preloader-word {
+      font-family: 'Space Grotesk', 'Outfit', sans-serif;
+      font-size: clamp(3rem, 10vw, 5rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: #FAFAFA;
+    }
+    .skoll-preloader-word span {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(0.5em);
+    }
+    .skoll-preloader-bar-wrap {
+      width: 200px;
+      height: 2px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .skoll-preloader-bar {
+      height: 100%;
+      width: 0;
+      background: #C9A84C;
+      border-radius: 2px;
+      transition: width 0.2s ease-out;
+    }
+    #skoll-scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 2px;
+      background: #C9A84C;
+      z-index: 99998;
+      width: 0%;
+      transform-origin: left;
+    }
+    /* Scroll-based invert circle (starts at 80% progress) */
+    #skoll-invert-circle {
+      position: fixed;
+      inset: 0;
+      background: #FFFFFF;
+      /* white overlay + difference blend = invert underlying colors */
+      mix-blend-mode: difference;
+      pointer-events: none;
+      z-index: 99997;
+      clip-path: circle(0px at 50% 100%);
+      will-change: clip-path;
+    }
+  </style>
+</head>
+<body>
+  <!-- Scroll progress bar (top) -->
+  <div id="skoll-scroll-progress" aria-hidden="true"></div>
+  <div id="skoll-invert-circle" aria-hidden="true"></div>
+
+  <!-- Preloader -->
+  <div id="skoll-preloader">
+    <div class="skoll-preloader-word" id="skoll-preloader-word">
+      <span>S</span><span>K</span><span>O</span><span>L</span><span>L</span>
+    </div>
+    <div class="skoll-preloader-bar-wrap">
+      <div class="skoll-preloader-bar" id="skoll-preloader-bar"></div>
+    </div>
+  </div>
+
+  <!-- Main content: sections injected here -->
+  <main id="skoll-main">
+    <div id="navbar-container"></div>
+    <div id="hero-container"></div>
+    <div id="about-container"></div>
+    <div id="pillars-container"></div>
+    <div id="services-container"></div>
+    <div id="process-container"></div>
+    <div id="work-container"></div>
+    <div id="testimonials-container"></div>
+    <div id="cta-container"></div>
+    <div id="footer-container"></div>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+  <script>
+    if (window.gsap && window.ScrollTrigger) {
+      window.gsap.registerPlugin(ScrollTrigger);
+      ScrollTrigger.config({ limitCallbacks: true, ignoreMobileResize: true });
+    }
+  </script>
+  <script>
+    (function () {
+      var sections = [
+        { id: 'navbar-container', path: 'sections/navbar.html' },
+        { id: 'hero-container', path: 'sections/hero.html' },
+        { id: 'about-container', path: 'sections/about.html' },
+        { id: 'pillars-container', path: 'sections/pillars.html' },
+        { id: 'services-container', path: 'sections/services.html' },
+        { id: 'process-container', path: 'sections/process.html' },
+        { id: 'work-container', path: 'sections/work.html' },
+        { id: 'testimonials-container', path: 'sections/testimonials.html' },
+        { id: 'cta-container', path: 'sections/cta.html' },
+        { id: 'footer-container', path: 'sections/footer.html' }
+      ];
+
+      /** Base path so fetch works when index.html is in a subpath (e.g. /skoll-website/index.html) */
+      function getBasePath() {
+        var path = window.location.pathname || '';
+        var lastSlash = path.lastIndexOf('/');
+        return lastSlash >= 0 ? path.substring(0, lastSlash + 1) : '/';
+      }
+
+      function runScriptsInContainer(container) {
+        var scripts = container.querySelectorAll('script');
+        scripts.forEach(function (oldScript) {
+          var newScript = document.createElement('script');
+          if (oldScript.src) newScript.src = oldScript.src;
+          else newScript.textContent = oldScript.textContent;
+          oldScript.parentNode.replaceChild(newScript, oldScript);
+        });
+      }
+
+      function loadSection(containerId, path, basePath) {
+        var container = document.getElementById(containerId);
+        if (!container) return Promise.resolve(false);
+        var url = basePath + path;
+        return fetch(url)
+          .then(function (res) {
+            if (res.ok) return res.text();
+            throw new Error(path);
+          })
+          .then(function (html) {
+            container.innerHTML = html;
+            runScriptsInContainer(container);
+            return true;
+          })
+          .catch(function (e) {
+            console.warn('Section load failed:', url, e);
+            return false;
+          });
+      }
+
+      function loadAllWithProgress(onProgress) {
+        var total = sections.length;
+        var done = 0;
+        var basePath = window.location.protocol === 'file:' ? '' : getBasePath();
+        return Promise.all(sections.map(function (s) {
+          return loadSection(s.id, s.path, basePath).then(function (ok) {
+            done++;
+            onProgress(done / total);
+            return ok;
+          });
+        })).then(function (results) {
+          return results.some(Boolean);
+        });
+      }
+
+      function showLoadErrorMessage() {
+        var main = document.getElementById('skoll-main');
+        if (!main) return;
+        var isFile = window.location.protocol === 'file:';
+        main.innerHTML = '<div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;font-family:system-ui,sans-serif;color:#FAFAFA;background:#0A0A0A;">' +
+          '<h1 style="font-size:1.5rem;margin-bottom:16px;">' + (isFile ? 'Open via a local server' : 'Sections could not be loaded') + '</h1>' +
+          '<p style="color:#888;max-width:400px;margin-bottom:24px;">' +
+            (isFile
+              ? 'This site uses fetch() to load sections, which does not work when opening the HTML file directly. Run a local server from the project folder, for example:'
+              : 'Check the browser console for errors. Ensure you run the site from the correct folder.') +
+          '</p>' +
+          (isFile ? '<code style="display:block;padding:12px 20px;background:#161616;border-radius:8px;color:#C9A84C;font-size:0.9rem;">npx serve .</code>' +
+            '<p style="color:#666;font-size:0.875rem;margin-top:16px;">or use the Live Server extension in VS Code.</p>' : '') +
+          '</div>';
+      }
+
+      function initApp() {
+        var preloader = document.getElementById('skoll-preloader');
+        var barEl = document.getElementById('skoll-preloader-bar');
+        var wordEl = document.getElementById('skoll-preloader-word');
+        var gsap = window.gsap;
+        var letters = wordEl ? wordEl.querySelectorAll('span') : [];
+
+        if (!preloader) return;
+
+        function setBar(pct) {
+          if (barEl) barEl.style.width = (pct * 100) + '%';
+        }
+
+        function hidePreloader() {
+          if (gsap) {
+            gsap.to(preloader, {
+              y: '-100%',
+              duration: 0.8,
+              ease: 'power4.inOut',
+              onComplete: function () {
+                preloader.classList.add('skoll-preloader-out');
+                window.__skollPreloaderDone = true;
+                if (window.dispatchEvent) {
+                  try {
+                    window.dispatchEvent(new CustomEvent('skoll:preloader:done'));
+                  } catch (e) {
+                    // ignore
+                  }
+                }
+                initLenis();
+                initScrollProgress();
+                initAnchorScroll();
+                if (window.ScrollTrigger) window.ScrollTrigger.refresh();
+              }
+            });
+          } else {
+            preloader.style.transform = 'translateY(-100%)';
+            preloader.classList.add('skoll-preloader-out');
+            window.__skollPreloaderDone = true;
+            if (window.dispatchEvent) {
+              try {
+                window.dispatchEvent(new CustomEvent('skoll:preloader:done'));
+              } catch (e) {
+                // ignore
+              }
+            }
+            initLenis();
+            initScrollProgress();
+            initAnchorScroll();
+          }
+        }
+
+        loadAllWithProgress(setBar).then(function (anyLoaded) {
+          setBar(1);
+          if (gsap && letters.length) {
+            gsap.to(letters, {
+              opacity: 1,
+              y: 0,
+              duration: 0.5,
+              stagger: 0.06,
+              ease: 'power2.out',
+              delay: 0.1
+            });
+          } else {
+            letters.forEach(function (s) { s.style.opacity = 1; s.style.transform = 'none'; });
+          }
+          setTimeout(function () {
+            if (!anyLoaded) showLoadErrorMessage();
+            hidePreloader();
+          }, 600);
+        }).catch(function () {
+          setBar(1);
+          showLoadErrorMessage();
+          setTimeout(hidePreloader, 400);
+        });
+      }
+
+      function initLenis() {
+        if (typeof Lenis === 'undefined') return;
+        var lenis = new Lenis({ lerp: 0.08, smoothWheel: true });
+        if (window.gsap && window.ScrollTrigger) {
+          ScrollTrigger.scrollerProxy(document.body, {
+            scrollTop: function (value) {
+              if (arguments.length) lenis.scrollTo(value);
+              return lenis.scroll != null ? lenis.scroll : 0;
+            }
+          });
+          lenis.on('scroll', ScrollTrigger.update);
+          gsap.ticker.add(function (time) { lenis.raf(time * 1000); });
+          gsap.ticker.lagSmoothing(0);
+        } else {
+          function raf(t) {
+            lenis.raf(t);
+            requestAnimationFrame(raf);
+          }
+          requestAnimationFrame(raf);
+        }
+        window.lenis = lenis;
+      }
+
+      function initScrollProgress() {
+        var bar = document.getElementById('skoll-scroll-progress');
+        if (!bar) return;
+        var invert = document.getElementById('skoll-invert-circle');
+        var gsap = window.gsap;
+        var ScrollTrigger = window.ScrollTrigger;
+        if (gsap && ScrollTrigger) {
+          gsap.registerPlugin(ScrollTrigger);
+          gsap.to(bar, {
+            width: '100%',
+            ease: 'none',
+            scrollTrigger: {
+              trigger: document.body,
+              start: 'top top',
+              end: 'bottom bottom',
+              scrub: 0.2
+            }
+          });
+
+          // Invert circle: 0–80% => hidden, 80–100% => expands to cover screen
+          if (invert) {
+            ScrollTrigger.create({
+              trigger: document.body,
+              start: 'top top',
+              end: 'bottom bottom',
+              scrub: 0.2,
+              onUpdate: function (self) {
+                var p = self.progress; // 0..1
+                var t = (p - 0.8) / 0.2; // map 0.8..1 to 0..1
+                if (t < 0) t = 0;
+                if (t > 1) t = 1;
+                // Big enough to cover any viewport from bottom-center
+                var r = Math.ceil(Math.max(window.innerWidth, window.innerHeight) * 1.25);
+                var radius = Math.round(r * t);
+                invert.style.clipPath = 'circle(' + radius + 'px at 50% 100%)';
+              }
+            });
+          }
+        }
+      }
+
+      /** Global anchor scroll: hero, footer, and any #home/#about/etc. link scroll to the right section */
+      function initAnchorScroll() {
+        var hashToId = { home: 'hero-container', about: 'about-container', services: 'services-container', work: 'work-container', contact: 'cta-container' };
+        document.body.addEventListener('click', function (e) {
+          var a = e.target.closest('a[href^="#"]');
+          if (!a) return;
+          var hash = (a.getAttribute('href') || '').slice(1);
+          if (!hash) return;
+          var targetId = hashToId[hash] || hash;
+          var el = document.getElementById(targetId);
+          if (el) {
+            e.preventDefault();
+            if (window.lenis) {
+              window.lenis.scrollTo(el, { offset: 0, duration: 1.2 });
+            } else {
+              el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          }
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function () {
+          initApp();
+        });
+      } else {
+        initApp();
+      }
+    })();
+  </script>
+  <script src="js/cursor.js"></script>
+  <script src="js/animations.js"></script>
+</body>
+</html>

@@ -1,0 +1,337 @@
+<!-- Skoll Digital – Standalone Work / Portfolio (HTML + scoped CSS + JS) -->
+<section class="skoll-work-wrapper" data-section="work">
+  <style>
+    /* —— Scoped Work Styles (bento grid, magazine) —— */
+    .skoll-work-wrapper {
+      --work-bg: #0A0A0A;
+      --work-gold: #C9A84C;
+      --work-text: #FAFAFA;
+      --work-muted: #888888;
+      --work-glass: rgba(255, 255, 255, 0.03);
+      --work-glass-border: rgba(255, 255, 255, 0.06);
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--work-bg);
+      padding: 120px 24px;
+    }
+    .skoll-work-wrapper * {
+      box-sizing: border-box;
+    }
+
+    .skoll-work-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .skoll-work-title {
+      font-family: 'Space Grotesk', 'Outfit', sans-serif;
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--work-text);
+      text-align: center;
+      margin: 0 0 56px;
+    }
+    .skoll-work-title .skoll-work-char {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(0.4em);
+    }
+    .skoll-work-title .skoll-work-gold {
+      color: var(--work-gold);
+    }
+
+    /* Bento grid */
+    .skoll-work-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    @media (max-width: 768px) {
+      .skoll-work-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .skoll-work-card {
+      position: relative;
+      background: var(--work-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--work-glass-border);
+      border-radius: 24px;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(32px) scale(0.96);
+      transition: border-color 0.35s ease;
+    }
+    .skoll-work-card:hover {
+      border-color: rgba(201, 168, 76, 0.2);
+    }
+
+    /* Card sizes */
+    .skoll-work-card-large {
+      grid-column: 1 / -1;
+      min-height: 380px;
+    }
+    .skoll-work-card-banner {
+      grid-column: 1 / -1;
+      min-height: 220px;
+    }
+    .skoll-work-card-medium {
+      min-height: 300px;
+    }
+    @media (max-width: 768px) {
+      .skoll-work-card-large,
+      .skoll-work-card-banner,
+      .skoll-work-card-medium {
+        grid-column: 1;
+        min-height: 280px;
+      }
+    }
+
+    .skoll-work-card-image {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-height: 180px;
+      overflow: hidden;
+      background: linear-gradient(145deg, #1a1a1a 0%, #222 100%);
+    }
+    .skoll-work-card-large .skoll-work-card-image { min-height: 260px; }
+    .skoll-work-card-banner .skoll-work-card-image { min-height: 120px; }
+    .skoll-work-card-image::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+      opacity: 0.5;
+      pointer-events: none;
+    }
+    .skoll-work-card-image-inner {
+      width: 100%;
+      height: 100%;
+      min-height: inherit;
+      transition: transform 0.6s ease;
+    }
+    .skoll-work-card:hover .skoll-work-card-image-inner {
+      transform: scale(1.05);
+    }
+    .skoll-work-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(201, 168, 76, 0.1);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+    }
+    .skoll-work-card:hover .skoll-work-card-overlay {
+      opacity: 1;
+    }
+    .skoll-work-card-cta {
+      position: absolute;
+      bottom: 20px;
+      left: 24px;
+      right: 24px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--work-gold);
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .skoll-work-card:hover .skoll-work-card-cta {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .skoll-work-card-body {
+      padding: 24px;
+    }
+    .skoll-work-card-tag {
+      display: inline-block;
+      padding: 6px 14px;
+      background: var(--work-glass);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--work-glass-border);
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--work-muted);
+      letter-spacing: 0.04em;
+      margin-bottom: 10px;
+    }
+    .skoll-work-card-title {
+      font-family: 'Space Grotesk', 'Outfit', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--work-text);
+      margin: 0;
+      letter-spacing: -0.02em;
+    }
+  </style>
+
+  <div class="skoll-work-inner">
+    <h2 class="skoll-work-title" id="skoll-work-title">Selected <span class="skoll-work-gold">Work</span>.</h2>
+
+    <div class="skoll-work-grid" id="skoll-work-grid">
+      <article class="skoll-work-card skoll-work-card-large" data-card="1">
+        <div class="skoll-work-card-image">
+          <div class="skoll-work-card-image-inner"></div>
+          <div class="skoll-work-card-overlay"></div>
+          <span class="skoll-work-card-cta">View Case Study →</span>
+        </div>
+        <div class="skoll-work-card-body">
+          <span class="skoll-work-card-tag">SaaS Growth</span>
+          <h3 class="skoll-work-card-title">Aether Labs</h3>
+        </div>
+      </article>
+
+      <article class="skoll-work-card skoll-work-card-medium" data-card="2">
+        <div class="skoll-work-card-image">
+          <div class="skoll-work-card-image-inner"></div>
+          <div class="skoll-work-card-overlay"></div>
+          <span class="skoll-work-card-cta">View Case Study →</span>
+        </div>
+        <div class="skoll-work-card-body">
+          <span class="skoll-work-card-tag">E-Commerce</span>
+          <h3 class="skoll-work-card-title">Nomad Roasters</h3>
+        </div>
+      </article>
+
+      <article class="skoll-work-card skoll-work-card-medium" data-card="3">
+        <div class="skoll-work-card-image">
+          <div class="skoll-work-card-image-inner"></div>
+          <div class="skoll-work-card-overlay"></div>
+          <span class="skoll-work-card-cta">View Case Study →</span>
+        </div>
+        <div class="skoll-work-card-body">
+          <span class="skoll-work-card-tag">Fintech Brand</span>
+          <h3 class="skoll-work-card-title">FinStack</h3>
+        </div>
+      </article>
+
+      <article class="skoll-work-card skoll-work-card-banner" data-card="4">
+        <div class="skoll-work-card-image">
+          <div class="skoll-work-card-image-inner"></div>
+          <div class="skoll-work-card-overlay"></div>
+          <span class="skoll-work-card-cta">View Case Study →</span>
+        </div>
+        <div class="skoll-work-card-body">
+          <span class="skoll-work-card-tag">Wellness App</span>
+          <h3 class="skoll-work-card-title">Soulspace</h3>
+        </div>
+      </article>
+
+      <article class="skoll-work-card skoll-work-card-medium" data-card="5">
+        <div class="skoll-work-card-image">
+          <div class="skoll-work-card-image-inner"></div>
+          <div class="skoll-work-card-overlay"></div>
+          <span class="skoll-work-card-cta">View Case Study →</span>
+        </div>
+        <div class="skoll-work-card-body">
+          <span class="skoll-work-card-tag">Pitch & Identity</span>
+          <h3 class="skoll-work-card-title">Grindstone VC</h3>
+        </div>
+      </article>
+
+      <article class="skoll-work-card skoll-work-card-medium" data-card="6">
+        <div class="skoll-work-card-image">
+          <div class="skoll-work-card-image-inner"></div>
+          <div class="skoll-work-card-overlay"></div>
+          <span class="skoll-work-card-cta">View Case Study →</span>
+        </div>
+        <div class="skoll-work-card-body">
+          <span class="skoll-work-card-tag">D2C Performance</span>
+          <h3 class="skoll-work-card-title">Urban Threads</h3>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var wrapper = document.querySelector('.skoll-work-wrapper');
+      if (!wrapper) return;
+
+      function runWorkJS() {
+        var gsap = window.gsap;
+        var ScrollTrigger = window.ScrollTrigger;
+        if (!gsap || !ScrollTrigger) {
+          setTimeout(runWorkJS, 50);
+          return;
+        }
+        gsap.registerPlugin(ScrollTrigger);
+
+        var titleEl = document.getElementById('skoll-work-title');
+        var gridEl = document.getElementById('skoll-work-grid');
+        var cards = gridEl ? gridEl.querySelectorAll('.skoll-work-card') : [];
+
+        // —— Split title into characters ("Work" as one gold span) ——
+        if (titleEl) {
+          var fullText = (titleEl.innerText || titleEl.textContent || '').trim();
+          titleEl.innerHTML = '';
+          var i = 0;
+          while (i < fullText.length) {
+            if (fullText.substring(i, i + 4) === 'Work') {
+              var gold = document.createElement('span');
+              gold.className = 'skoll-work-gold skoll-work-char';
+              gold.textContent = 'Work';
+              titleEl.appendChild(gold);
+              i += 4;
+              continue;
+            }
+            var span = document.createElement('span');
+            span.className = 'skoll-work-char';
+            span.textContent = fullText[i];
+            if (fullText[i] === ' ') span.style.width = '0.25em';
+            titleEl.appendChild(span);
+            i++;
+          }
+        }
+
+        var chars = titleEl ? titleEl.querySelectorAll('.skoll-work-char') : [];
+
+        // —— Title: split-text character reveal on scroll ——
+        gsap.to(chars, {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          stagger: 0.03,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: wrapper,
+            start: 'top 78%',
+            toggleActions: 'play none none none'
+          }
+        });
+
+        // —— Cards: stagger fade-up + scale + slight random rotation that settles ——
+        var rotations = [];
+        cards.forEach(function (card, i) {
+          rotations[i] = (Math.random() - 0.5) * 2.5;
+        });
+        gsap.set(cards, { rotation: function (i) { return rotations[i]; } });
+        gsap.to(cards, {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          rotation: 0,
+          duration: 0.65,
+          stagger: 0.1,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: gridEl,
+            start: 'top 85%',
+            toggleActions: 'play none none none'
+          }
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', runWorkJS);
+      } else {
+        runWorkJS();
+      }
+    })();
+  </script>
+</section>

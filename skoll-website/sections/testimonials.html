@@ -1,0 +1,207 @@
+<!-- Skoll Digital – Standalone Testimonials Marquee (HTML + scoped CSS + JS) -->
+<section class="skoll-test-wrapper" data-section="testimonials">
+  <style>
+    /* —— Scoped Testimonials Styles (infinite marquee) —— */
+    .skoll-test-wrapper {
+      --test-bg: #111111;
+      --test-gold: #C9A84C;
+      --test-text: #FAFAFA;
+      --test-muted: #888888;
+      --test-glass: rgba(255, 255, 255, 0.03);
+      --test-glass-border: rgba(255, 255, 255, 0.06);
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--test-bg);
+      padding: 120px 0 100px;
+      overflow: hidden;
+      opacity: 0;
+    }
+    .skoll-test-wrapper.is-visible {
+      opacity: 1;
+    }
+    .skoll-test-wrapper * {
+      box-sizing: border-box;
+    }
+
+    .skoll-test-inner {
+      max-width: 100%;
+      margin: 0 auto 48px;
+    }
+
+    .skoll-test-title {
+      font-family: 'Space Grotesk', 'Outfit', sans-serif;
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--test-text);
+      text-align: center;
+      margin: 0 0 56px;
+    }
+    .skoll-test-title .skoll-test-gold {
+      color: var(--test-gold);
+    }
+
+    /* Marquee row */
+    .skoll-test-row {
+      overflow: hidden;
+      padding: 12px 0;
+    }
+    .skoll-test-row:first-of-type {
+      margin-bottom: 8px;
+    }
+    .skoll-test-track {
+      display: flex;
+      width: max-content;
+      animation: skoll-test-scroll-left 40s linear infinite;
+    }
+    .skoll-test-row-right .skoll-test-track {
+      animation-name: skoll-test-scroll-right;
+    }
+    .skoll-test-wrapper:has(.skoll-test-card:hover) .skoll-test-track {
+      animation-play-state: paused;
+    }
+    @keyframes skoll-test-scroll-left {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    @keyframes skoll-test-scroll-right {
+      0% { transform: translateX(-50%); }
+      100% { transform: translateX(0); }
+    }
+
+    .skoll-test-set {
+      display: flex;
+      gap: 24px;
+      padding: 0 24px;
+      flex-shrink: 0;
+    }
+
+    .skoll-test-card {
+      flex-shrink: 0;
+      width: 350px;
+      padding: 28px 24px;
+      background: var(--test-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--test-glass-border);
+      border-radius: 24px;
+      transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+    }
+    .skoll-test-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 0 1px rgba(201, 168, 76, 0.15), 0 24px 48px rgba(0, 0, 0, 0.25);
+      border-color: rgba(201, 168, 76, 0.2);
+    }
+
+    .skoll-test-quote {
+      font-size: 1rem;
+      line-height: 1.65;
+      color: var(--test-text);
+      font-style: italic;
+      margin: 0 0 20px;
+    }
+    .skoll-test-name {
+      font-family: 'Space Grotesk', 'Outfit', sans-serif;
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: var(--test-text);
+      margin: 0 0 4px;
+    }
+    .skoll-test-role {
+      font-size: 0.875rem;
+      color: var(--test-muted);
+      margin: 0 0 12px;
+    }
+    .skoll-test-stars {
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      color: var(--test-gold);
+    }
+  </style>
+
+  <div class="skoll-test-inner">
+    <h2 class="skoll-test-title">Founders <span class="skoll-test-gold">Talk</span>.</h2>
+  </div>
+
+  <!-- Top row: scrolls LEFT -->
+  <div class="skoll-test-row skoll-test-row-left">
+    <div class="skoll-test-track" id="skoll-test-track-left">
+      <div class="skoll-test-set" id="skoll-test-set-left-1"></div>
+      <div class="skoll-test-set" id="skoll-test-set-left-2"></div>
+    </div>
+  </div>
+
+  <!-- Bottom row: scrolls RIGHT -->
+  <div class="skoll-test-row skoll-test-row-right">
+    <div class="skoll-test-track" id="skoll-test-track-right">
+      <div class="skoll-test-set" id="skoll-test-set-right-1"></div>
+      <div class="skoll-test-set" id="skoll-test-set-right-2"></div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var wrapper = document.querySelector('.skoll-test-wrapper');
+      if (!wrapper) return;
+
+      var testimonials = [
+        { quote: 'Skoll didn\'t just build us a website — they built us a growth engine.', name: 'Arjun Mehta', role: 'CEO, Aether Labs' },
+        { quote: 'First agency that actually understood unit economics before touching our ads.', name: 'Priya Sharma', role: 'Founder, Nomad Roasters' },
+        { quote: 'The brand they built for us gets more compliments than our product. That\'s a problem. A good one.', name: 'Rohan Kapoor', role: 'CTO, FinStack' },
+        { quote: 'They think like co-founders, not vendors.', name: 'Ananya Iyer', role: 'Founder, Soulspace' },
+        { quote: 'Skoll turned our $20K/mo ad spend into a $200K/mo pipeline. In 4 months.', name: 'Vikram Desai', role: 'Partner, Grindstone VC' },
+        { quote: 'We interviewed 15 agencies. Skoll was the only one that told us what we were doing wrong before pitching.', name: 'Meera Joshi', role: 'CEO, Urban Threads' }
+      ];
+
+      var starsHtml = '<span class="skoll-test-stars" aria-hidden="true">★★★★★</span>';
+
+      function cardHtml(t) {
+        return '<article class="skoll-test-card">' +
+          '<p class="skoll-test-quote">' + t.quote + '</p>' +
+          '<p class="skoll-test-name">' + t.name + '</p>' +
+          '<p class="skoll-test-role">' + t.role + '</p>' +
+          starsHtml +
+          '</article>';
+      }
+
+      function renderSets() {
+        var set1 = document.getElementById('skoll-test-set-left-1');
+        var set2 = document.getElementById('skoll-test-set-left-2');
+        var set3 = document.getElementById('skoll-test-set-right-1');
+        var set4 = document.getElementById('skoll-test-set-right-2');
+        if (!set1 || !set2) return;
+        var html = testimonials.map(function (t) { return cardHtml(t); }).join('');
+        set1.innerHTML = html;
+        set2.innerHTML = html;
+        set3.innerHTML = html;
+        set4.innerHTML = html;
+      }
+
+      function runTestJS() {
+        var gsap = window.gsap;
+        var ScrollTrigger = window.ScrollTrigger;
+        renderSets();
+
+        if (gsap && ScrollTrigger) {
+          gsap.registerPlugin(ScrollTrigger);
+          gsap.to(wrapper, {
+            opacity: 1,
+            duration: 0.8,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: wrapper,
+              start: 'top 80%',
+              toggleActions: 'play none none none'
+            },
+            onComplete: function () { wrapper.classList.add('is-visible'); }
+          });
+        }
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', runTestJS);
+      } else {
+        runTestJS();
+      }
+    })();
+  </script>
+</section>

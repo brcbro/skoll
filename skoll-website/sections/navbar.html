@@ -1,0 +1,353 @@
+<!-- Skoll Digital – Standalone Navbar (HTML + scoped CSS + JS) -->
+<div class="skoll-navbar-wrapper" data-section="navbar">
+  <style>
+    /* —— Scoped Navbar Styles (matte liquid glass, premium dark) —— */
+    .skoll-navbar-wrapper {
+      --nav-bg: rgba(255, 255, 255, 0.04);
+      --nav-border: rgba(255, 255, 255, 0.07);
+      --nav-gold: #C9A84C;
+      --nav-text: #FAFAFA;
+      --nav-muted: #888888;
+      --nav-radius: 999px;
+      --nav-padding: 12px 32px;
+      --nav-blur: 24px;
+      font-family: 'Inter', system-ui, sans-serif;
+      position: fixed;
+      left: 0;
+      right: 0;
+      top: 0;
+      z-index: 9999;
+      pointer-events: none;
+    }
+    .skoll-navbar-wrapper * {
+      box-sizing: border-box;
+    }
+    .skoll-nav-pill-wrap {
+      pointer-events: auto;
+      display: flex;
+      justify-content: center;
+      padding: 20px 24px 0;
+      transform: translateY(0);
+    }
+    /* Ambient gold glow beneath pill */
+    .skoll-nav-pill {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 48px;
+      max-width: min(900px, calc(100vw - 48px));
+      width: 100%;
+      padding: var(--nav-padding);
+      background: var(--nav-bg);
+      backdrop-filter: blur(var(--nav-blur));
+      -webkit-backdrop-filter: blur(var(--nav-blur));
+      border: 1px solid var(--nav-border);
+      border-radius: var(--nav-radius);
+      box-shadow: 0 0 40px rgba(201, 168, 76, 0.08);
+    }
+    .skoll-nav-pill::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: -12px;
+      width: 60%;
+      height: 24px;
+      transform: translateX(-50%);
+      background: radial-gradient(ellipse, rgba(201, 168, 76, 0.15) 0%, transparent 70%);
+      filter: blur(12px);
+      pointer-events: none;
+    }
+    /* Logo: Skoll with gold O */
+    .skoll-nav-logo {
+      font-family: 'Space Grotesk', 'Outfit', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--nav-text);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+    }
+    .skoll-nav-logo .skoll-nav-logo-o {
+      color: var(--nav-gold);
+    }
+    /* Center nav links */
+    .skoll-nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+    .skoll-nav-links a {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--nav-muted);
+      text-decoration: none;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      position: relative;
+      padding: 4px 0;
+      transition: color 0.25s ease;
+    }
+    .skoll-nav-links a:hover {
+      color: var(--nav-text);
+    }
+    /* Gold underline animation (slide from left) */
+    .skoll-nav-links a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 1px;
+      background: var(--nav-gold);
+      transition: width 0.3s ease;
+    }
+    .skoll-nav-links a:hover::after {
+      width: 100%;
+    }
+    /* CTA button */
+    .skoll-nav-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 24px;
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: #0A0A0A;
+      background: var(--nav-gold);
+      border: none;
+      border-radius: var(--nav-radius);
+      cursor: pointer;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: box-shadow 0.3s ease, transform 0.2s ease;
+    }
+    .skoll-nav-cta:hover {
+      box-shadow: 0 0 24px rgba(201, 168, 76, 0.4);
+      transform: translateY(-1px);
+    }
+    /* Hamburger (mobile) */
+    .skoll-nav-hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
+      width: 32px;
+      height: 32px;
+      padding: 4px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      pointer-events: auto;
+    }
+    .skoll-nav-hamburger span {
+      display: block;
+      width: 20px;
+      height: 1.5px;
+      background: var(--nav-text);
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    .skoll-nav-hamburger.is-open span:nth-child(1) {
+      transform: translateY(3.75px) rotate(45deg);
+    }
+    .skoll-nav-hamburger.is-open span:nth-child(2) {
+      opacity: 0;
+    }
+    .skoll-nav-hamburger.is-open span:nth-child(3) {
+      transform: translateY(-3.75px) rotate(-45deg);
+    }
+    /* Hide center links on mobile, show hamburger */
+    @media (max-width: 900px) {
+      .skoll-nav-links {
+        display: none;
+      }
+      .skoll-nav-cta {
+        display: none;
+      }
+      .skoll-nav-hamburger {
+        display: flex;
+      }
+      .skoll-nav-pill {
+        gap: 24px;
+      }
+    }
+    /* Full-screen overlay menu */
+    .skoll-nav-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 10, 10, 0.97);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      z-index: 9998;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.35s ease, visibility 0.35s ease;
+    }
+    .skoll-nav-overlay.is-open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+    .skoll-nav-overlay a {
+      font-family: 'Space Grotesk', 'Outfit', sans-serif;
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      font-weight: 600;
+      color: var(--nav-text);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .skoll-nav-overlay a:hover {
+      color: var(--nav-gold);
+    }
+    .skoll-nav-overlay .skoll-nav-cta-mobile {
+      margin-top: 24px;
+      display: inline-flex;
+    }
+  </style>
+
+  <div class="skoll-nav-pill-wrap">
+    <nav class="skoll-nav-pill" aria-label="Main navigation">
+      <a href="#home" class="skoll-nav-logo">Sk<span class="skoll-nav-logo-o">o</span>ll Digital</a>
+      <div class="skoll-nav-links">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#work">Work</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <a href="#contact" class="skoll-nav-cta">Let's Talk</a>
+      <button type="button" class="skoll-nav-hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- Mobile full-screen overlay -->
+  <div class="skoll-nav-overlay" id="skoll-nav-overlay" aria-hidden="true">
+    <a href="#home" class="skoll-nav-overlay-link">Home</a>
+    <a href="#about" class="skoll-nav-overlay-link">About</a>
+    <a href="#services" class="skoll-nav-overlay-link">Services</a>
+    <a href="#work" class="skoll-nav-overlay-link">Work</a>
+    <a href="#contact" class="skoll-nav-overlay-link">Contact</a>
+    <a href="#contact" class="skoll-nav-cta skoll-nav-cta-mobile">Let's Talk</a>
+  </div>
+
+  <script>
+    (function () {
+      var wrapper = document.querySelector('.skoll-navbar-wrapper');
+      if (!wrapper) return;
+      var pillWrap = wrapper.querySelector('.skoll-nav-pill-wrap');
+      var overlay = document.getElementById('skoll-nav-overlay');
+      var hamburger = wrapper.querySelector('.skoll-nav-hamburger');
+      var overlayLinks = overlay ? overlay.querySelectorAll('.skoll-nav-overlay-link') : [];
+      var overlayAllLinks = overlay ? overlay.querySelectorAll('a') : [];
+
+      function runNavbarJS() {
+        var gsap = window.gsap;
+        var ScrollTrigger = window.ScrollTrigger;
+        if (!gsap || !ScrollTrigger) {
+          setTimeout(runNavbarJS, 50);
+          return;
+        }
+
+        gsap.registerPlugin(ScrollTrigger);
+
+        var lastScrollY = window.scrollY || window.pageYOffset;
+        var ticking = false;
+        var navHidden = false;
+
+        function updateNavVisibility() {
+          var y = window.scrollY || window.pageYOffset;
+          if (y > lastScrollY && y > 80) {
+            if (!navHidden) {
+              navHidden = true;
+              gsap.to(pillWrap, { y: -120, duration: 0.5, ease: 'power2.inOut' });
+            }
+          } else {
+            if (navHidden) {
+              navHidden = false;
+              gsap.to(pillWrap, { y: 0, duration: 0.5, ease: 'power2.inOut' });
+            }
+          }
+          lastScrollY = y;
+          ticking = false;
+        }
+
+        function onScroll() {
+          if (!ticking) {
+            requestAnimationFrame(updateNavVisibility);
+            ticking = true;
+          }
+        }
+        window.addEventListener('scroll', onScroll, { passive: true });
+
+        // Anchor scroll: map #home, #about etc. to section container ids and scroll (Lenis or native)
+        var hashToId = { home: 'hero-container', about: 'about-container', services: 'services-container', work: 'work-container', contact: 'cta-container' };
+        wrapper.addEventListener('click', function (e) {
+          var a = e.target.closest('a[href^="#"]');
+          if (!a) return;
+          var hash = (a.getAttribute('href') || '').slice(1);
+          if (!hash) return;
+          var targetId = hashToId[hash] || hash;
+          var el = document.getElementById(targetId);
+          if (el) {
+            e.preventDefault();
+            if (window.lenis) {
+              window.lenis.scrollTo(el, { offset: 0, duration: 1.2 });
+            } else {
+              el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          }
+        });
+
+        // Mobile overlay open
+        if (hamburger && overlay) {
+          hamburger.addEventListener('click', function () {
+            var open = overlay.classList.toggle('is-open');
+            hamburger.classList.toggle('is-open', open);
+            hamburger.setAttribute('aria-expanded', open);
+            overlay.setAttribute('aria-hidden', !open);
+            document.body.style.overflow = open ? 'hidden' : '';
+
+            if (open && gsap) {
+              gsap.set(overlayLinks, { opacity: 0, y: 20 });
+              gsap.to(overlayLinks, {
+                opacity: 1,
+                y: 0,
+                duration: 0.5,
+                stagger: 0.06,
+                ease: 'power2.out'
+              });
+            }
+          });
+
+          function closeOverlay() {
+            overlay.classList.remove('is-open');
+            hamburger.classList.remove('is-open');
+            hamburger.setAttribute('aria-expanded', 'false');
+            overlay.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+          }
+          overlayLinks.forEach(function (link) { link.addEventListener('click', closeOverlay); });
+          overlayAllLinks.forEach(function (link) { link.addEventListener('click', closeOverlay); });
+        }
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', runNavbarJS);
+      } else {
+        runNavbarJS();
+      }
+    })();
+  </script>
+</div>

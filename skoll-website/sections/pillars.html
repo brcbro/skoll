@@ -1,0 +1,318 @@
+<!-- Skoll Digital – Standalone Four Pillars (HTML + scoped CSS + JS) -->
+<section class="skoll-pillars-wrapper" data-section="pillars">
+  <style>
+    /* —— Scoped Pillars Styles (ultra-dark, matte glass) —— */
+    .skoll-pillars-wrapper {
+      --pillars-bg: #111111;
+      --pillars-gold: #C9A84C;
+      --pillars-text: #FAFAFA;
+      --pillars-muted: #888888;
+      --pillars-glass: rgba(255, 255, 255, 0.03);
+      --pillars-glass-border: rgba(255, 255, 255, 0.06);
+      --pillars-card-radius: 24px;
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--pillars-bg);
+      padding: 120px 24px;
+    }
+    .skoll-pillars-wrapper * {
+      box-sizing: border-box;
+    }
+
+    .skoll-pillars-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* —— Section title (split-text, "Four" in gold) —— */
+    .skoll-pillars-title {
+      font-family: 'Space Grotesk', 'Outfit', sans-serif;
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--pillars-text);
+      text-align: center;
+      margin: 0 0 64px;
+      line-height: 1.2;
+    }
+    .skoll-pillars-title .skoll-pillars-char {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(0.5em);
+    }
+    .skoll-pillars-title .skoll-pillars-gold {
+      color: var(--pillars-gold);
+    }
+
+    /* —— 2x2 grid —— */
+    .skoll-pillars-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    @media (min-width: 768px) {
+      .skoll-pillars-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .skoll-pillars-card {
+      position: relative;
+      min-height: 350px;
+      padding: 36px 32px;
+      background: var(--pillars-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--pillars-glass-border);
+      border-left: none;
+      border-radius: var(--pillars-card-radius);
+      transition: background 0.4s ease, border 0.4s ease, box-shadow 0.4s ease;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(60px);
+    }
+    .skoll-pillars-card::before {
+      content: '';
+      position: absolute;
+      inset: -10%;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      opacity: 0.28;
+      mix-blend-mode: screen;
+      filter: saturate(0.9);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .skoll-pillars-card[data-pillar="1"]::before {
+      background-image: url('https://images.unsplash.com/photo-1673335912661-bfe525827a47?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDExfHx8ZW58MHx8fHx8');
+    }
+    .skoll-pillars-card[data-pillar="2"]::before {
+      background-image: url('https://img.freepik.com/premium-psd/3d-unique-gradient-glass-shape-png-template_1204767-3127.jpg');
+    }
+    .skoll-pillars-card[data-pillar="3"]::before {
+      background-image: url('https://img.freepik.com/premium-psd/3d-unique-gradient-glass-shape-png-template_1204767-3206.jpg');
+    }
+    .skoll-pillars-card[data-pillar="4"]::before {
+      background-image: url('https://img.freepik.com/premium-psd/3d-unique-gradient-glass-shape-png-template_1204767-3121.jpg');
+    }
+    .skoll-pillars-card:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-top: 3px solid var(--pillars-gold);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Gold line "draw" on left edge (revealed when card enters view) */
+    .skoll-pillars-card-line {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 3px;
+      height: 0;
+      background: var(--pillars-gold);
+      transition: none;
+      z-index: 1;
+    }
+    .skoll-pillars-card.is-visible .skoll-pillars-card-line {
+      height: 100%;
+      transition: height 0.6s ease-out;
+    }
+
+    /* Big faded number —— */
+    .skoll-pillars-card-num {
+      position: absolute;
+      top: 24px;
+      right: 28px;
+      font-family: 'Space Grotesk', 'Outfit', sans-serif;
+      font-size: 80px;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--pillars-text);
+      opacity: 0.05;
+      z-index: 1;
+    }
+
+    .skoll-pillars-card-icon {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 20px;
+      transition: transform 0.4s ease;
+      position: relative;
+      z-index: 1;
+    }
+    .skoll-pillars-card:hover .skoll-pillars-card-icon {
+      transform: translateY(-5px);
+    }
+    .skoll-pillars-card-icon svg {
+      width: 100%;
+      height: 100%;
+      stroke: var(--pillars-text);
+    }
+
+    .skoll-pillars-card-title {
+      font-family: 'Space Grotesk', 'Outfit', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--pillars-text);
+      margin: 0 0 12px;
+      letter-spacing: -0.02em;
+      position: relative;
+      z-index: 1;
+    }
+    .skoll-pillars-card-desc {
+      font-size: 0.9375rem;
+      line-height: 1.6;
+      color: var(--pillars-muted);
+      margin: 0;
+      position: relative;
+      z-index: 1;
+    }
+  </style>
+
+  <div class="skoll-pillars-inner">
+    <h2 class="skoll-pillars-title" id="skoll-pillars-title">The <span class="skoll-pillars-gold">Four</span> Pillars</h2>
+
+    <div class="skoll-pillars-grid" id="skoll-pillars-grid">
+      <div class="skoll-pillars-card" data-pillar="1">
+        <div class="skoll-pillars-card-line" aria-hidden="true"></div>
+        <span class="skoll-pillars-card-num">01</span>
+        <div class="skoll-pillars-card-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/><path d="m4.93 4.93 3.54 3.54M15.53 15.53l3.54 3.54M4.93 19.07l3.54-3.54M15.53 7.53l3.54-3.54"/>
+          </svg>
+        </div>
+        <h3 class="skoll-pillars-card-title">Strategy</h3>
+        <p class="skoll-pillars-card-desc">Diagnose before we prescribe.</p>
+      </div>
+
+      <div class="skoll-pillars-card" data-pillar="2">
+        <div class="skoll-pillars-card-line" aria-hidden="true"></div>
+        <span class="skoll-pillars-card-num">02</span>
+        <div class="skoll-pillars-card-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <h3 class="skoll-pillars-card-title">Product</h3>
+        <p class="skoll-pillars-card-desc">Websites, apps & e-commerce that convert.</p>
+      </div>
+
+      <div class="skoll-pillars-card" data-pillar="3">
+        <div class="skoll-pillars-card-line" aria-hidden="true"></div>
+        <span class="skoll-pillars-card-num">03</span>
+        <div class="skoll-pillars-card-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 17l6-6 4 4 8-12"/><path d="M21 7v6h-6"/>
+          </svg>
+        </div>
+        <h3 class="skoll-pillars-card-title">Performance</h3>
+        <p class="skoll-pillars-card-desc">Ads, SEO & analytics that compound.</p>
+      </div>
+
+      <div class="skoll-pillars-card" data-pillar="4">
+        <div class="skoll-pillars-card-line" aria-hidden="true"></div>
+        <span class="skoll-pillars-card-num">04</span>
+        <div class="skoll-pillars-card-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.5 1.5L18 13"/>
+          </svg>
+        </div>
+        <h3 class="skoll-pillars-card-title">Brand</h3>
+        <p class="skoll-pillars-card-desc">Identity, content & narratives that resonate.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var wrapper = document.querySelector('.skoll-pillars-wrapper');
+      if (!wrapper) return;
+
+      function runPillarsJS() {
+        var gsap = window.gsap;
+        var ScrollTrigger = window.ScrollTrigger;
+        if (!gsap || !ScrollTrigger) {
+          setTimeout(runPillarsJS, 50);
+          return;
+        }
+        gsap.registerPlugin(ScrollTrigger);
+
+        var titleEl = document.getElementById('skoll-pillars-title');
+        var gridEl = document.getElementById('skoll-pillars-grid');
+        var cards = gridEl ? gridEl.querySelectorAll('.skoll-pillars-card') : [];
+
+        // —— Split title into characters ("Four" as one gold span) ——
+        if (titleEl) {
+          var fullText = (titleEl.innerText || titleEl.textContent || '').trim();
+          titleEl.innerHTML = '';
+          var i = 0;
+          while (i < fullText.length) {
+            if (fullText.substring(i, i + 4) === 'Four') {
+              var gold = document.createElement('span');
+              gold.className = 'skoll-pillars-gold skoll-pillars-char';
+              gold.textContent = 'Four';
+              titleEl.appendChild(gold);
+              i += 4;
+              continue;
+            }
+            var span = document.createElement('span');
+            span.className = 'skoll-pillars-char';
+            span.textContent = fullText[i];
+            if (fullText[i] === ' ') span.style.width = '0.25em';
+            titleEl.appendChild(span);
+            i++;
+          }
+        }
+
+        var chars = titleEl ? titleEl.querySelectorAll('.skoll-pillars-char') : [];
+
+        // —— Title: split-text reveal on scroll ——
+        gsap.to(chars, {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          stagger: 0.03,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: wrapper,
+            start: 'top 75%',
+            toggleActions: 'play none none none'
+          }
+        });
+
+        // —— Cards: stagger slide from bottom + opacity, 0.2s stagger ——
+        gsap.to(cards, {
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+          stagger: 0.2,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: gridEl,
+            start: 'top 82%',
+            toggleActions: 'play none none none'
+          },
+          onComplete: function () {
+            cards.forEach(function (card) { card.classList.add('is-visible'); });
+          }
+        });
+
+        // —— Gold line draw: trigger per card when it enters viewport ——
+        cards.forEach(function (card) {
+          ScrollTrigger.create({
+            trigger: card,
+            start: 'top 90%',
+            onEnter: function () {
+              card.classList.add('is-visible');
+            }
+          });
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', runPillarsJS);
+      } else {
+        runPillarsJS();
+      }
+    })();
+  </script>
+</section>

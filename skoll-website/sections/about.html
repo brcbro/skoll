@@ -1,0 +1,286 @@
+<!-- Skoll Digital – Standalone About / Philosophy (HTML + scoped CSS + JS) -->
+<section class="skoll-about-wrapper" data-section="about">
+  <style>
+    /* —— Scoped About Styles (ultra-dark, matte glass) —— */
+    .skoll-about-wrapper {
+      --about-bg: #0A0A0A;
+      --about-gold: #C9A84C;
+      --about-text: #FAFAFA;
+      --about-muted: #888888;
+      --about-glass: rgba(255, 255, 255, 0.03);
+      --about-glass-border: rgba(255, 255, 255, 0.06);
+      --about-card-radius: 24px;
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--about-bg);
+      padding: 120px 24px;
+    }
+    .skoll-about-wrapper * {
+      box-sizing: border-box;
+    }
+
+    .skoll-about-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* —— Headline + wolf icon —— */
+    .skoll-about-headline-wrap {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+    .skoll-about-headline {
+      font-family: 'Space Grotesk', 'Outfit', sans-serif;
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--about-text);
+      margin: 0;
+      line-height: 1.2;
+    }
+    .skoll-about-headline .skoll-about-char {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(0.4em);
+    }
+    .skoll-about-wolf {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      opacity: 0;
+    }
+    .skoll-about-wolf svg {
+      width: 100%;
+      height: 100%;
+      stroke: var(--about-gold);
+    }
+
+    /* —— Paragraph —— */
+    .skoll-about-para {
+      font-size: clamp(1rem, 1.25vw, 1.125rem);
+      line-height: 1.7;
+      color: var(--about-muted);
+      max-width: 680px;
+      margin: 0 0 64px;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    /* —— Values row (glass cards) —— */
+    .skoll-about-values {
+      display: flex;
+      gap: 20px;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding-bottom: 8px;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+    .skoll-about-values::-webkit-scrollbar {
+      height: 6px;
+    }
+    .skoll-about-values::-webkit-scrollbar-track {
+      background: rgba(255,255,255,0.05);
+      border-radius: 3px;
+    }
+    .skoll-about-values::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.15);
+      border-radius: 3px;
+    }
+    @media (min-width: 900px) {
+      .skoll-about-values {
+        flex-wrap: wrap;
+        overflow: visible;
+        justify-content: flex-start;
+      }
+    }
+
+    .skoll-about-card {
+      flex: 0 0 auto;
+      width: 100%;
+      min-width: 260px;
+      max-width: 320px;
+      scroll-snap-align: start;
+      padding: 28px 24px;
+      background: var(--about-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--about-glass-border);
+      border-top: 2px solid var(--about-gold);
+      border-radius: var(--about-card-radius);
+      position: relative;
+      transform-style: preserve-3d;
+      perspective: 1000px;
+      opacity: 0;
+      transform: translateY(30px) scale(0.95);
+      transition: box-shadow 0.35s ease, border-color 0.35s ease;
+    }
+    @media (min-width: 900px) {
+      .skoll-about-card {
+        flex: 1 1 calc(20% - 20px);
+        min-width: 200px;
+      }
+    }
+    .skoll-about-card:hover {
+      box-shadow: 0 0 0 1px rgba(201, 168, 76, 0.2), 0 8px 32px rgba(0, 0, 0, 0.3);
+      border-color: rgba(201, 168, 76, 0.25);
+    }
+    .skoll-about-card-num {
+      font-family: 'Space Grotesk', 'Outfit', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--about-gold);
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+    }
+    .skoll-about-card-text {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--about-text);
+      line-height: 1.4;
+      margin: 0;
+    }
+  </style>
+
+  <div class="skoll-about-inner">
+    <div class="skoll-about-headline-wrap">
+      <h2 class="skoll-about-headline" id="skoll-about-headline">Born from Norse Fire.</h2>
+      <span class="skoll-about-wolf" id="skoll-about-wolf" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 4c-2 0-3 2-3 4s1 4 3 4 3-2 3-4-1-4-3-4z"/>
+          <path d="M8 12c-2 1-3 3-3 5 0 2 1 4 3 4"/>
+          <path d="M16 12c2 1 3 3 3 5 0 2-1 4-3 4"/>
+          <path d="M6 16h12"/>
+          <path d="M9 10l-2 2"/>
+          <path d="M15 10l2 2"/>
+        </svg>
+      </span>
+    </div>
+
+    <p class="skoll-about-para" id="skoll-about-para">
+      Skoll — the great wolf from Norse mythology who chases the sun across the sky. We built this agency on that same relentless, strategic pursuit. Not chasing trends. Chasing what compounds. We exist to be the growth partner founders wish they had from day one.
+    </p>
+
+    <div class="skoll-about-values" id="skoll-about-values">
+      <div class="skoll-about-card" data-value="1"><span class="skoll-about-card-num">01</span><p class="skoll-about-card-text">Intent over Impulse</p></div>
+      <div class="skoll-about-card" data-value="2"><span class="skoll-about-card-num">02</span><p class="skoll-about-card-text">Depth over Breadth</p></div>
+      <div class="skoll-about-card" data-value="3"><span class="skoll-about-card-num">03</span><p class="skoll-about-card-text">Compounding over Campaigning</p></div>
+      <div class="skoll-about-card" data-value="4"><span class="skoll-about-card-num">04</span><p class="skoll-about-card-text">Honesty over Comfort</p></div>
+      <div class="skoll-about-card" data-value="5"><span class="skoll-about-card-num">05</span><p class="skoll-about-card-text">Partnership over Service</p></div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var wrapper = document.querySelector('.skoll-about-wrapper');
+      if (!wrapper) return;
+
+      function runAboutJS() {
+        var gsap = window.gsap;
+        var ScrollTrigger = window.ScrollTrigger;
+        if (!gsap || !ScrollTrigger) {
+          setTimeout(runAboutJS, 50);
+          return;
+        }
+        gsap.registerPlugin(ScrollTrigger);
+
+        var headlineEl = document.getElementById('skoll-about-headline');
+        var wolfEl = document.getElementById('skoll-about-wolf');
+        var paraEl = document.getElementById('skoll-about-para');
+        var valuesEl = document.getElementById('skoll-about-values');
+        var cards = valuesEl ? valuesEl.querySelectorAll('.skoll-about-card') : [];
+
+        // —— Split headline into characters for stagger ——
+        if (headlineEl) {
+          var text = headlineEl.textContent;
+          headlineEl.innerHTML = '';
+          for (var i = 0; i < text.length; i++) {
+            var span = document.createElement('span');
+            span.className = 'skoll-about-char';
+            span.textContent = text[i];
+            if (text[i] === ' ') span.style.width = '0.25em';
+            headlineEl.appendChild(span);
+          }
+        }
+
+        var chars = headlineEl ? headlineEl.querySelectorAll('.skoll-about-char') : [];
+
+        // —— ScrollTrigger: headline chars stagger ——
+        gsap.to(chars, {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          stagger: 0.03,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: wrapper,
+            start: 'top 75%',
+            toggleActions: 'play none none none'
+          }
+        });
+        gsap.to(wolfEl, {
+          opacity: 1,
+          duration: 0.4,
+          delay: 0.2,
+          scrollTrigger: {
+            trigger: wrapper,
+            start: 'top 75%',
+            toggleActions: 'play none none none'
+          }
+        });
+
+        // —— Paragraph: fade + y after headline ——
+        gsap.to(paraEl, {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: paraEl,
+            start: 'top 88%',
+            toggleActions: 'play none none none'
+          }
+        });
+
+        // —— Value cards: stagger from below, scale + opacity ——
+        gsap.to(cards, {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.6,
+          stagger: 0.15,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: valuesEl,
+            start: 'top 85%',
+            toggleActions: 'play none none none'
+          }
+        });
+
+        // —— Card 3D tilt on mouse move (premium tilt effect) ——
+        cards.forEach(function (card) {
+          card.addEventListener('mousemove', function (e) {
+            var rect = card.getBoundingClientRect();
+            var x = (e.clientX - rect.left) / rect.width;
+            var y = (e.clientY - rect.top) / rect.height;
+            var rotateX = (y - 0.5) * -10;
+            var rotateY = (x - 0.5) * 10;
+            card.style.transform = 'perspective(1000px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) scale(1.02)';
+          });
+          card.addEventListener('mouseleave', function () {
+            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+          });
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', runAboutJS);
+      } else {
+        runAboutJS();
+      }
+    })();
+  </script>
+</section>

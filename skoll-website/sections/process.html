@@ -1,0 +1,431 @@
+<!-- Skoll Digital – Standalone Process Timeline (HTML + scoped CSS + JS) -->
+<section class="skoll-process-wrapper" id="skoll-process-wrapper" data-section="process">
+  <style>
+    /* —— Scoped Process Styles (horizontal scroll on vertical) —— */
+    .skoll-process-wrapper {
+      --proc-bg: #111111;
+      --proc-gold: #C9A84C;
+      --proc-text: #FAFAFA;
+      --proc-muted: #888888;
+      --proc-glass: rgba(255, 255, 255, 0.03);
+      --proc-glass-border: rgba(255, 255, 255, 0.06);
+      --proc-card-w: 500px;
+      --proc-card-h: 400px;
+      --proc-connector-w: 100px;
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--proc-bg);
+      padding: 120px 0 80px;
+      position: relative;
+    }
+    .skoll-process-wrapper * {
+      box-sizing: border-box;
+    }
+
+    /* Faint horizontal motion lines (speed lines) */
+    .skoll-process-bg-lines {
+      position: absolute;
+      inset: 0;
+      opacity: 0.03;
+      pointer-events: none;
+      background-image: repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 60px,
+        rgba(255, 255, 255, 0.15) 60px,
+        rgba(255, 255, 255, 0.15) 61px
+      );
+      background-size: 120px 100%;
+    }
+
+    .skoll-process-inner {
+      max-width: 100%;
+      margin: 0 auto;
+    }
+
+    .skoll-process-title {
+      font-family: 'Space Grotesk', 'Outfit', sans-serif;
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--proc-text);
+      text-align: center;
+      margin: 0 0 64px;
+    }
+    .skoll-process-title .skoll-process-gold {
+      color: var(--proc-gold);
+    }
+
+    /* Pinned horizontal scroll area */
+    .skoll-process-pin-wrap {
+      overflow: hidden;
+    }
+    .skoll-process-track {
+      display: flex;
+      align-items: stretch;
+      justify-content: flex-start;
+      padding: 0 50vw;
+      gap: 0;
+      will-change: transform;
+    }
+
+    /* Card */
+    .skoll-process-card {
+      flex-shrink: 0;
+      width: var(--proc-card-w);
+      min-height: var(--proc-card-h);
+      padding: 40px 36px 32px;
+      background: var(--proc-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--proc-glass-border);
+      border-radius: 24px;
+      transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+      position: relative;
+    }
+    .skoll-process-card-media {
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+      margin-bottom: 24px;
+      border: 1px solid var(--proc-glass-border);
+      background: #000;
+    }
+    .skoll-process-card-media img {
+      display: block;
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      opacity: 0.92;
+      transform: scale(1.02);
+      transition: transform 0.6s ease;
+    }
+    .skoll-process-card-media::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.0), rgba(0,0,0,0.45));
+      pointer-events: none;
+    }
+    .skoll-process-card:hover .skoll-process-card-media img {
+      transform: scale(1.06);
+    }
+    .skoll-process-card.is-active {
+      transform: scale(1.05);
+      border-color: rgba(201, 168, 76, 0.25);
+      box-shadow: 0 0 0 1px rgba(201, 168, 76, 0.1);
+    }
+    .skoll-process-num {
+      font-family: 'Space Grotesk', 'Outfit', sans-serif;
+      font-size: 5rem;
+      font-weight: 700;
+      line-height: 1;
+      color: transparent;
+      -webkit-text-stroke: 1px var(--proc-gold);
+      text-stroke: 1px var(--proc-gold);
+      margin-bottom: 20px;
+      opacity: 0.6;
+      transform: scale(0.9);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .skoll-process-card.is-active .skoll-process-num {
+      opacity: 1;
+      transform: scale(1);
+    }
+    .skoll-process-name {
+      font-family: 'Space Grotesk', 'Outfit', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--proc-text);
+      margin: 0 0 16px;
+      letter-spacing: -0.02em;
+    }
+    .skoll-process-desc {
+      font-size: 0.9375rem;
+      line-height: 1.65;
+      color: var(--proc-muted);
+      margin: 0;
+    }
+
+    /* Connector: gold line + dots */
+    .skoll-process-connector {
+      flex-shrink: 0;
+      width: var(--proc-connector-w);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .skoll-process-connector-line {
+      width: 100%;
+      height: 2px;
+      background: var(--proc-gold);
+      position: relative;
+      opacity: 0.4;
+      overflow: hidden;
+    }
+    .skoll-process-connector-line-fill {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 0;
+      background: var(--proc-gold);
+      transition: width 0.6s ease-out;
+    }
+    .skoll-process-connector.is-drawn .skoll-process-connector-line-fill {
+      width: 100%;
+    }
+    .skoll-process-connector-dot {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--proc-gold);
+      top: 50%;
+      margin-top: -4px;
+    }
+    .skoll-process-connector-dot-left { left: 0; margin-left: -4px; }
+    .skoll-process-connector-dot-right { right: 0; margin-right: -4px; }
+
+    /* —— Mobile: vertical stack —— */
+    @media (max-width: 900px) {
+      .skoll-process-pin-wrap {
+        overflow: visible;
+      }
+      .skoll-process-track {
+        flex-direction: column;
+        align-items: center;
+        padding: 0 24px;
+        gap: 0;
+        transform: none !important;
+      }
+      .skoll-process-card {
+        width: 100%;
+        max-width: 420px;
+        min-height: 320px;
+      }
+      .skoll-process-connector {
+        width: 2px;
+        height: 48px;
+      }
+      .skoll-process-connector-line {
+        width: 2px;
+        height: 100%;
+        margin: 0 auto;
+      }
+      .skoll-process-connector-line-fill {
+        width: 100%;
+        height: 0;
+      }
+      .skoll-process-connector.is-drawn .skoll-process-connector-line-fill {
+        height: 100%;
+      }
+      .skoll-process-connector-dot {
+        left: 50%;
+        margin-left: -4px;
+        margin-top: 0;
+      }
+      .skoll-process-connector-dot-left { top: 0; margin-top: -4px; }
+      .skoll-process-connector-dot-right { top: auto; bottom: 0; margin-bottom: -4px; right: auto; margin-right: 0; }
+    }
+  </style>
+
+  <div class="skoll-process-bg-lines" aria-hidden="true"></div>
+
+  <div class="skoll-process-inner">
+    <h2 class="skoll-process-title">How We <span class="skoll-process-gold">Work</span>.</h2>
+
+    <div class="skoll-process-pin-wrap" id="skoll-process-pin">
+      <div class="skoll-process-track" id="skoll-process-track">
+        <div class="skoll-process-card" data-step="1">
+          <div class="skoll-process-card-media">
+            <img src="https://www.framer.com/creators-assets/_next/image/?url=https%3A%2F%2Fy4pdgnepgswqffpt.public.blob.vercel-storage.com%2Ftutorials%2F9%2Fcover%2Fhandoff-101%2F59a6fxc6-3zYKqElU3cNd0hgsH7ZULGXE9LZeZ8&w=3840&q=100" alt="Discover – Skoll Digital process visual 1">
+          </div>
+          <div class="skoll-process-num" data-num="01">01</div>
+          <h3 class="skoll-process-name">Discover</h3>
+          <p class="skoll-process-desc">We listen, audit, and uncover what's really going on — no assumptions.</p>
+        </div>
+        <div class="skoll-process-connector" data-connector="1">
+          <div class="skoll-process-connector-line">
+            <span class="skoll-process-connector-line-fill"></span>
+          </div>
+          <span class="skoll-process-connector-dot skoll-process-connector-dot-left"></span>
+          <span class="skoll-process-connector-dot skoll-process-connector-dot-right"></span>
+        </div>
+        <div class="skoll-process-card" data-step="2">
+          <div class="skoll-process-card-media">
+            <img src="https://framerusercontent.com/images/PxkUK5jqtIrqaVwzma6i9rTHlfY.png" alt="Strategize – Skoll Digital process visual 2">
+          </div>
+          <div class="skoll-process-num" data-num="02">02</div>
+          <h3 class="skoll-process-name">Strategize</h3>
+          <p class="skoll-process-desc">A tailored growth blueprint. Not a template. Not a guess.</p>
+        </div>
+        <div class="skoll-process-connector" data-connector="2">
+          <div class="skoll-process-connector-line">
+            <span class="skoll-process-connector-line-fill"></span>
+          </div>
+          <span class="skoll-process-connector-dot skoll-process-connector-dot-left"></span>
+          <span class="skoll-process-connector-dot skoll-process-connector-dot-right"></span>
+        </div>
+        <div class="skoll-process-card" data-step="3">
+          <div class="skoll-process-card-media">
+            <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/62af90a3-7459-4c4f-be9c-04149b391218_320w.jpg" alt="Build – Skoll Digital process visual 3">
+          </div>
+          <div class="skoll-process-num" data-num="03">03</div>
+          <h3 class="skoll-process-name">Build</h3>
+          <p class="skoll-process-desc">We design and develop the systems — website, funnels, brand, creative.</p>
+        </div>
+        <div class="skoll-process-connector" data-connector="3">
+          <div class="skoll-process-connector-line">
+            <span class="skoll-process-connector-line-fill"></span>
+          </div>
+          <span class="skoll-process-connector-dot skoll-process-connector-dot-left"></span>
+          <span class="skoll-process-connector-dot skoll-process-connector-dot-right"></span>
+        </div>
+        <div class="skoll-process-card" data-step="4">
+          <div class="skoll-process-card-media">
+            <img src="https://framerusercontent.com/images/9pKTpFSaG3UuQSuNfqegfvLEPek.png" alt="Launch – Skoll Digital process visual 4">
+          </div>
+          <div class="skoll-process-num" data-num="04">04</div>
+          <h3 class="skoll-process-name">Launch</h3>
+          <p class="skoll-process-desc">Campaigns go live. Pixels fire. Data starts flowing.</p>
+        </div>
+        <div class="skoll-process-connector" data-connector="4">
+          <div class="skoll-process-connector-line">
+            <span class="skoll-process-connector-line-fill"></span>
+          </div>
+          <span class="skoll-process-connector-dot skoll-process-connector-dot-left"></span>
+          <span class="skoll-process-connector-dot skoll-process-connector-dot-right"></span>
+        </div>
+        <div class="skoll-process-card" data-step="5">
+          <div class="skoll-process-card-media">
+            <img src="https://framerusercontent.com/images/KQ24IqVJPexbbZeWXuPj7i3Fq5Y.png" alt="Compound – Skoll Digital process visual 5">
+          </div>
+          <div class="skoll-process-num" data-num="05">05</div>
+          <h3 class="skoll-process-name">Compound</h3>
+          <p class="skoll-process-desc">We optimize, iterate, and compound — growth is a system, not a moment.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var wrapper = document.querySelector('.skoll-process-wrapper');
+      if (!wrapper) return;
+
+      function runProcessJS() {
+        var gsap = window.gsap;
+        var ScrollTrigger = window.ScrollTrigger;
+        if (!gsap || !ScrollTrigger) {
+          setTimeout(runProcessJS, 50);
+          return;
+        }
+        gsap.registerPlugin(ScrollTrigger);
+
+        var wrapper = document.querySelector('.skoll-process-wrapper');
+        var pinWrap = document.getElementById('skoll-process-pin');
+        var track = document.getElementById('skoll-process-track');
+        var cards = track ? track.querySelectorAll('.skoll-process-card') : [];
+        var connectors = track ? track.querySelectorAll('.skoll-process-connector') : [];
+
+        var isMobile = function () { return window.innerWidth <= 900; };
+
+        function setupHorizontalScroll() {
+          if (!track || !wrapper) return;
+          ScrollTrigger.getAll().forEach(function (t) {
+            if (t.vars && t.vars.trigger && t.vars.trigger.id === 'skoll-process-wrapper') t.kill();
+          });
+
+          var trackWidth = track.scrollWidth;
+          var viewportWidth = window.innerWidth;
+          var move = Math.max(0, trackWidth - viewportWidth);
+          var scrollDistance = Math.min(400, Math.max(200, move * 0.6));
+
+          gsap.set(track, { x: 0 });
+          connectors.forEach(function (c) { c.classList.remove('is-drawn'); });
+          cards.forEach(function (c) { c.classList.remove('is-active'); });
+
+          /* Pin the whole section (title + track) so it doesn’t scroll away; horizontal scroll runs inside */
+          var tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: wrapper,
+              start: 'top top',
+              end: '+=' + scrollDistance,
+              pin: true,
+              scrub: 1.2,
+              invalidateOnRefresh: true
+            }
+          });
+          tl.to(track, { x: -move, ease: 'none' }, 0);
+
+          tl.eventCallback('onUpdate', function () {
+            var p = tl.progress();
+            cards.forEach(function (card, i) {
+              var center = (i + 0.5) / 5;
+              if (p >= center - 0.12 && p <= center + 0.12) card.classList.add('is-active');
+              else card.classList.remove('is-active');
+            });
+            connectors.forEach(function (conn, i) {
+              if (p >= (i + 1) / 5 * 0.85) conn.classList.add('is-drawn');
+              else conn.classList.remove('is-drawn');
+            });
+          });
+        }
+
+        function setupMobile() {
+          if (!track) return;
+          gsap.set(track, { x: 0 });
+          ScrollTrigger.getAll().forEach(function (t) {
+            if (t.vars && t.vars.trigger && t.vars.trigger.id === 'skoll-process-wrapper') t.kill();
+          });
+          cards.forEach(function (c) { c.classList.remove('is-active'); });
+          connectors.forEach(function (c) { c.classList.remove('is-drawn'); });
+
+          gsap.fromTo(cards, { opacity: 0, y: 40 }, {
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+            stagger: 0.15,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: track,
+              start: 'top 85%',
+              toggleActions: 'play none none none'
+            }
+          });
+
+          connectors.forEach(function (conn, i) {
+            ScrollTrigger.create({
+              trigger: conn,
+              start: 'top 92%',
+              onEnter: function () { conn.classList.add('is-drawn'); }
+            });
+          });
+
+          cards.forEach(function (card) {
+            ScrollTrigger.create({
+              trigger: card,
+              start: 'top 80%',
+              onEnter: function () { card.classList.add('is-active'); }
+            });
+          });
+        }
+
+        if (isMobile()) setupMobile();
+        else setupHorizontalScroll();
+
+        window.addEventListener('resize', function () {
+          if (isMobile()) setupMobile();
+          else setupHorizontalScroll();
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', runProcessJS);
+      } else {
+        runProcessJS();
+      }
+    })();
+  </script>
+</section>
