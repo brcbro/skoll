@@ -18,6 +18,10 @@
       align-items: center;
       justify-content: center;
       overflow: hidden;
+      /* Clear space for fixed navbar/logo so hero text doesn’t cover it */
+      padding-top: 100px;
+      /* So mix-blend-mode on content blends with video + layers inside hero */
+      isolation: isolate;
     }
     .skoll-hero-wrapper * {
       box-sizing: border-box;
@@ -75,13 +79,20 @@
       display: none;
     }
 
-    /* —— Content —— */
+    /* —— Content —— (no transform so mix-blend-mode can blend with video) */
     .skoll-hero-inner {
       position: relative;
       z-index: 2;
-      text-align: center;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto auto;
+      gap: 24px 48px;
+      align-items: start;
       padding: 0 24px;
-      max-width: 900px;
+      max-width: 1100px;
+      width: 100%;
+      margin-top: -72px;
+      color: #fff;
     }
     .skoll-hero-headline {
       font-family: 'Space Grotesk', 'Outfit', sans-serif;
@@ -89,9 +100,13 @@
       font-weight: 700;
       line-height: 1.1;
       letter-spacing: -0.03em;
-      color: var(--hero-text);
-      margin: 0 0 24px;
+      color: inherit;
+      margin: 0;
       text-transform: uppercase;
+      text-align: left;
+      grid-column: 1;
+      grid-row: 1;
+      mix-blend-mode: difference;
     }
     .skoll-hero-title {
       display: inline-block;
@@ -99,10 +114,11 @@
     .skoll-hero-row {
       display: flex;
       gap: 0.15em;
+      flex-wrap: wrap;
     }
     .skoll-hero-row + .skoll-hero-row {
       margin-top: 0.1em;
-      padding-left: 0.6em;
+      padding-left: 0;
     }
     .skoll-hero-chunk {
       display: flex;
@@ -132,38 +148,78 @@
     }
     .skoll-hero-subtext {
       font-size: clamp(0.9375rem, 1.5vw, 1.0625rem);
-      color: var(--hero-muted);
       line-height: 1.6;
-      margin: 0 0 40px;
-      max-width: 520px;
-      margin-left: auto;
-      margin-right: auto;
+      margin: 0;
+      max-width: 420px;
       opacity: 0;
+      color: rgba(255, 255, 255, 0.95);
+      text-align: right;
+      justify-self: end;
+      grid-column: 2;
+      grid-row: 2;
+      mix-blend-mode: difference;
     }
     .skoll-hero-buttons {
       display: flex;
       flex-wrap: wrap;
       gap: 16px;
       justify-content: center;
+      margin-top: 0;
       opacity: 0;
       transform: translateY(24px);
+      grid-column: 1 / -1;
+      grid-row: 3;
+      justify-self: center;
     }
-    /* Mobile adjustments for hero title layout */
+    /* Mobile: tagline, subline above buttons, buttons at bottom */
+    @media (max-width: 768px) {
+      .skoll-hero-inner {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+        gap: 24px;
+        padding: 0 20px;
+      }
+      .skoll-hero-headline {
+        grid-column: 1;
+        grid-row: 1;
+        text-align: left;
+        margin-top: -32px;
+      }
+      /* Force "the Sun." onto the next line on mobile */
+      .skoll-hero-row-2 {
+        flex-wrap: wrap;
+      }
+      .skoll-hero-row-2 .skoll-hero-chunk.sun {
+        width: 100%;
+        padding-left: 0;
+        text-align: left;
+      }
+      .skoll-hero-subtext {
+        grid-column: 1;
+        grid-row: 2;
+        justify-self: end;
+        text-align: right;
+        max-width: 85%;
+        margin-left: auto;
+        line-height: 1.85;
+        padding-left: 12%;
+        margin-top: 32px;
+      }
+      .skoll-hero-buttons {
+        grid-row: 3;
+        margin-top: 24px;
+      }
+    }
     @media (max-width: 600px) {
       .skoll-hero-headline {
         font-size: clamp(1.8rem, 8vw, 2.6rem);
       }
       .skoll-hero-row {
         flex-wrap: wrap;
-        justify-content: center;
         gap: 0.1em;
       }
       .skoll-hero-row + .skoll-hero-row {
         margin-top: 0.15em;
-        padding-left: 0;
-      }
-      .skoll-hero-title {
-        text-align: center;
       }
     }
     .skoll-hero-btn {
@@ -245,10 +301,8 @@
     }
   </style>
 
-  <!-- Background video (plays once, no loop) -->
-  <video class="skoll-hero-video" autoplay muted playsinline aria-hidden="true">
-    <source src="hero.mp4" type="video/mp4" />
-  </video>
+  <!-- Background video: hero-mobile.mp4 on mobile, hero-pc.mp4 on desktop (set by JS) -->
+  <video class="skoll-hero-video" autoplay muted playsinline aria-hidden="true"></video>
 
   <!-- Background stack -->
   <div class="skoll-hero-bg">
@@ -275,7 +329,9 @@
       </div>
     </h1>
     <p class="skoll-hero-subtext" id="skoll-hero-subtext">
-      Strategy. Product. Performance. Brand. — One compounding system.
+      Strategy. Product.<br>
+      Performance. Brand.<br>
+      - One compounding system.
     </p>
     <div class="skoll-hero-buttons" id="skoll-hero-buttons">
       <a href="#contact" class="skoll-hero-btn skoll-hero-btn-primary">Start Your Growth</a>
@@ -296,6 +352,26 @@
       var wrapper = document.querySelector('.skoll-hero-wrapper');
       if (!wrapper) return;
       var video = wrapper.querySelector('.skoll-hero-video');
+      var MOBILE_BREAKPOINT = 768;
+      var currentHeroSource = null;
+      var resizeTimeout;
+
+      function isMobile() { return window.innerWidth <= MOBILE_BREAKPOINT; }
+      function setHeroVideoSource() {
+        if (!video) return;
+        var src = isMobile() ? 'hero-mobile.mp4' : 'hero-pc.mp4';
+        if (currentHeroSource === src) return;
+        currentHeroSource = src;
+        video.src = src;
+        video.load();
+        video.muted = true;
+        video.play().catch(function () {});
+      }
+      setHeroVideoSource();
+      window.addEventListener('resize', function () {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(setHeroVideoSource, 250);
+      });
 
       function runHeroJS() {
         var gsap = window.gsap;
