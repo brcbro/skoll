@@ -300,6 +300,12 @@
       51% { transform: translateY(-36px); opacity: 0; }
       52% { opacity: 0.3; }
     }
+    /* Hide scroll indicator on short viewports (e.g. tab groups) so it doesn’t overlap buttons */
+    @media (max-height: 680px) {
+      .skoll-hero-scroll {
+        display: none;
+      }
+    }
   </style>
 
   <!-- Background video: hero-mobile.mp4 on mobile, hero-pc.mp4 on desktop (set by JS) -->
