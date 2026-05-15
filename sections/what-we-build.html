@@ -1,0 +1,216 @@
+<!-- Skoll Digital – Standalone What We Build (HTML + scoped CSS + JS) -->
+<section class="skoll-build-wrapper" data-section="what-we-build">
+  <style>
+    .skoll-build-wrapper {
+      --bld-bg: #e0e0e0;
+      /* Dark text to contrast the light neumorphic background */
+      --bld-text: #1a1a1a;
+      --bld-muted: #555555;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: var(--bld-bg);
+      padding: 160px 24px;
+      color: var(--bld-text);
+      overflow: hidden;
+    }
+    .skoll-build-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .skoll-build-header {
+      text-align: center;
+      margin-bottom: 80px;
+    }
+    .skoll-build-title {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: clamp(3.5rem, 6vw, 6rem);
+      font-weight: 400;
+      color: var(--bld-text);
+      margin: 0 0 24px;
+      line-height: 1;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    .skoll-build-subtitle {
+      font-size: clamp(1.125rem, 2vw, 1.375rem);
+      color: var(--bld-muted);
+      max-width: 600px;
+      margin: 0 auto;
+      opacity: 0;
+    }
+    .skoll-build-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+    @media (min-width: 768px) {
+      .skoll-build-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 64px 48px;
+      }
+    }
+    @media (min-width: 1024px) {
+      .skoll-build-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    
+    .skoll-build-card {
+      /* Neumorphic specific styles adapted for responsive layout */
+      width: 100%;
+      min-height: 320px;
+      border-radius: 50px;
+      background: #e0e0e0;
+      box-shadow: 20px 20px 60px #bebebe,
+                 -20px -20px 60px #F0EEE9;
+      padding: 48px 40px;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      opacity: 0;
+      transform: translateY(40px) scale(0.96);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      transform-style: preserve-3d;
+    }
+    .skoll-build-card:hover {
+      /* Subtle lift effect on hover while preserving neumorphic lighting */
+      box-shadow: 30px 30px 70px #bebebe,
+                 -30px -30px 70px #F0EEE9;
+      transform: translateY(-8px) scale(1.02) !important;
+      z-index: 2;
+    }
+    
+    .skoll-build-card-title {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 2.5rem;
+      font-weight: 400;
+      color: var(--bld-text);
+      margin: 0 0 16px;
+      line-height: 1.1;
+    }
+    .skoll-build-card-desc {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.125rem;
+      color: var(--bld-muted);
+      line-height: 1.6;
+      margin: 0;
+    }
+  </style>
+
+  <div class="skoll-build-inner">
+    <div class="skoll-build-header">
+      <h2 class="skoll-build-title skoll-build-anim">What We Build</h2>
+      <p class="skoll-build-subtitle skoll-build-anim">High-performance digital products engineered for scale.</p>
+    </div>
+
+    <div class="skoll-build-grid" id="skoll-build-grid">
+      <div class="skoll-build-card skoll-build-card-stagger">
+        <h3 class="skoll-build-card-title">Conversion Funnels</h3>
+        <p class="skoll-build-card-desc">End-to-end user journeys designed to turn cold traffic into high-value customers.</p>
+      </div>
+      <div class="skoll-build-card skoll-build-card-stagger">
+        <h3 class="skoll-build-card-title">E-Commerce Platforms</h3>
+        <p class="skoll-build-card-desc">Custom storefronts optimized for speed, average order value, and lifetime retention.</p>
+      </div>
+      <div class="skoll-build-card skoll-build-card-stagger">
+        <h3 class="skoll-build-card-title">Brand Systems</h3>
+        <p class="skoll-build-card-desc">Cohesive visual identities and positioning that command premium market share.</p>
+      </div>
+      <div class="skoll-build-card skoll-build-card-stagger">
+        <h3 class="skoll-build-card-title">Growth Campaigns</h3>
+        <p class="skoll-build-card-desc">Data-driven marketing architectures built to escalate rapidly across channels.</p>
+      </div>
+      <div class="skoll-build-card skoll-build-card-stagger">
+        <h3 class="skoll-build-card-title">AI Automations</h3>
+        <p class="skoll-build-card-desc">Intelligent workflows that replace manual overhead with seamless precision.</p>
+      </div>
+      <div class="skoll-build-card skoll-build-card-stagger">
+        <h3 class="skoll-build-card-title">Web Applications</h3>
+        <p class="skoll-build-card-desc">Bespoke software products tailored to solve complex operational challenges.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      var wrapper = document.querySelector('.skoll-build-wrapper');
+      if (!wrapper) return;
+
+      function runBuildJS() {
+        var gsap = window.gsap;
+        var ScrollTrigger = window.ScrollTrigger;
+        if (!gsap || !ScrollTrigger) {
+          setTimeout(runBuildJS, 50);
+          return;
+        }
+        gsap.registerPlugin(ScrollTrigger);
+
+        var headerElems = wrapper.querySelectorAll('.skoll-build-anim');
+        var cards = wrapper.querySelectorAll('.skoll-build-card-stagger');
+
+        // Fade in header elements
+        gsap.to(headerElems, {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          stagger: 0.2,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: wrapper,
+            start: 'top 75%',
+            toggleActions: 'play none none none'
+          }
+        });
+
+        // Stagger cards in (soft neumorphic rise)
+        gsap.to(cards, {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: '#skoll-build-grid',
+            start: 'top 80%',
+            toggleActions: 'play none none none'
+          }
+        });
+
+        // 3D Tilt on mouse move
+        if (window.innerWidth > 900) {
+          cards.forEach(function (card) {
+            card.addEventListener('mousemove', function (e) {
+              var rect = card.getBoundingClientRect();
+              var x = (e.clientX - rect.left) / rect.width;
+              var y = (e.clientY - rect.top) / rect.height;
+              // Subtle tilt for neumorphism
+              var rotateX = (y - 0.5) * -12; 
+              var rotateY = (x - 0.5) * 12;
+              gsap.to(card, {
+                rotationX: rotateX,
+                rotationY: rotateY,
+                transformPerspective: 1000,
+                duration: 0.4,
+                ease: "power2.out"
+              });
+            });
+            card.addEventListener('mouseleave', function () {
+              gsap.to(card, {
+                rotationX: 0,
+                rotationY: 0,
+                duration: 0.6,
+                ease: "power2.out"
+              });
+            });
+          });
+        }
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', runBuildJS);
+      } else {
+        runBuildJS();
+      }
+    })();
+  </script>
+</section>

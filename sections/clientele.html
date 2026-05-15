@@ -1,0 +1,142 @@
+<!-- Skoll Digital – Standalone Clientele (HTML + scoped CSS + JS) -->
+<section class="skoll-clientele-wrapper" data-section="clientele">
+  <style>
+    .skoll-clientele-wrapper {
+      --cli-bg: #0A0A0A;
+      --cli-gold: #C9A84C;
+      --cli-text: #FAFAFA;
+      background: var(--cli-bg);
+      padding: 100px 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .skoll-clientele-title {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      font-weight: 400;
+      color: var(--cli-text);
+      margin: 0 0 48px;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .skoll-clientele-marquee {
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+    }
+    .skoll-clientele-marquee::before,
+    .skoll-clientele-marquee::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      width: 15vw;
+      height: 100%;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .skoll-clientele-marquee::before {
+      left: 0;
+      background: linear-gradient(to right, #0A0A0A 0%, rgba(10,10,10,0) 100%);
+    }
+    .skoll-clientele-marquee::after {
+      right: 0;
+      background: linear-gradient(to left, #0A0A0A 0%, rgba(10,10,10,0) 100%);
+    }
+    .skoll-clientele-track {
+      display: flex;
+      gap: 80px;
+      padding-right: 80px;
+      align-items: center;
+      will-change: transform;
+    }
+    .skoll-clientele-logo {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--cli-text);
+      opacity: 0.4;
+      transition: opacity 0.4s ease, color 0.4s ease, transform 0.4s ease;
+      white-space: nowrap;
+      cursor: default;
+    }
+    .skoll-clientele-logo:hover {
+      opacity: 1;
+      color: var(--cli-gold);
+      transform: scale(1.05);
+    }
+  </style>
+
+  <h2 class="skoll-clientele-title" id="skoll-clientele-title">Trusted By Visionaries</h2>
+  <div class="skoll-clientele-marquee" id="skoll-clientele-marquee">
+    <div class="skoll-clientele-track" id="skoll-clientele-track1">
+      <div class="skoll-clientele-logo">NORDIC</div>
+      <div class="skoll-clientele-logo">AURA SYSTEMS</div>
+      <div class="skoll-clientele-logo">QUANTUM</div>
+      <div class="skoll-clientele-logo">VERTEX</div>
+      <div class="skoll-clientele-logo">LUMINA</div>
+      <div class="skoll-clientele-logo">ELEVATE</div>
+      <div class="skoll-clientele-logo">NOVA</div>
+    </div>
+    <div class="skoll-clientele-track" id="skoll-clientele-track2" aria-hidden="true">
+      <div class="skoll-clientele-logo">NORDIC</div>
+      <div class="skoll-clientele-logo">AURA SYSTEMS</div>
+      <div class="skoll-clientele-logo">QUANTUM</div>
+      <div class="skoll-clientele-logo">VERTEX</div>
+      <div class="skoll-clientele-logo">LUMINA</div>
+      <div class="skoll-clientele-logo">ELEVATE</div>
+      <div class="skoll-clientele-logo">NOVA</div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      var wrapper = document.querySelector('.skoll-clientele-wrapper');
+      if (!wrapper) return;
+
+      function runClienteleJS() {
+        var gsap = window.gsap;
+        var ScrollTrigger = window.ScrollTrigger;
+        if (!gsap || !ScrollTrigger) {
+          setTimeout(runClienteleJS, 50);
+          return;
+        }
+        gsap.registerPlugin(ScrollTrigger);
+
+        var title = document.getElementById('skoll-clientele-title');
+        
+        // Fade in title
+        gsap.to(title, {
+          opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
+          scrollTrigger: {
+            trigger: wrapper,
+            start: 'top 80%',
+            toggleActions: 'play none none none'
+          }
+        });
+
+        // Marquee Animation
+        var track1 = document.getElementById('skoll-clientele-track1');
+        var track2 = document.getElementById('skoll-clientele-track2');
+        var marquee = document.getElementById('skoll-clientele-marquee');
+        
+        // GSAP loop
+        var tl = gsap.timeline({ repeat: -1, defaults: { ease: 'none' } });
+        tl.to([track1, track2], { xPercent: -100, duration: 25 });
+        
+        // Pause on hover
+        marquee.addEventListener('mouseenter', function() { tl.pause(); });
+        marquee.addEventListener('mouseleave', function() { tl.play(); });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', runClienteleJS);
+      } else {
+        runClienteleJS();
+      }
+    })();
+  </script>
+</section>

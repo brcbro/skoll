@@ -7,7 +7,7 @@
    1. Google Fonts
    Inter (body), Space Grotesk (headings)
    -------------------------------------------------------------------------- */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Instrument+Serif:ital@0;1&display=swap');
 
 /* --------------------------------------------------------------------------
    2. CSS Custom Properties (Design tokens)
@@ -29,8 +29,8 @@
   --text-muted: #555555;
 
   /* Glass (matte liquid glass) */
-  --glass-bg: rgba(255, 255, 255, 0.03);
-  --glass-border: rgba(255, 255, 255, 0.06);
+  --glass-bg: rgba(240, 238, 233, 0.03);
+  --glass-border: rgba(240, 238, 233, 0.06);
   --glass-blur: 20px;
 
   /* Border radius */
@@ -40,8 +40,9 @@
   --radius-pill: 999px;
 
   /* Typography – fallbacks */
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-display: 'Space Grotesk', 'Outfit', var(--font-sans);
+  --font-sans: 'DM Sans', system-ui, -apple-system, sans-serif;
+  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-highlight: 'Söhne', 'Sohne', var(--font-sans);
 
   /* Transitions */
   --transition-default: 0.3s ease;
@@ -81,9 +82,17 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
-  font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: normal;
+}
+
+/* --------------------------------------------------------------------------
+   4a. Highlight Typography
+   -------------------------------------------------------------------------- */
+.highlight, 
+.text-highlight {
+  font-family: var(--font-highlight);
 }
 
 /* Smooth transitions on interactive elements */
@@ -206,8 +215,8 @@ textarea {
 }
 
 .glass-hover:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(240, 238, 233, 0.05);
+  border-color: rgba(240, 238, 233, 0.1);
 }
 
 /* Pill-shaped button base */
@@ -249,7 +258,7 @@ textarea {
 }
 
 .pill-btn-ghost:hover {
-  border-color: rgba(255, 255, 255, 0.2);
+  border-color: rgba(240, 238, 233, 0.2);
   transform: translateY(-1px);
 }
 
@@ -322,7 +331,7 @@ html.skoll-cursor-active * {
 }
 
 .skoll-cursor-view-text {
-  font-family: var(--font-display);
+  font-family: var(--font-sans);
   font-size: 0.625rem;
   font-weight: 600;
   letter-spacing: 0.15em;

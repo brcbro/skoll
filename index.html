@@ -17,7 +17,7 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='24' font-size='24'>🐺</text></svg>" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/global.css">
   <style>
     body { background: #0A0A0A; margin: 0; }
@@ -36,7 +36,7 @@
       pointer-events: none;
     }
     .skoll-preloader-word {
-      font-family: 'Space Grotesk', 'Outfit', sans-serif;
+      font-family: 'Instrument Serif', Georgia, serif;
       font-size: clamp(3rem, 10vw, 5rem);
       font-weight: 800;
       letter-spacing: -0.03em;
@@ -50,7 +50,7 @@
     .skoll-preloader-bar-wrap {
       width: 200px;
       height: 2px;
-      background: rgba(255,255,255,0.1);
+      background: rgba(240, 238, 233,0.1);
       border-radius: 2px;
       overflow: hidden;
     }
@@ -75,7 +75,7 @@
     #skoll-invert-circle {
       position: fixed;
       inset: 0;
-      background: #FFFFFF;
+      background: #F0EEE9;
       /* white overlay + difference blend = invert underlying colors */
       mix-blend-mode: difference;
       pointer-events: none;
@@ -105,11 +105,12 @@
     <div id="navbar-container"></div>
     <div id="hero-container"></div>
     <div id="about-container"></div>
-    <div id="pillars-container"></div>
+    <div id="clientele-container"></div>
     <div id="services-container"></div>
-    <div id="process-container"></div>
-    <div id="work-container"></div>
     <div id="testimonials-container"></div>
+    <div id="pillars-container"></div>
+    <div id="what-we-build-container"></div>
+    <div id="work-container"></div>
     <div id="cta-container"></div>
     <div id="footer-container"></div>
   </main>
@@ -129,11 +130,12 @@
         { id: 'navbar-container', path: 'sections/navbar.html' },
         { id: 'hero-container', path: 'sections/hero.html' },
         { id: 'about-container', path: 'sections/about.html' },
-        { id: 'pillars-container', path: 'sections/pillars.html' },
+        { id: 'clientele-container', path: 'sections/clientele.html' },
         { id: 'services-container', path: 'sections/services.html' },
-        { id: 'process-container', path: 'sections/process.html' },
-        { id: 'work-container', path: 'sections/work.html' },
         { id: 'testimonials-container', path: 'sections/testimonials.html' },
+        { id: 'pillars-container', path: 'sections/pillars.html' },
+        { id: 'what-we-build-container', path: 'sections/what-we-build.html' },
+        { id: 'work-container', path: 'sections/work.html' },
         { id: 'cta-container', path: 'sections/cta.html' },
         { id: 'footer-container', path: 'sections/footer.html' }
       ];
@@ -350,7 +352,7 @@
             }
           });
 
-          // Invert circle: 0–80% => hidden, 80–100% => expands to cover screen
+        // Invert circle: 0–80% => hidden, 80–85% => expands to cover screen
           if (invert) {
             ScrollTrigger.create({
               trigger: document.body,
@@ -359,11 +361,11 @@
               scrub: 0.2,
               onUpdate: function (self) {
                 var p = self.progress; // 0..1
-                var t = (p - 0.8) / 0.2; // map 0.8..1 to 0..1
+                var t = (p - 0.8) / 0.05; // map 0.8..0.85 to 0..1
                 if (t < 0) t = 0;
                 if (t > 1) t = 1;
                 // Big enough to cover any viewport from bottom-center
-                var r = Math.ceil(Math.max(window.innerWidth, window.innerHeight) * 1.25);
+                var r = Math.ceil(Math.max(window.innerWidth, window.innerHeight) * 1.5);
                 var radius = Math.round(r * t);
                 invert.style.clipPath = 'circle(' + radius + 'px at 50% 100%)';
               }

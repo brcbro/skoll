@@ -7,8 +7,8 @@
       --work-gold: #C9A84C;
       --work-text: #FAFAFA;
       --work-muted: #888888;
-      --work-glass: rgba(255, 255, 255, 0.03);
-      --work-glass-border: rgba(255, 255, 255, 0.06);
+      --work-glass: rgba(240, 238, 233, 0.03);
+      --work-glass-border: rgba(240, 238, 233, 0.06);
       font-family: 'Inter', system-ui, sans-serif;
       background: var(--work-bg);
       padding: 120px 24px;
@@ -23,10 +23,9 @@
     }
 
     .skoll-work-title {
-      font-family: 'Space Grotesk', 'Outfit', sans-serif;
-      font-size: clamp(2rem, 4vw, 2.75rem);
-      font-weight: 700;
-      letter-spacing: -0.03em;
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: clamp(3rem, 6vw, 4.5rem);
+      font-weight: 400;
       color: var(--work-text);
       text-align: center;
       margin: 0 0 56px;
@@ -171,7 +170,7 @@
   </style>
 
   <div class="skoll-work-inner">
-    <h2 class="skoll-work-title" id="skoll-work-title">Selected <span class="skoll-work-gold">Work</span>.</h2>
+    <h2 class="skoll-work-title" id="skoll-work-title">Case <span class="skoll-work-gold">Studies.</span></h2>
 
     <div class="skoll-work-grid" id="skoll-work-grid">
       <article class="skoll-work-card skoll-work-card-large" data-card="1">
@@ -266,26 +265,39 @@
         var gridEl = document.getElementById('skoll-work-grid');
         var cards = gridEl ? gridEl.querySelectorAll('.skoll-work-card') : [];
 
-        // —— Split title into characters ("Work" as one gold span) ——
+        // —— Split title into characters while preserving spans ——
         if (titleEl) {
-          var fullText = (titleEl.innerText || titleEl.textContent || '').trim();
+          var html = titleEl.innerHTML;
           titleEl.innerHTML = '';
-          var i = 0;
-          while (i < fullText.length) {
-            if (fullText.substring(i, i + 4) === 'Work') {
-              var gold = document.createElement('span');
-              gold.className = 'skoll-work-gold skoll-work-char';
-              gold.textContent = 'Work';
-              titleEl.appendChild(gold);
-              i += 4;
-              continue;
+          var inTag = false;
+          var currentTag = '';
+          for (var i = 0; i < html.length; i++) {
+            if (html[i] === '<') { inTag = true; currentTag += html[i]; continue; }
+            if (inTag) { 
+              currentTag += html[i];
+              if (html[i] === '>') { 
+                if (currentTag.startsWith('</')) titleEl.appendChild(document.createRange().createContextualFragment(currentTag));
+                else {
+                  var tempSpan = document.createElement('span');
+                  tempSpan.innerHTML = currentTag;
+                  titleEl.appendChild(tempSpan.firstChild);
+                }
+                currentTag = ''; inTag = false; 
+              }
+              continue; 
             }
+            
             var span = document.createElement('span');
             span.className = 'skoll-work-char';
-            span.textContent = fullText[i];
-            if (fullText[i] === ' ') span.style.width = '0.25em';
-            titleEl.appendChild(span);
-            i++;
+            span.textContent = html[i];
+            if (html[i] === ' ') span.innerHTML = '&nbsp;';
+            
+            // If we are currently inside the gold span block in the DOM
+            if (titleEl.lastChild && titleEl.lastChild.nodeType === 1 && titleEl.lastChild.classList.contains('skoll-work-gold')) {
+              titleEl.lastChild.appendChild(span);
+            } else {
+              titleEl.appendChild(span);
+            }
           }
         }
 

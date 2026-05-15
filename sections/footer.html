@@ -1,221 +1,241 @@
 <!-- Skoll Digital – Standalone Footer (HTML + scoped CSS + JS) -->
 <footer class="skoll-footer-wrapper" data-section="footer">
   <style>
-    /* —— Scoped Footer Styles —— */
     .skoll-footer-wrapper {
-      --foot-bg: #080808;
+      --foot-bg: #0A0A0A; 
       --foot-gold: #C9A84C;
       --foot-text: #FAFAFA;
       --foot-muted: #888888;
-      font-family: 'Inter', system-ui, sans-serif;
+      --foot-border: rgba(240, 238, 233, 0.1);
+      font-family: 'DM Sans', system-ui, sans-serif;
       background: var(--foot-bg);
       position: relative;
-      padding: 0 24px 48px;
+      padding: 120px 0 0 0; /* No extreme bottom padding, giant text sits at baseline */
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
     }
-    .skoll-footer-wrapper * {
-      box-sizing: border-box;
-    }
-
-    .skoll-footer-divider {
-      height: 1px;
-      background: rgba(201, 168, 76, 0.2);
-      margin: 0 -24px;
-    }
-
-    .skoll-footer-main {
-      position: relative;
-      z-index: 1;
-      max-width: 1200px;
+    .skoll-footer-wrapper * { box-sizing: border-box; }
+    
+    .skoll-footer-inner {
+      max-width: 1400px;
       margin: 0 auto;
-      padding: 56px 0 80px;
-      display: grid;
-      grid-template-columns: 1.5fr 1fr 1fr 1fr;
-      gap: 48px 32px;
-    }
-    @media (max-width: 900px) {
-      .skoll-footer-main {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-    @media (max-width: 500px) {
-      .skoll-footer-main {
-        grid-template-columns: 1fr;
-        gap: 40px;
-      }
-    }
-
-    .skoll-footer-col {
-      opacity: 0;
-      transform: translateY(24px);
-    }
-
-    .skoll-footer-logo {
-      font-family: 'Space Grotesk', 'Outfit', sans-serif;
-      font-size: 1.5rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      color: var(--foot-text);
-      text-decoration: none;
-      display: inline-block;
-      margin-bottom: 8px;
-    }
-    .skoll-footer-logo .skoll-footer-gold { color: var(--foot-gold); }
-    .skoll-footer-tagline {
-      font-size: 0.9375rem;
-      font-style: italic;
-      color: var(--foot-muted);
-      margin: 0 0 20px;
-      line-height: 1.5;
-    }
-    .skoll-footer-copy {
-      font-size: 0.8125rem;
-      color: var(--foot-muted);
-      margin: 0;
-      opacity: 0.8;
-    }
-
-    .skoll-footer-heading {
-      font-family: 'Space Grotesk', 'Outfit', sans-serif;
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--foot-muted);
-      margin: 0 0 20px;
-    }
-    .skoll-footer-links {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    .skoll-footer-links li { margin-bottom: 10px; }
-    .skoll-footer-links a {
-      font-size: 0.9375rem;
-      color: var(--foot-muted);
-      text-decoration: none;
+      width: 100%;
+      padding: 0 24px;
       position: relative;
-      transition: color 0.25s ease;
+      z-index: 2;
     }
-    .skoll-footer-links a:hover { color: var(--foot-text); }
-    .skoll-footer-links a::after {
+
+    /* Top: Newsletter */
+    .skoll-footer-newsletter {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: 120px;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .skoll-footer-nl-title {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 400;
+      color: var(--foot-text);
+      margin: 0 0 32px;
+      line-height: 1.1;
+    }
+    .skoll-footer-form {
+      display: flex;
+      width: 100%;
+      max-width: 500px;
+      border-bottom: 1px solid var(--foot-border);
+      padding-bottom: 12px;
+      position: relative;
+    }
+    .skoll-footer-form::after {
       content: '';
       position: absolute;
       left: 0;
-      bottom: -2px;
-      width: 0;
+      bottom: -1px;
+      width: 0%;
       height: 1px;
       background: var(--foot-gold);
-      transition: width 0.3s ease;
+      transition: width 0.4s ease;
     }
-    .skoll-footer-links a:hover::after { width: 100%; }
-
-    .skoll-footer-connect a {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.9375rem;
+    .skoll-footer-form:focus-within::after {
+      width: 100%;
+    }
+    .skoll-footer-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--foot-text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.125rem;
+    }
+    .skoll-footer-input::placeholder {
       color: var(--foot-muted);
-      text-decoration: none;
-      margin-bottom: 12px;
-      transition: color 0.25s ease;
     }
-    .skoll-footer-connect a:hover { color: var(--foot-gold); }
-    .skoll-footer-socials {
+    .skoll-footer-submit {
+      background: transparent;
+      border: none;
+      color: var(--foot-text);
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: color 0.3s ease, transform 0.3s ease;
       display: flex;
-      gap: 16px;
-      margin-top: 16px;
-    }
-    .skoll-footer-socials a {
-      display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 40px;
-      height: 40px;
-      margin: 0;
-      color: var(--foot-muted);
-      transition: color 0.25s ease, transform 0.25s ease;
+      padding: 0 8px;
     }
-    .skoll-footer-socials a:hover {
+    .skoll-footer-submit:hover {
       color: var(--foot-gold);
-      transform: translateY(-4px);
-    }
-    .skoll-footer-socials svg {
-      width: 20px;
-      height: 20px;
+      transform: translateX(4px);
     }
 
-    /* Giant watermark */
-    .skoll-footer-watermark {
-      position: absolute;
-      left: 50%;
-      bottom: -12px; /* desktop offset so baseline sits just below the footer edge */
-      transform: translateX(-50%);
-      font-family: 'Space Grotesk', 'Outfit', sans-serif;
-      font-size: clamp(72px, 18vw, 180px);
-      font-weight: 800;
-      line-height: 1;
-      letter-spacing: -0.02em;
-      white-space: nowrap;
-      color: rgba(201, 168, 76, 0.08);
-      -webkit-text-stroke: 1px rgba(201, 168, 76, 0.18);
-      text-stroke: 1px rgba(201, 168, 76, 0.18);
-      pointer-events: none;
-      user-select: none;
-      z-index: 0;
+    /* Middle: Grid */
+    .skoll-footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 64px 32px;
+      margin-bottom: 120px;
     }
-    /* Mobile adjustments: smaller watermark so it fits and feels balanced */
+    @media (max-width: 1024px) {
+      .skoll-footer-grid { grid-template-columns: 1fr 1fr; }
+    }
     @media (max-width: 600px) {
-      .skoll-footer-watermark {
-        font-size: clamp(40px, 20vw, 72px);
-        bottom: 0;
-      }
+      .skoll-footer-grid { grid-template-columns: 1fr; gap: 56px; margin-bottom: 80px; }
+    }
+    .skoll-footer-col {
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .skoll-footer-desc {
+      font-size: 1.125rem;
+      color: var(--foot-muted);
+      line-height: 1.6;
+      max-width: 320px;
+      margin: 0;
+    }
+    .skoll-footer-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--foot-text);
+      margin-bottom: 32px;
+    }
+    .skoll-footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .skoll-footer-link {
+      font-size: 1.125rem;
+      font-weight: 500;
+      color: var(--foot-muted);
+      text-decoration: none;
+      transition: color 0.3s ease, transform 0.3s ease;
+      width: fit-content;
+    }
+    .skoll-footer-link:hover {
+      color: var(--foot-gold);
+      transform: translateX(4px);
+    }
+
+    /* Bottom: Giant Text & Copyright */
+    .skoll-footer-bottom-area {
+      position: relative;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+    }
+    .skoll-footer-copyright {
+      font-size: 0.875rem;
+      color: var(--foot-muted);
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 1400px;
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      padding: 0 24px;
+      opacity: 0;
+    }
+    @media (max-width: 600px) {
+      .skoll-footer-copyright { flex-direction: column; gap: 8px; align-items: center; bottom: 16px; }
+    }
+    .skoll-footer-giant {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 24vw; /* Scales massively with viewport */
+      font-weight: 400;
+      line-height: 0.75;
+      color: var(--foot-text);
+      white-space: nowrap;
+      text-align: center;
+      width: 100%;
+      overflow: hidden;
+      margin-top: 40px;
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(100px);
     }
   </style>
 
-  <div class="skoll-footer-divider" aria-hidden="true"></div>
+  <div class="skoll-footer-inner">
+    
+    <div class="skoll-footer-newsletter" id="skoll-footer-nl">
+      <h3 class="skoll-footer-nl-title">Stay sharp. Join the inner circle.</h3>
+      <form class="skoll-footer-form" onsubmit="event.preventDefault();">
+        <input type="email" class="skoll-footer-input" placeholder="Your email address" required>
+        <button type="submit" class="skoll-footer-submit" aria-label="Subscribe">→</button>
+      </form>
+    </div>
 
-  <div class="skoll-footer-watermark" id="skoll-footer-watermark" aria-hidden="true">SKOLL DIGITAL</div>
-
-  <div class="skoll-footer-main" id="skoll-footer-main">
-    <div class="skoll-footer-col" id="skoll-footer-col-1">
-      <a href="#" class="skoll-footer-logo">Sk<span class="skoll-footer-gold">o</span>ll Digital</a>
-      <p class="skoll-footer-tagline">Grow with intent.</p>
-      <p class="skoll-footer-copy">© 2025 Skoll Digital. All rights reserved.</p>
-    </div>
-    <div class="skoll-footer-col" id="skoll-footer-col-2">
-      <h3 class="skoll-footer-heading">Navigate</h3>
-      <ul class="skoll-footer-links">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#work">Work</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </div>
-    <div class="skoll-footer-col" id="skoll-footer-col-3">
-      <h3 class="skoll-footer-heading">Services</h3>
-      <ul class="skoll-footer-links">
-        <li><a href="#services">Strategy</a></li>
-        <li><a href="#services">Product</a></li>
-        <li><a href="#services">Performance</a></li>
-        <li><a href="#services">Brand</a></li>
-      </ul>
-    </div>
-    <div class="skoll-footer-col" id="skoll-footer-col-4">
-      <h3 class="skoll-footer-heading">Connect</h3>
-      <a href="mailto:hello@skolldigital.com">hello@skolldigital.com</a>
-      <div class="skoll-footer-socials">
-        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-        </a>
-        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-        </a>
-        <a href="https://x.com" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16z"/><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"/></svg>
-        </a>
+    <div class="skoll-footer-grid" id="skoll-footer-grid">
+      <div class="skoll-footer-col">
+        <p class="skoll-footer-desc">Skoll Digital.<br>Compounding growth for the unrelenting.</p>
       </div>
+      <div class="skoll-footer-col">
+        <span class="skoll-footer-label">Navigate</span>
+        <div class="skoll-footer-links">
+          <a href="#services" class="skoll-footer-link">Services</a>
+          <a href="#work" class="skoll-footer-link">Work</a>
+          <a href="#testimonials" class="skoll-footer-link">Testimonials</a>
+        </div>
+      </div>
+      <div class="skoll-footer-col">
+        <span class="skoll-footer-label">Socials</span>
+        <div class="skoll-footer-links">
+          <a href="https://linkedin.com" class="skoll-footer-link" target="_blank">LinkedIn</a>
+          <a href="https://x.com" class="skoll-footer-link" target="_blank">X (Twitter)</a>
+          <a href="https://instagram.com" class="skoll-footer-link" target="_blank">Instagram</a>
+        </div>
+      </div>
+      <div class="skoll-footer-col">
+        <span class="skoll-footer-label">Contact</span>
+        <div class="skoll-footer-links">
+          <a href="mailto:hello@skolldigital.com" class="skoll-footer-link">hello@skolldigital.com</a>
+          <a href="tel:+10000000000" class="skoll-footer-link">+1 (800) 123-4567</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="skoll-footer-bottom-area">
+    <div class="skoll-footer-giant" id="skoll-footer-giant">SKOLL</div>
+    <div class="skoll-footer-copyright" id="skoll-footer-copy">
+      <span>© 2026 Skoll Digital</span>
+      <span>All rights reserved.</span>
     </div>
   </div>
 
@@ -233,38 +253,23 @@
         }
         gsap.registerPlugin(ScrollTrigger);
 
-        var main = document.getElementById('skoll-footer-main');
-        var cols = main ? main.querySelectorAll('.skoll-footer-col') : [];
-        var watermark = document.getElementById('skoll-footer-watermark');
+        var nl = document.getElementById('skoll-footer-nl');
+        var cols = document.querySelectorAll('.skoll-footer-col');
+        var copy = document.getElementById('skoll-footer-copy');
+        var giant = document.getElementById('skoll-footer-giant');
 
-        // —— Columns stagger in from below on scroll-enter ——
-        gsap.to(cols, {
-          opacity: 1,
-          y: 0,
-          duration: 0.6,
-          stagger: 0.1,
-          ease: 'power2.out',
+        var tl = gsap.timeline({
           scrollTrigger: {
             trigger: wrapper,
-            start: 'top 85%',
+            start: 'top 80%',
             toggleActions: 'play none none none'
           }
         });
 
-        // —— Watermark: subtle parallax (moves slower than scroll) ——
-        if (watermark) {
-          // Horizontal centering handled in CSS (left:50% + translateX(-50%))
-          gsap.to(watermark, {
-            y: 40,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: wrapper,
-              start: 'top bottom',
-              end: 'bottom top',
-              scrub: 1.5
-            }
-          });
-        }
+        tl.to(nl, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' })
+          .to(cols, { opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: 'power2.out' }, "-=0.4")
+          .to(giant, { opacity: 1, y: 0, duration: 1.2, ease: 'back.out(1.2)' }, "-=0.4")
+          .to(copy, { opacity: 1, duration: 0.6, ease: 'power2.out' }, "-=0.8");
       }
 
       if (document.readyState === 'loading') {
