@@ -16,11 +16,18 @@
   var MAGNETIC_STRENGTH = 0.4;
 
   function hasTouch() {
-    return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    if ('ontouchstart' in window) return true;
+    if (navigator.maxTouchPoints > 0) return true;
+    if (window.matchMedia && (
+      window.matchMedia('(hover: none)').matches ||
+      window.matchMedia('(pointer: coarse)').matches
+    )) return true;
+    return false;
   }
 
   function init() {
     if (hasTouch()) return;
+    if (window.innerWidth <= 900) return;
 
     var wrapper = document.createElement('div');
     wrapper.className = 'skoll-cursor';

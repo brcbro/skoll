@@ -323,6 +323,16 @@ html.skoll-cursor-active * {
   cursor: none !important;
 }
 
+/* Defensive: disable custom cursor on touch / coarse-pointer devices and
+   small viewports, even if JS somehow attached it. */
+@media (hover: none), (pointer: coarse), (max-width: 900px) {
+  html.skoll-cursor-active,
+  html.skoll-cursor-active * {
+    cursor: auto !important;
+  }
+  .skoll-cursor { display: none !important; }
+}
+
 .skoll-cursor {
   position: fixed;
   left: 0;
