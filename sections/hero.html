@@ -219,8 +219,8 @@
     }
   </style>
 
-  <!-- Background video: Comp 2.mp4 -->
-  <video class="skoll-hero-video" autoplay muted playsinline loop aria-hidden="true" src="Comp%202.mp4"></video>
+  <!-- Background video: Comp 2.mp4 on desktop, Comp 1_3.mp4 on mobile (set by JS) -->
+  <video class="skoll-hero-video" autoplay muted playsinline loop aria-hidden="true"></video>
 
   <!-- Background stack -->
   <div class="skoll-hero-bg">
@@ -269,10 +269,26 @@
       var wrapper = document.querySelector('.skoll-hero-wrapper');
       if (!wrapper) return;
       var video = wrapper.querySelector('.skoll-hero-video');
-      if (video) {
+      var MOBILE_BREAKPOINT = 768;
+      var currentHeroSource = null;
+      var resizeTimeout;
+
+      function isMobile() { return window.innerWidth <= MOBILE_BREAKPOINT; }
+      function setHeroVideoSource() {
+        if (!video) return;
+        var src = isMobile() ? 'Comp%201_3.mp4' : 'Comp%202.mp4';
+        if (currentHeroSource === src) return;
+        currentHeroSource = src;
+        video.src = src;
+        video.load();
         video.muted = true;
         video.play().catch(function () {});
       }
+      setHeroVideoSource();
+      window.addEventListener('resize', function () {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(setHeroVideoSource, 250);
+      });
 
       function runHeroJS() {
         var gsap = window.gsap;

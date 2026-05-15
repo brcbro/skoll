@@ -71,24 +71,11 @@
       width: 0%;
       transform-origin: left;
     }
-    /* Scroll-based invert circle (starts at 80% progress) */
-    #skoll-invert-circle {
-      position: fixed;
-      inset: 0;
-      background: #F0EEE9;
-      /* white overlay + difference blend = invert underlying colors */
-      mix-blend-mode: difference;
-      pointer-events: none;
-      z-index: 99997;
-      clip-path: circle(0px at 50% 100%);
-      will-change: clip-path;
-    }
   </style>
 </head>
 <body>
   <!-- Scroll progress bar (top) -->
   <div id="skoll-scroll-progress" aria-hidden="true"></div>
-  <div id="skoll-invert-circle" aria-hidden="true"></div>
 
   <!-- Preloader -->
   <div id="skoll-preloader">
@@ -330,7 +317,6 @@
       function initScrollProgress() {
         var bar = document.getElementById('skoll-scroll-progress');
         if (!bar) return;
-        var invert = document.getElementById('skoll-invert-circle');
         var gsap = window.gsap;
         var ScrollTrigger = window.ScrollTrigger;
         if (gsap && ScrollTrigger) {
@@ -346,26 +332,6 @@
             }
           });
 
-          // Invert circle: bound to footer scroll so it always fires very late
-          // (independent of dynamic section heights). Starts when only ~200px of
-          // remaining page scroll is left and completes at the very bottom.
-          if (invert) {
-            ScrollTrigger.create({
-              trigger: '#footer-container',
-              start: 'bottom bottom-=200',
-              end: 'bottom bottom',
-              scrub: 0.2,
-              onUpdate: function (self) {
-                var t = self.progress; // 0..1
-                if (t < 0) t = 0;
-                if (t > 1) t = 1;
-                // Big enough to cover any viewport from bottom-center
-                var r = Math.ceil(Math.max(window.innerWidth, window.innerHeight) * 1.5);
-                var radius = Math.round(r * t);
-                invert.style.clipPath = 'circle(' + radius + 'px at 50% 100%)';
-              }
-            });
-          }
         }
       }
 
