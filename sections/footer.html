@@ -1,180 +1,169 @@
-<!-- Skoll Digital – Standalone Footer (HTML + scoped CSS + JS) -->
+<!-- Skoll Digital – Standalone Footer (Marquee + Stats + CTA) -->
 <footer class="skoll-footer-wrapper" data-section="footer">
   <style>
     .skoll-footer-wrapper {
-      --foot-bg: #0A0A0A; 
+      --foot-bg: #0A0A0A;
       --foot-gold: #C9A84C;
-      --foot-text: #FAFAFA;
-      --foot-muted: #888888;
-      --foot-border: rgba(240, 238, 233, 0.1);
+      --foot-text: #F0EEE9;
+      --foot-muted: rgba(240, 238, 233, 0.55);
+      --foot-border: rgba(240, 238, 233, 0.08);
       font-family: 'DM Sans', system-ui, sans-serif;
       background: var(--foot-bg);
+      color: var(--foot-text);
       position: relative;
-      padding: 120px 0 0 0; /* No extreme bottom padding, giant text sits at baseline */
       overflow: hidden;
-      display: flex;
-      flex-direction: column;
     }
     .skoll-footer-wrapper * { box-sizing: border-box; }
-    
-    .skoll-footer-inner {
+
+    /* —— 1. Marquee strip —— */
+    .skoll-foot-marquee {
+      border-top: 1px solid var(--foot-border);
+      border-bottom: 1px solid var(--foot-border);
+      overflow: hidden;
+      padding: 28px 0;
+      position: relative;
+    }
+    .skoll-foot-marquee-track {
+      display: flex;
+      width: max-content;
+      gap: 56px;
+      animation: skoll-foot-marquee 32s linear infinite;
+      will-change: transform;
+    }
+    .skoll-foot-marquee:hover .skoll-foot-marquee-track {
+      animation-play-state: paused;
+    }
+    @keyframes skoll-foot-marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+    .skoll-foot-marquee-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 56px;
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: clamp(1.75rem, 3.5vw, 3rem);
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      color: var(--foot-text);
+      white-space: nowrap;
+    }
+    .skoll-foot-marquee-item em {
+      font-style: italic;
+      color: var(--foot-gold);
+    }
+    .skoll-foot-marquee-sep {
+      display: inline-block;
+      color: var(--foot-gold);
+      font-family: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
+      font-size: 1.25rem;
+      transform: translateY(-2px);
+    }
+
+    /* —— Inner content wrapper —— */
+    .skoll-foot-inner {
       max-width: 1400px;
       margin: 0 auto;
-      width: 100%;
-      padding: 0 24px;
+      padding: 48px 24px 0;
+      position: relative;
+    }
+
+    /* —— CTA strip —— */
+    .skoll-foot-cta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      padding: 0 0 40px;
+      flex-wrap: wrap;
+      border-bottom: 1px solid var(--foot-border);
+    }
+    @media (max-width: 768px) {
+      .skoll-foot-cta {
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        gap: 28px;
+      }
+      .skoll-foot-cta-actions { justify-content: center; }
+    }
+    .skoll-foot-cta-text {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      font-weight: 400;
+      line-height: 1.05;
+      color: var(--foot-text);
+      margin: 0;
+      max-width: 700px;
+    }
+    .skoll-foot-cta-text em {
+      font-style: italic;
+      color: var(--foot-gold);
+    }
+    .skoll-foot-cta-actions {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .skoll-foot-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 30px;
+      border-radius: 999px;
+      font-family: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.3s ease, background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+      white-space: nowrap;
+    }
+    .skoll-foot-btn-primary {
+      background: var(--foot-gold);
+      color: #0A0A0A;
+      border: 1px solid var(--foot-gold);
+    }
+    .skoll-foot-btn-primary:hover {
+      box-shadow: 0 0 32px rgba(201, 168, 76, 0.45);
+      transform: translateY(-2px);
+    }
+    .skoll-foot-btn-primary .skoll-foot-btn-arrow {
+      transition: transform 0.3s ease;
+    }
+    .skoll-foot-btn-primary:hover .skoll-foot-btn-arrow {
+      transform: translateX(4px);
+    }
+    /* —— Email row (centered, above the giant SKOLL) —— */
+    .skoll-foot-email-row {
+      display: flex;
+      justify-content: center;
+      padding: 32px 24px 0;
       position: relative;
       z-index: 2;
     }
-
-    /* Top: Newsletter */
-    .skoll-footer-newsletter {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      margin-bottom: 120px;
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    .skoll-footer-nl-title {
+    .skoll-foot-email {
       font-family: 'Instrument Serif', Georgia, serif;
-      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-size: clamp(1.5rem, 3vw, 2.25rem);
       font-weight: 400;
       color: var(--foot-text);
-      margin: 0 0 32px;
-      line-height: 1.1;
-    }
-    .skoll-footer-form {
-      display: flex;
-      width: 100%;
-      max-width: 500px;
-      border-bottom: 1px solid var(--foot-border);
-      padding-bottom: 12px;
-      position: relative;
-    }
-    .skoll-footer-form::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: -1px;
-      width: 0%;
-      height: 1px;
-      background: var(--foot-gold);
-      transition: width 0.4s ease;
-    }
-    .skoll-footer-form:focus-within::after {
-      width: 100%;
-    }
-    .skoll-footer-input {
-      flex: 1;
-      background: transparent;
-      border: none;
-      outline: none;
-      color: var(--foot-text);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 1.125rem;
-    }
-    .skoll-footer-input::placeholder {
-      color: var(--foot-muted);
-    }
-    .skoll-footer-submit {
-      background: transparent;
-      border: none;
-      color: var(--foot-text);
-      font-size: 1.5rem;
-      cursor: pointer;
-      transition: color 0.3s ease, transform 0.3s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0 8px;
-    }
-    .skoll-footer-submit:hover {
-      color: var(--foot-gold);
-      transform: translateX(4px);
-    }
-
-    /* Middle: Grid */
-    .skoll-footer-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 64px 32px;
-      margin-bottom: 120px;
-    }
-    @media (max-width: 1024px) {
-      .skoll-footer-grid { grid-template-columns: 1fr 1fr; }
-    }
-    @media (max-width: 600px) {
-      .skoll-footer-grid { grid-template-columns: 1fr; gap: 56px; margin-bottom: 80px; }
-    }
-    .skoll-footer-col {
-      display: flex;
-      flex-direction: column;
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    .skoll-footer-desc {
-      font-size: 1.125rem;
-      color: var(--foot-muted);
-      line-height: 1.6;
-      max-width: 320px;
-      margin: 0;
-    }
-    .skoll-footer-label {
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--foot-text);
-      margin-bottom: 32px;
-    }
-    .skoll-footer-links {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-    .skoll-footer-link {
-      font-size: 1.125rem;
-      font-weight: 500;
-      color: var(--foot-muted);
       text-decoration: none;
-      transition: color 0.3s ease, transform 0.3s ease;
-      width: fit-content;
+      letter-spacing: -0.01em;
+      transition: color 0.3s ease;
     }
-    .skoll-footer-link:hover {
-      color: var(--foot-gold);
-      transform: translateX(4px);
-    }
+    .skoll-foot-email:hover { color: var(--foot-gold); }
 
-    /* Bottom: Giant Text & Copyright */
-    .skoll-footer-bottom-area {
+    /* —— 4. Giant SKOLL + bottom bar —— */
+    .skoll-foot-bottom-area {
       position: relative;
       width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-end;
+      margin-top: 40px;
     }
-    .skoll-footer-copyright {
-      font-size: 0.875rem;
-      color: var(--foot-muted);
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-      max-width: 1400px;
-      position: absolute;
-      bottom: 24px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 3;
-      padding: 0 24px;
-      opacity: 0;
-    }
-    @media (max-width: 600px) {
-      .skoll-footer-copyright { flex-direction: column; gap: 8px; align-items: center; bottom: 16px; }
-    }
-    .skoll-footer-giant {
+    .skoll-foot-giant {
       font-family: 'Instrument Serif', Georgia, serif;
-      font-size: 24vw; /* Scales massively with viewport */
+      font-size: 24vw;
       font-weight: 400;
       line-height: 0.75;
       color: var(--foot-text);
@@ -182,60 +171,131 @@
       text-align: center;
       width: 100%;
       overflow: hidden;
-      margin-top: 40px;
       position: relative;
-      z-index: 1;
-      opacity: 0;
       pointer-events: none;
-      transform: translateY(100px);
+    }
+    /* Social links row right below SKOLL */
+    .skoll-foot-socials {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      column-gap: 28px;
+      row-gap: 0;
+      flex-wrap: wrap;
+      padding: 24px 24px 0;
+      position: relative;
+      z-index: 2;
+    }
+    @media (max-width: 600px) {
+      .skoll-foot-socials { column-gap: 20px; row-gap: 0; }
+      .skoll-foot-socials a { padding: 4px 2px; }
+    }
+    .skoll-foot-socials a {
+      font-family: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--foot-text);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 4px;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+    .skoll-foot-socials a::after {
+      content: '↗';
+      font-size: 0.875rem;
+      color: var(--foot-muted);
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+    .skoll-foot-socials a:hover {
+      color: var(--foot-gold);
+    }
+    .skoll-foot-socials a:hover::after {
+      color: var(--foot-gold);
+      transform: translate(2px, -2px);
+    }
+
+    .skoll-foot-bottom {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 28px 24px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-family: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--foot-muted);
+      border-top: 1px solid var(--foot-border);
+    }
+    @media (max-width: 600px) {
+      .skoll-foot-bottom { flex-direction: column; align-items: center; text-align: center; }
     }
   </style>
 
-  <div class="skoll-footer-inner">
-    
-    <div class="skoll-footer-newsletter" id="skoll-footer-nl">
-      <h3 class="skoll-footer-nl-title">Stay sharp. Join the inner circle.</h3>
-      <form class="skoll-footer-form" onsubmit="event.preventDefault();">
-        <input type="email" class="skoll-footer-input" placeholder="Your email address" required>
-        <button type="submit" class="skoll-footer-submit" aria-label="Subscribe">→</button>
-      </form>
-    </div>
-
-    <div class="skoll-footer-grid" id="skoll-footer-grid">
-      <div class="skoll-footer-col">
-        <p class="skoll-footer-desc">Skoll Digital.<br>Compounding growth for the unrelenting.</p>
-      </div>
-      <div class="skoll-footer-col">
-        <span class="skoll-footer-label">Navigate</span>
-        <div class="skoll-footer-links">
-          <a href="#services" class="skoll-footer-link">Services</a>
-          <a href="#work" class="skoll-footer-link">Work</a>
-          <a href="#testimonials" class="skoll-footer-link">Testimonials</a>
-        </div>
-      </div>
-      <div class="skoll-footer-col">
-        <span class="skoll-footer-label">Socials</span>
-        <div class="skoll-footer-links">
-          <a href="https://linkedin.com" class="skoll-footer-link" target="_blank">LinkedIn</a>
-          <a href="https://x.com" class="skoll-footer-link" target="_blank">X (Twitter)</a>
-          <a href="https://instagram.com" class="skoll-footer-link" target="_blank">Instagram</a>
-        </div>
-      </div>
-      <div class="skoll-footer-col">
-        <span class="skoll-footer-label">Contact</span>
-        <div class="skoll-footer-links">
-          <a href="mailto:hello@skolldigital.com" class="skoll-footer-link">hello@skolldigital.com</a>
-          <a href="tel:+10000000000" class="skoll-footer-link">+1 (800) 123-4567</a>
-        </div>
-      </div>
+  <!-- 1. Marquee -->
+  <div class="skoll-foot-marquee" aria-hidden="true">
+    <div class="skoll-foot-marquee-track">
+      <span class="skoll-foot-marquee-item">
+        <span>Available <em>now</em></span>
+        <span class="skoll-foot-marquee-sep">✦</span>
+        <span>Booking Q3 2026</span>
+        <span class="skoll-foot-marquee-sep">✦</span>
+        <span>Grow with <em>intent</em></span>
+        <span class="skoll-foot-marquee-sep">✦</span>
+        <span>New case studies live</span>
+        <span class="skoll-foot-marquee-sep">✦</span>
+      </span>
+      <span class="skoll-foot-marquee-item">
+        <span>Available <em>now</em></span>
+        <span class="skoll-foot-marquee-sep">✦</span>
+        <span>Booking Q3 2026</span>
+        <span class="skoll-foot-marquee-sep">✦</span>
+        <span>Grow with <em>intent</em></span>
+        <span class="skoll-foot-marquee-sep">✦</span>
+        <span>New case studies live</span>
+        <span class="skoll-foot-marquee-sep">✦</span>
+      </span>
     </div>
   </div>
 
-  <div class="skoll-footer-bottom-area">
-    <div class="skoll-footer-giant" id="skoll-footer-giant">SKOLL</div>
-    <div class="skoll-footer-copyright" id="skoll-footer-copy">
+  <div class="skoll-foot-inner">
+
+    <!-- CTA -->
+    <div class="skoll-foot-cta">
+      <h2 class="skoll-foot-cta-text" id="skoll-foot-cta-text">
+        Ready when <em>you</em> are.
+      </h2>
+      <div class="skoll-foot-cta-actions" id="skoll-foot-cta-actions">
+        <a href="#contact" class="skoll-foot-btn skoll-foot-btn-primary">
+          Book a strategy call
+          <span class="skoll-foot-btn-arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 4. Email + Giant SKOLL + bottom -->
+  <div class="skoll-foot-bottom-area">
+    <div class="skoll-foot-email-row" id="skoll-foot-email-row">
+      <a href="mailto:hello@skolldigital.com" class="skoll-foot-email">hello@skolldigital.com</a>
+    </div>
+    <div class="skoll-foot-giant" id="skoll-foot-giant">SKOLL</div>
+    <div class="skoll-foot-socials" id="skoll-foot-socials">
+      <a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://x.com" target="_blank" rel="noopener">X</a>
+      <a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a>
+    </div>
+    <div class="skoll-foot-bottom" id="skoll-foot-bottom">
       <span>© 2026 Skoll Digital</span>
-      <span>All rights reserved.</span>
+      <span>Grow with intent.</span>
     </div>
   </div>
 
@@ -253,23 +313,27 @@
         }
         gsap.registerPlugin(ScrollTrigger);
 
-        var nl = document.getElementById('skoll-footer-nl');
-        var cols = document.querySelectorAll('.skoll-footer-col');
-        var copy = document.getElementById('skoll-footer-copy');
-        var giant = document.getElementById('skoll-footer-giant');
+        var ctaText = document.getElementById('skoll-foot-cta-text');
+        var ctaActions = document.getElementById('skoll-foot-cta-actions');
+        var emailRow = document.getElementById('skoll-foot-email-row');
+        var giant = document.getElementById('skoll-foot-giant');
+        var socials = document.getElementById('skoll-foot-socials');
+        var bottom = document.getElementById('skoll-foot-bottom');
 
         var tl = gsap.timeline({
           scrollTrigger: {
             trigger: wrapper,
-            start: 'top 80%',
+            start: 'top 75%',
             toggleActions: 'play none none none'
           }
         });
 
-        tl.to(nl, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' })
-          .to(cols, { opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: 'power2.out' }, "-=0.4")
-          .to(giant, { opacity: 1, y: 0, duration: 1.2, ease: 'back.out(1.2)' }, "-=0.4")
-          .to(copy, { opacity: 1, duration: 0.6, ease: 'power2.out' }, "-=0.8");
+        tl.fromTo(ctaText, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' })
+          .fromTo(ctaActions, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, '-=0.5')
+          .fromTo(emailRow, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, '-=0.4')
+          .fromTo(giant, { opacity: 0, y: 100 }, { opacity: 1, y: 0, duration: 1.2, ease: 'back.out(1.2)' }, '-=0.3')
+          .fromTo(socials, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.6')
+          .fromTo(bottom, { opacity: 0 }, { opacity: 1, duration: 0.6, ease: 'power2.out' }, '-=0.4');
       }
 
       if (document.readyState === 'loading') {

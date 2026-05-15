@@ -4,10 +4,48 @@
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
-   1. Google Fonts
-   Inter (body), Space Grotesk (headings)
+   1. Fonts — strict three-font system
+   Instrument Serif (headlines), DM Sans (body), Söhne (highlights)
+   Söhne is self-hosted from assets/fonts/.
    -------------------------------------------------------------------------- */
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Instrument+Serif:ital@0;1&display=swap');
+
+/* Söhne (Klim Type Foundry) — self-hosted from assets/fonts/. */
+@font-face {
+  font-family: 'Söhne';
+  src: url('../assets/fonts/Sohne-Buch.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Söhne';
+  src: url('../assets/fonts/Sohne-Buch-Italic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Söhne';
+  src: url('../assets/fonts/Sohne-Kraftig.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Söhne';
+  src: url('../assets/fonts/Sohne-Kraftig-Italic.otf') format('opentype');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Söhne';
+  src: url('../assets/fonts/Sohne-Halbfett.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
 
 /* --------------------------------------------------------------------------
    2. CSS Custom Properties (Design tokens)
@@ -39,10 +77,10 @@
   --radius-lg: 28px;
   --radius-pill: 999px;
 
-  /* Typography – fallbacks */
-  --font-sans: 'DM Sans', system-ui, -apple-system, sans-serif;
-  --font-display: 'Instrument Serif', Georgia, serif;
-  --font-highlight: 'Söhne', 'Sohne', var(--font-sans);
+  /* Typography — strict three-font system */
+  --font-sans: 'DM Sans', system-ui, -apple-system, sans-serif;     /* body */
+  --font-display: 'Instrument Serif', Georgia, serif;                /* headlines */
+  --font-highlight: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif; /* highlights */
 
   /* Transitions */
   --transition-default: 0.3s ease;
@@ -304,8 +342,8 @@ html.skoll-cursor-active * {
   position: fixed;
   left: 0;
   top: 0;
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   background: var(--accent-gold);
   border-radius: 50%;
   will-change: transform;
@@ -316,10 +354,10 @@ html.skoll-cursor-active * {
   position: fixed;
   left: 0;
   top: 0;
-  width: 40px;
-  height: 40px;
-  margin-left: -20px;
-  margin-top: -20px;
+  width: 28px;
+  height: 28px;
+  margin-left: -14px;
+  margin-top: -14px;
   border: 1px solid var(--accent-gold-dim);
   border-radius: 50%;
   will-change: transform;
@@ -332,15 +370,20 @@ html.skoll-cursor-active * {
 
 .skoll-cursor-view-text {
   font-family: var(--font-sans);
-  font-size: 0.625rem;
+  font-size: 0.5rem;
   font-weight: 600;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--text-primary);
   mix-blend-mode: difference;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.25s ease;
+  will-change: transform;
+  transform-origin: center center;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: geometricPrecision;
 }
 
 .skoll-cursor-link .skoll-cursor-dot {

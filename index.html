@@ -104,14 +104,11 @@
   <main id="skoll-main">
     <div id="navbar-container"></div>
     <div id="hero-container"></div>
-    <div id="about-container"></div>
-    <div id="clientele-container"></div>
     <div id="services-container"></div>
+    <div id="clientele-container"></div>
+    <div id="work-container"></div>
     <div id="testimonials-container"></div>
     <div id="pillars-container"></div>
-    <div id="what-we-build-container"></div>
-    <div id="work-container"></div>
-    <div id="cta-container"></div>
     <div id="footer-container"></div>
   </main>
 
@@ -129,14 +126,11 @@
       var sections = [
         { id: 'navbar-container', path: 'sections/navbar.html' },
         { id: 'hero-container', path: 'sections/hero.html' },
-        { id: 'about-container', path: 'sections/about.html' },
-        { id: 'clientele-container', path: 'sections/clientele.html' },
         { id: 'services-container', path: 'sections/services.html' },
+        { id: 'clientele-container', path: 'sections/clientele.html' },
+        { id: 'work-container', path: 'sections/work.html' },
         { id: 'testimonials-container', path: 'sections/testimonials.html' },
         { id: 'pillars-container', path: 'sections/pillars.html' },
-        { id: 'what-we-build-container', path: 'sections/what-we-build.html' },
-        { id: 'work-container', path: 'sections/work.html' },
-        { id: 'cta-container', path: 'sections/cta.html' },
         { id: 'footer-container', path: 'sections/footer.html' }
       ];
 
@@ -352,16 +346,17 @@
             }
           });
 
-        // Invert circle: 0–80% => hidden, 80–85% => expands to cover screen
+          // Invert circle: bound to footer scroll so it always fires very late
+          // (independent of dynamic section heights). Starts when only ~200px of
+          // remaining page scroll is left and completes at the very bottom.
           if (invert) {
             ScrollTrigger.create({
-              trigger: document.body,
-              start: 'top top',
+              trigger: '#footer-container',
+              start: 'bottom bottom-=200',
               end: 'bottom bottom',
               scrub: 0.2,
               onUpdate: function (self) {
-                var p = self.progress; // 0..1
-                var t = (p - 0.8) / 0.05; // map 0.8..0.85 to 0..1
+                var t = self.progress; // 0..1
                 if (t < 0) t = 0;
                 if (t > 1) t = 1;
                 // Big enough to cover any viewport from bottom-center
@@ -376,7 +371,7 @@
 
       /** Global anchor scroll: hero, footer, and any #home/#about/etc. link scroll to the right section */
       function initAnchorScroll() {
-        var hashToId = { home: 'hero-container', about: 'about-container', services: 'services-container', work: 'work-container', contact: 'cta-container' };
+        var hashToId = { home: 'hero-container', services: 'services-container', clientele: 'clientele-container', work: 'work-container', testimonials: 'testimonials-container', pillars: 'pillars-container', approach: 'pillars-container', contact: 'footer-container' };
         document.body.addEventListener('click', function (e) {
           var a = e.target.closest('a[href^="#"]');
           if (!a) return;

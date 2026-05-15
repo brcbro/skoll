@@ -95,6 +95,61 @@
       mix-blend-mode: difference;
     }
 
+    /* —— CTA buttons —— */
+    .skoll-hero-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 14px;
+      margin-top: 16px;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .skoll-hero-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 28px;
+      font-family: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.3s ease, background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+      white-space: nowrap;
+    }
+    .skoll-hero-btn-primary {
+      background: var(--hero-gold);
+      color: #0A0A0A;
+      border: 1px solid var(--hero-gold);
+    }
+    .skoll-hero-btn-primary:hover {
+      box-shadow: 0 0 32px rgba(201, 168, 76, 0.4);
+      transform: translateY(-2px);
+    }
+    .skoll-hero-btn-ghost {
+      background: rgba(240, 238, 233, 0.04);
+      color: var(--hero-text);
+      border: 1px solid rgba(240, 238, 233, 0.15);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .skoll-hero-btn-ghost:hover {
+      border-color: var(--hero-gold);
+      color: var(--hero-gold);
+      transform: translateY(-2px);
+    }
+    .skoll-hero-btn-arrow {
+      display: inline-block;
+      transition: transform 0.3s ease;
+    }
+    .skoll-hero-btn:hover .skoll-hero-btn-arrow {
+      transform: translateX(4px);
+    }
+
     .skoll-hero-footer {
       display: flex;
       align-items: center;
@@ -164,8 +219,8 @@
     }
   </style>
 
-  <!-- Background video: hero-mobile.mp4 on mobile, hero-pc.mp4 on desktop (set by JS) -->
-  <video class="skoll-hero-video" autoplay muted playsinline loop aria-hidden="true"></video>
+  <!-- Background video: Comp 2.mp4 -->
+  <video class="skoll-hero-video" autoplay muted playsinline loop aria-hidden="true" src="Comp%202.mp4"></video>
 
   <!-- Background stack -->
   <div class="skoll-hero-bg">
@@ -175,8 +230,6 @@
 
   <!-- Main content -->
   <div class="skoll-hero-inner">
-    <div class="skoll-hero-tag skoll-hero-anim">Full-Stack Strategic Growth Agency</div>
-    
     <h1 class="skoll-hero-headline skoll-hero-anim">
       We don't chase<br>
       growth.<br>
@@ -189,6 +242,16 @@
       compounds. For founders, CEOs, and<br>
       leadership teams who think long-term.
     </p>
+
+    <div class="skoll-hero-cta-row skoll-hero-anim">
+      <a href="#contact" class="skoll-hero-btn skoll-hero-btn-primary">
+        Book a strategy call
+        <span class="skoll-hero-btn-arrow" aria-hidden="true">→</span>
+      </a>
+      <a href="#work" class="skoll-hero-btn skoll-hero-btn-ghost">
+        See our work
+      </a>
+    </div>
 
     <div class="skoll-hero-footer skoll-hero-anim">
       <div class="skoll-hero-line"></div>
@@ -206,26 +269,10 @@
       var wrapper = document.querySelector('.skoll-hero-wrapper');
       if (!wrapper) return;
       var video = wrapper.querySelector('.skoll-hero-video');
-      var MOBILE_BREAKPOINT = 768;
-      var currentHeroSource = null;
-      var resizeTimeout;
-
-      function isMobile() { return window.innerWidth <= MOBILE_BREAKPOINT; }
-      function setHeroVideoSource() {
-        if (!video) return;
-        var src = isMobile() ? 'hero-mobile.mp4' : 'hero-pc.mp4';
-        if (currentHeroSource === src) return;
-        currentHeroSource = src;
-        video.src = src;
-        video.load();
+      if (video) {
         video.muted = true;
         video.play().catch(function () {});
       }
-      setHeroVideoSource();
-      window.addEventListener('resize', function () {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(setHeroVideoSource, 250);
-      });
 
       function runHeroJS() {
         var gsap = window.gsap;
@@ -268,6 +315,26 @@
             repeat: -1,
             yoyo: true
           });
+        }
+
+        // —— Parallax zoom on hero video tied to scroll ——
+        if (video && window.ScrollTrigger) {
+          gsap.set(video, { transformOrigin: '50% 50%', willChange: 'transform' });
+          gsap.fromTo(video,
+            { scale: 1, yPercent: 0 },
+            {
+              scale: 1.25,
+              yPercent: -8,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: wrapper,
+                start: 'top top',
+                end: 'bottom top',
+                scrub: true,
+                invalidateOnRefresh: true
+              }
+            }
+          );
         }
 
         function startHeroAnimation() {

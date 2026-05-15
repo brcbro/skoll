@@ -2,19 +2,35 @@
 <section class="skoll-build-wrapper" data-section="what-we-build">
   <style>
     .skoll-build-wrapper {
-      --bld-bg: #e0e0e0;
-      /* Dark text to contrast the light neumorphic background */
-      --bld-text: #1a1a1a;
-      --bld-muted: #555555;
+      --bld-bg: #0A0A0A;
+      --bld-surface: #111111;
+      --bld-text: #F0EEE9;
+      --bld-muted: rgba(240, 238, 233, 0.65);
+      --bld-gold: #C9A84C;
+      --bld-border: rgba(240, 238, 233, 0.07);
       font-family: 'DM Sans', system-ui, sans-serif;
       background: var(--bld-bg);
       padding: 160px 24px;
       color: var(--bld-text);
       overflow: hidden;
+      position: relative;
     }
+    .skoll-build-wrapper::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(rgba(240, 238, 233, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(240, 238, 233, 0.05) 1px, transparent 1px);
+      background-size: 48px 48px;
+      opacity: 0.4;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .skoll-build-inner { position: relative; z-index: 1; }
     .skoll-build-inner {
       max-width: 1400px;
       margin: 0 auto;
+      position: relative;
+      z-index: 1;
     }
     .skoll-build-header {
       text-align: center;
@@ -55,30 +71,40 @@
     }
     
     .skoll-build-card {
-      /* Neumorphic specific styles adapted for responsive layout */
+      position: relative;
       width: 100%;
       min-height: 320px;
-      border-radius: 50px;
-      background: #e0e0e0;
-      box-shadow: 20px 20px 60px #bebebe,
-                 -20px -20px 60px #F0EEE9;
+      border-radius: 32px;
+      background: linear-gradient(160deg, #161616 0%, #0E0E0E 100%);
+      border: 1px solid var(--bld-border);
+      box-shadow: 20px 20px 60px rgba(0,0,0,0.55), -1px -1px 0 rgba(240, 238, 233, 0.03) inset;
       padding: 48px 40px;
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
       opacity: 0;
       transform: translateY(40px) scale(0.96);
       display: flex;
       flex-direction: column;
       justify-content: center;
       transform-style: preserve-3d;
+      overflow: hidden;
+    }
+    .skoll-build-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(201, 168, 76, 0.35), transparent);
+      opacity: 0;
+      transition: opacity 0.4s ease;
     }
     .skoll-build-card:hover {
-      /* Subtle lift effect on hover while preserving neumorphic lighting */
-      box-shadow: 30px 30px 70px #bebebe,
-                 -30px -30px 70px #F0EEE9;
+      box-shadow: 30px 30px 80px rgba(0,0,0,0.7), 0 0 40px rgba(201, 168, 76, 0.08), -1px -1px 0 rgba(240, 238, 233, 0.05) inset;
+      border-color: rgba(201, 168, 76, 0.18);
       transform: translateY(-8px) scale(1.02) !important;
       z-index: 2;
     }
-    
+    .skoll-build-card:hover::after { opacity: 1; }
+
     .skoll-build-card-title {
       font-family: 'Instrument Serif', Georgia, serif;
       font-size: 2.5rem;

@@ -1,0 +1,11 @@
+# Local backups
+*.bak
+
+# Source archives kept outside the repo
+sohne-font-family.zip
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

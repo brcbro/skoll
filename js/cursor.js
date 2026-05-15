@@ -7,10 +7,10 @@
 
 (function () {
   var CURSOR_GOLD = '#C9A84C';
-  var DOT_SIZE = 8;
-  var RING_SIZE = 40;
-  var RING_SHRINK = 20;
-  var RING_VIEW_SIZE = 80;
+  var DOT_SIZE = 6;
+  var RING_SIZE = 28;
+  var RING_SHRINK = 14;
+  var RING_VIEW_SIZE = 44;
   var LERP = 0.16;
   var MAGNETIC_RADIUS = 120;
   var MAGNETIC_STRENGTH = 0.4;
@@ -35,6 +35,7 @@
 
     var dot = wrapper.querySelector('.skoll-cursor-dot');
     var ring = wrapper.querySelector('.skoll-cursor-ring');
+    var viewText = wrapper.querySelector('.skoll-cursor-view-text');
 
     var mouse = { x: -100, y: -100 };
     var ringPos = { x: -100, y: -100 };
@@ -132,6 +133,7 @@
 
       dot.style.transform = 'translate(' + (mouse.x - dotHalf) + 'px, ' + (mouse.y - dotHalf) + 'px)';
       ring.style.transform = 'translate(' + ringPos.x + 'px, ' + ringPos.y + 'px) scale(' + scale + ')';
+      viewText.style.transform = 'scale(' + (1 / scale) + ')';
 
       wrapper.classList.toggle('skoll-cursor-link', hoverLink);
       wrapper.classList.toggle('skoll-cursor-view', hoverView);
