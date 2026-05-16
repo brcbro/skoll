@@ -35,7 +35,19 @@
     text-transform: uppercase;
     color: #C9A84C;
     margin: 0 0 24px;
-    display: block;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+  }
+  .skoll-prev-test-eyebrow::before {
+    content: '';
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    background-color: #C9A84C;
+    -webkit-mask: url('paw.png') no-repeat center / contain;
+            mask: url('paw.png') no-repeat center / contain;
+    opacity: 0.85;
   }
 
   .skoll-prev-test-title {

@@ -241,6 +241,19 @@
       color: var(--fnd-text);
       margin: 0 0 6px;
       letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .skoll-fnd-legend-name::before {
+      content: '';
+      flex-shrink: 0;
+      width: 14px;
+      height: 14px;
+      background-color: var(--fnd-gold);
+      -webkit-mask: url('paw.png') no-repeat center / contain;
+              mask: url('paw.png') no-repeat center / contain;
+      opacity: 0.8;
     }
     .skoll-fnd-legend-name em { color: var(--fnd-gold); font-style: normal; }
     .skoll-fnd-legend-desc {

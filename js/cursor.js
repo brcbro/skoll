@@ -7,7 +7,7 @@
 
 (function () {
   var CURSOR_GOLD = '#C9A84C';
-  var DOT_SIZE = 6;
+  var DOT_SIZE = 16;
   var RING_SIZE = 28;
   var RING_SHRINK = 14;
   var RING_VIEW_SIZE = 44;
@@ -138,7 +138,7 @@
         ? RING_SHRINK / RING_SIZE
         : (hoverView ? RING_VIEW_SIZE / RING_SIZE : (magneticTarget ? 1.5 : ringScale));
 
-      dot.style.transform = 'translate(' + (mouse.x - dotHalf) + 'px, ' + (mouse.y - dotHalf) + 'px)';
+      dot.style.transform = 'translate(' + (mouse.x - dotHalf) + 'px, ' + (mouse.y - dotHalf) + 'px) rotate(-20deg)';
       ring.style.transform = 'translate(' + ringPos.x + 'px, ' + ringPos.y + 'px) scale(' + scale + ')';
       viewText.style.transform = 'scale(' + (1 / scale) + ')';
 

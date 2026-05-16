@@ -1,281 +1,187 @@
-<section id="preview-founder" data-section="preview-founder" class="skoll-prev-fnd-wrapper">
-  <div class="skoll-prev-fnd-inner">
-    <figure class="skoll-prev-fnd-figure skoll-prev-fnd-anim-portrait">
-      <img src="Founder.jpeg" alt="Harsh Bhagwani — Founder, Skoll Digital">
-      <figcaption class="skoll-prev-fnd-caption">Harsh Bhagwani — Founder</figcaption>
-    </figure>
-
-    <div class="skoll-prev-fnd-text">
-      <span class="skoll-prev-fnd-eyebrow skoll-prev-fnd-anim">The Founder</span>
-      <h2 class="skoll-prev-fnd-title skoll-prev-fnd-anim">No degree.<br>No network.<br>Just the <em>work</em>.</h2>
-      <p class="skoll-prev-fnd-body skoll-prev-fnd-anim">Harsh Bhagwani — a decade of marketing work across FMCG, hospitality, beauty, e-commerce and entertainment. Built from scratch, project by project.</p>
-      <blockquote class="skoll-prev-fnd-quote skoll-prev-fnd-anim">"I had no marketing background. Everything since has been built from scratch."</blockquote>
-      <a href="founder.html" class="skoll-prev-fnd-cta skoll-prev-fnd-anim">
-        <span>Read the full Founder story</span>
-        <span class="skoll-prev-fnd-cta-arrow">&rarr;</span>
-      </a>
-    </div>
-  </div>
+<section id="preview-founder" data-section="preview-founder" class="skoll-prev-fnd-strip">
+  <a href="founder.html" class="skoll-prev-fnd-strip-inner">
+    <span class="skoll-prev-fnd-strip-avatar" aria-hidden="true">
+      <img src="Founder.jpeg" alt="">
+    </span>
+    <span class="skoll-prev-fnd-strip-eyebrow">The Founder</span>
+    <span class="skoll-prev-fnd-strip-divider" aria-hidden="true"></span>
+    <span class="skoll-prev-fnd-strip-text">
+      <strong>Harsh Bhagwani</strong> &mdash; a decade of marketing across FMCG, hospitality, beauty &amp; entertainment. <em>Built from scratch.</em>
+    </span>
+    <span class="skoll-prev-fnd-strip-cta">
+      <span>Read the founder story</span>
+      <span class="skoll-prev-fnd-strip-arrow">&rarr;</span>
+    </span>
+  </a>
 </section>
 
 <style>
-  .skoll-prev-fnd-wrapper {
-    background: #111111;
-    color: #FAFAFA;
-    padding: 100px 24px;
+  .skoll-prev-fnd-strip {
+    background: #0A0A0A;
+    padding: 36px 24px;
     font-family: 'DM Sans', system-ui, sans-serif;
     box-sizing: border-box;
     overflow: hidden;
+    border-top: 1px solid rgba(240, 238, 233, 0.06);
+    border-bottom: 1px solid rgba(240, 238, 233, 0.06);
   }
-  .skoll-prev-fnd-wrapper *,
-  .skoll-prev-fnd-wrapper *::before,
-  .skoll-prev-fnd-wrapper *::after {
-    box-sizing: border-box;
-  }
+  .skoll-prev-fnd-strip *,
+  .skoll-prev-fnd-strip *::before,
+  .skoll-prev-fnd-strip *::after { box-sizing: border-box; }
 
-  .skoll-prev-fnd-wrapper .skoll-prev-fnd-inner {
+  .skoll-prev-fnd-strip .skoll-prev-fnd-strip-inner {
     max-width: 1200px;
     margin: 0 auto;
-    display: grid;
-    grid-template-columns: 0.9fr 1.1fr;
-    gap: 80px;
+    display: flex;
     align-items: center;
-    min-height: 70vh;
+    gap: 24px;
+    text-decoration: none;
+    color: #FAFAFA;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .skoll-prev-fnd-strip.is-in-view .skoll-prev-fnd-strip-inner {
+    opacity: 1;
+    transform: translateY(0);
   }
 
-  /* Figure / portrait */
-  .skoll-prev-fnd-wrapper .skoll-prev-fnd-figure {
-    position: relative;
-    margin: 0;
-    width: 100%;
-    aspect-ratio: 4 / 5;
-    border-radius: 24px;
+  .skoll-prev-fnd-strip .skoll-prev-fnd-strip-avatar {
+    flex: 0 0 auto;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
     overflow: hidden;
-    border: 1px solid rgba(240, 238, 233, 0.06);
+    border: 1px solid rgba(201, 168, 76, 0.35);
     background: rgba(240, 238, 233, 0.03);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-    opacity: 0;
-    transform: scale(0.96);
+    display: block;
   }
-  .skoll-prev-fnd-wrapper .skoll-prev-fnd-figure img {
+  .skoll-prev-fnd-strip .skoll-prev-fnd-strip-avatar img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center 20%;
     display: block;
     filter: saturate(0.92) contrast(1.04);
-    transition: transform 0.8s ease;
-  }
-  .skoll-prev-fnd-wrapper .skoll-prev-fnd-figure:hover img {
-    transform: scale(1.03);
-  }
-  .skoll-prev-fnd-wrapper .skoll-prev-fnd-figure::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background: linear-gradient(180deg, rgba(10, 10, 10, 0) 60%, rgba(10, 10, 10, 0.45) 100%);
-    z-index: 1;
   }
 
-  .skoll-prev-fnd-wrapper .skoll-prev-fnd-caption {
-    position: absolute;
-    left: 24px;
-    bottom: 22px;
-    z-index: 2;
-    display: flex;
+  .skoll-prev-fnd-strip .skoll-prev-fnd-strip-eyebrow {
+    flex: 0 0 auto;
+    display: inline-flex;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
     font-family: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
     font-size: 0.6875rem;
-    letter-spacing: 0.18em;
+    font-weight: 600;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: #FAFAFA;
+    color: #C9A84C;
+    white-space: nowrap;
   }
-  .skoll-prev-fnd-wrapper .skoll-prev-fnd-caption::before {
+  .skoll-prev-fnd-strip .skoll-prev-fnd-strip-eyebrow::before {
     content: '';
-    display: inline-block;
-    width: 24px;
-    height: 1px;
-    background: #C9A84C;
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    background-color: #C9A84C;
+    -webkit-mask: url('paw.png') no-repeat center / contain;
+            mask: url('paw.png') no-repeat center / contain;
+    opacity: 0.85;
   }
 
-  /* Text column */
-  .skoll-prev-fnd-wrapper .skoll-prev-fnd-text {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+  .skoll-prev-fnd-strip .skoll-prev-fnd-strip-divider {
+    flex: 0 0 auto;
+    width: 1px;
+    height: 28px;
+    background: rgba(240, 238, 233, 0.12);
   }
 
-  .skoll-prev-fnd-wrapper .skoll-prev-fnd-anim,
-  .skoll-prev-fnd-wrapper .skoll-prev-fnd-anim-portrait {
-    will-change: transform, opacity;
+  .skoll-prev-fnd-strip .skoll-prev-fnd-strip-text {
+    flex: 1 1 auto;
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    color: #B5B5B5;
   }
-  .skoll-prev-fnd-wrapper .skoll-prev-fnd-anim {
-    opacity: 0;
-    transform: translateY(28px);
-  }
-
-  .skoll-prev-fnd-wrapper .skoll-prev-fnd-eyebrow {
-    font-family: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 0.25em;
-    font-size: 0.75rem;
-    color: #C9A84C;
-    margin-bottom: 28px;
-  }
-
-  .skoll-prev-fnd-wrapper .skoll-prev-fnd-title {
-    font-family: 'Instrument Serif', Georgia, serif;
-    font-weight: 400;
-    font-size: clamp(2.5rem, 4.5vw, 3.75rem);
-    line-height: 1.05;
-    letter-spacing: -0.01em;
-    margin: 0 0 28px;
+  .skoll-prev-fnd-strip .skoll-prev-fnd-strip-text strong {
     color: #FAFAFA;
+    font-weight: 600;
   }
-  .skoll-prev-fnd-wrapper .skoll-prev-fnd-title em {
-    font-style: italic;
-    color: #C9A84C;
-  }
-
-  .skoll-prev-fnd-wrapper .skoll-prev-fnd-body {
-    font-family: 'DM Sans', system-ui, sans-serif;
-    font-size: 1.0625rem;
-    line-height: 1.65;
-    color: #888888;
-    max-width: 480px;
-    margin: 0 0 20px;
-  }
-
-  .skoll-prev-fnd-wrapper .skoll-prev-fnd-quote {
-    margin: 8px 0 0;
-    padding: 4px 0 4px 20px;
-    border-left: 2px solid #C9A84C;
+  .skoll-prev-fnd-strip .skoll-prev-fnd-strip-text em {
     font-family: 'Instrument Serif', Georgia, serif;
     font-style: italic;
-    font-size: 1.125rem;
-    line-height: 1.5;
-    color: rgba(250, 250, 250, 0.85);
-    max-width: 480px;
+    color: #C9A84C;
+    font-size: 1rem;
   }
 
-  /* CTA */
-  .skoll-prev-fnd-wrapper .skoll-prev-fnd-cta {
+  .skoll-prev-fnd-strip .skoll-prev-fnd-strip-cta {
+    flex: 0 0 auto;
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    margin-top: 36px;
-    padding: 14px 32px;
-    border: 1px solid rgba(201, 168, 76, 0.4);
-    border-radius: 999px;
-    background: transparent;
-    color: #C9A84C;
-    text-decoration: none;
     font-family: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
     font-weight: 600;
     letter-spacing: 0.04em;
-    transition: background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    color: #C9A84C;
+    white-space: nowrap;
+    transition: color 0.3s ease;
   }
-  .skoll-prev-fnd-wrapper .skoll-prev-fnd-cta-arrow {
+  .skoll-prev-fnd-strip .skoll-prev-fnd-strip-arrow {
     display: inline-block;
     transition: transform 0.3s ease;
   }
-  .skoll-prev-fnd-wrapper .skoll-prev-fnd-cta:hover {
-    background: rgba(201, 168, 76, 0.1);
-    border-color: rgba(201, 168, 76, 0.6);
-    box-shadow: 0 0 24px rgba(201, 168, 76, 0.2);
-  }
-  .skoll-prev-fnd-wrapper .skoll-prev-fnd-cta:hover .skoll-prev-fnd-cta-arrow {
+  .skoll-prev-fnd-strip .skoll-prev-fnd-strip-inner:hover .skoll-prev-fnd-strip-arrow {
     transform: translateX(6px);
   }
+  .skoll-prev-fnd-strip .skoll-prev-fnd-strip-inner:hover .skoll-prev-fnd-strip-cta {
+    color: #E0BE5C;
+  }
 
-  /* Responsive */
-  @media (max-width: 1024px) {
-    .skoll-prev-fnd-wrapper {
-      padding: 80px 24px;
+  @media (max-width: 880px) {
+    .skoll-prev-fnd-strip { padding: 28px 20px; }
+    .skoll-prev-fnd-strip .skoll-prev-fnd-strip-inner {
+      flex-wrap: wrap;
+      gap: 14px 16px;
     }
-    .skoll-prev-fnd-wrapper .skoll-prev-fnd-inner {
-      grid-template-columns: 1fr;
-      gap: 56px;
-      min-height: 0;
+    .skoll-prev-fnd-strip .skoll-prev-fnd-strip-divider { display: none; }
+    .skoll-prev-fnd-strip .skoll-prev-fnd-strip-text {
+      flex: 1 1 100%;
+      order: 3;
+      font-size: 0.9rem;
     }
-    .skoll-prev-fnd-wrapper .skoll-prev-fnd-figure {
-      order: -1;
-      max-width: 400px;
-      margin: 0 auto;
-    }
-    .skoll-prev-fnd-wrapper .skoll-prev-fnd-text {
-      align-items: flex-start;
+    .skoll-prev-fnd-strip .skoll-prev-fnd-strip-cta {
+      order: 4;
+      margin-left: auto;
     }
   }
 
-  @media (max-width: 640px) {
-    .skoll-prev-fnd-wrapper {
-      padding: 64px 20px;
-    }
-    .skoll-prev-fnd-wrapper .skoll-prev-fnd-eyebrow {
-      margin-bottom: 20px;
-    }
-    .skoll-prev-fnd-wrapper .skoll-prev-fnd-title {
-      margin-bottom: 22px;
-    }
-    .skoll-prev-fnd-wrapper .skoll-prev-fnd-cta {
-      margin-top: 28px;
-      padding: 13px 26px;
-    }
+  @media (max-width: 480px) {
+    .skoll-prev-fnd-strip .skoll-prev-fnd-strip-avatar { width: 40px; height: 40px; }
+    .skoll-prev-fnd-strip .skoll-prev-fnd-strip-cta { font-size: 0.75rem; }
   }
 </style>
 
 <script>
   (function () {
-    var root = document.querySelector('.skoll-prev-fnd-wrapper');
+    var root = document.querySelector('.skoll-prev-fnd-strip');
     if (!root) return;
 
-    function init() {
-      if (typeof window.gsap === 'undefined') {
-        return setTimeout(init, 60);
-      }
-      var gsap = window.gsap;
-      if (window.ScrollTrigger && gsap.registerPlugin) {
-        gsap.registerPlugin(window.ScrollTrigger);
-      }
-
-      var portrait = root.querySelector('.skoll-prev-fnd-anim-portrait');
-      var items = root.querySelectorAll('.skoll-prev-fnd-anim');
-
-      if (portrait) {
-        gsap.to(portrait, {
-          opacity: 1,
-          scale: 1,
-          duration: 1.1,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: portrait,
-            start: 'top 85%'
-          }
-        });
-      }
-
-      if (items && items.length) {
-        gsap.to(items, {
-          opacity: 1,
-          y: 0,
-          duration: 0.9,
-          stagger: 0.1,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: root,
-            start: 'top 85%'
-          }
-        });
-      }
+    function reveal() {
+      root.classList.add('is-in-view');
     }
 
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', init);
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            reveal();
+            io.disconnect();
+          }
+        });
+      }, { threshold: 0.2 });
+      io.observe(root);
     } else {
-      init();
+      reveal();
     }
   })();
 </script>

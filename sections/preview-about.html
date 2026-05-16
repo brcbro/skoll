@@ -50,6 +50,19 @@
       margin: 0 0 28px;
       opacity: 0;
       transform: translateY(20px);
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+    }
+    .skoll-prev-about-eyebrow::before {
+      content: '';
+      flex-shrink: 0;
+      width: 18px;
+      height: 18px;
+      background-color: var(--pa-gold);
+      -webkit-mask: url('paw.png') no-repeat center / contain;
+              mask: url('paw.png') no-repeat center / contain;
+      opacity: 0.85;
     }
     .skoll-prev-about-title {
       font-family: var(--pa-serif);

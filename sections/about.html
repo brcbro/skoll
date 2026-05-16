@@ -231,7 +231,19 @@
       letter-spacing: 0.18em;
       color: var(--about-gold);
       margin-bottom: 16px;
-      display: block;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+    .skoll-about-value-num::before {
+      content: '';
+      flex-shrink: 0;
+      width: 13px;
+      height: 13px;
+      background-color: var(--about-gold);
+      -webkit-mask: url('paw.png') no-repeat center / contain;
+              mask: url('paw.png') no-repeat center / contain;
+      opacity: 0.85;
     }
     .skoll-about-value-name {
       font-family: 'Instrument Serif', Georgia, serif;

@@ -60,18 +60,28 @@
       filter: blur(12px);
       pointer-events: none;
     }
-    /* Logo: Skoll with gold O */
+    /* Logo: Skoll image lockup */
     .skoll-nav-logo {
-      font-family: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: var(--nav-text);
+      display: inline-flex;
+      align-items: center;
       text-decoration: none;
-      letter-spacing: -0.02em;
-      white-space: nowrap;
+      line-height: 0;
+      flex-shrink: 0;
     }
-    .skoll-nav-logo .skoll-nav-logo-o {
-      color: var(--nav-gold);
+    .skoll-nav-logo-img {
+      display: block;
+      height: 32px;
+      width: auto;
+      /* Optical centering: PNG bounding box includes "DIGITAL" subtitle below SKOLL,
+         so push the image down a touch to vertically center the SKOLL wordmark in the pill. */
+      transform: translateY(4px);
+      transition: opacity 0.25s ease;
+    }
+    .skoll-nav-logo:hover .skoll-nav-logo-img {
+      opacity: 0.85;
+    }
+    @media (max-width: 540px) {
+      .skoll-nav-logo-img { height: 26px; transform: translateY(3px); }
     }
     /* Center nav links */
     .skoll-nav-links {
@@ -112,6 +122,7 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      gap: 8px;
       padding: 10px 24px;
       font-family: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
       font-size: 0.8125rem;
@@ -125,9 +136,22 @@
       letter-spacing: 0.02em;
       transition: box-shadow 0.3s ease, transform 0.2s ease;
     }
+    .skoll-nav-cta::after {
+      content: '';
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      background-color: #0A0A0A;
+      -webkit-mask: url('paw.png') no-repeat center / contain;
+              mask: url('paw.png') no-repeat center / contain;
+      transition: transform 0.3s ease;
+    }
     .skoll-nav-cta:hover {
       box-shadow: 0 0 24px rgba(201, 168, 76, 0.4);
       transform: translateY(-1px);
+    }
+    .skoll-nav-cta:hover::after {
+      transform: translateX(2px) rotate(-8deg);
     }
     /* Hamburger (mobile) */
     .skoll-nav-hamburger {
@@ -217,7 +241,9 @@
 
   <div class="skoll-nav-pill-wrap">
     <nav class="skoll-nav-pill" aria-label="Main navigation">
-      <a href="index.html" class="skoll-nav-logo">Sk<span class="skoll-nav-logo-o">o</span>ll Digital</a>
+      <a href="index.html" class="skoll-nav-logo" aria-label="Skoll Digital - Home">
+        <img src="assets/logo.png" alt="Skoll Digital" class="skoll-nav-logo-img">
+      </a>
       <div class="skoll-nav-links">
         <a href="about.html">About</a>
         <a href="founder.html">Founder</a>

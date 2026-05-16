@@ -67,7 +67,9 @@
     text-align: center;
   }
   .skoll-prev-app-eyebrow {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
     font-family: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
     font-size: 0.75rem;
     font-weight: 500;
@@ -75,6 +77,16 @@
     text-transform: uppercase;
     letter-spacing: 0.25em;
     margin-bottom: 24px;
+  }
+  .skoll-prev-app-eyebrow::before {
+    content: '';
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    background-color: #C9A84C;
+    -webkit-mask: url('paw.png') no-repeat center / contain;
+            mask: url('paw.png') no-repeat center / contain;
+    opacity: 0.85;
   }
   .skoll-prev-app-title {
     font-family: 'Instrument Serif', Georgia, serif;
