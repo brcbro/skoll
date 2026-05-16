@@ -1,0 +1,332 @@
+<!-- ===== PREVIEW: TESTIMONIALS ===== -->
+<style>
+  .skoll-prev-test-wrapper {
+    background: #111111;
+    color: #FAFAFA;
+    padding: 100px 24px;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    box-sizing: border-box;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .skoll-prev-test-wrapper *,
+  .skoll-prev-test-wrapper *::before,
+  .skoll-prev-test-wrapper *::after {
+    box-sizing: border-box;
+  }
+
+  .skoll-prev-test-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .skoll-prev-test-header {
+    max-width: 800px;
+    margin: 0 auto 56px;
+    text-align: center;
+  }
+
+  .skoll-prev-test-eyebrow {
+    font-family: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #C9A84C;
+    margin: 0 0 24px;
+    display: block;
+  }
+
+  .skoll-prev-test-title {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: clamp(2.5rem, 4.5vw, 4rem);
+    line-height: 1;
+    font-weight: 400;
+    color: #FAFAFA;
+    margin: 0 0 24px;
+    letter-spacing: -0.01em;
+  }
+
+  .skoll-prev-test-title em {
+    font-style: italic;
+    color: #C9A84C;
+  }
+
+  .skoll-prev-test-sub {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #888888;
+    margin: 0 auto;
+    max-width: 600px;
+  }
+
+  .skoll-prev-test-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .skoll-prev-test-card {
+    position: relative;
+    padding: 36px 32px;
+    background: rgba(240, 238, 233, 0.03);
+    border: 1px solid rgba(240, 238, 233, 0.06);
+    border-radius: 24px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    transition: border-color 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  .skoll-prev-test-card:hover {
+    border-color: rgba(201, 168, 76, 0.2);
+    transform: translateY(-4px);
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.25);
+  }
+
+  .skoll-prev-test-badge {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    font-family: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
+    font-size: 0.6875rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #666666;
+    padding: 4px 8px;
+    border: 1px solid rgba(240, 238, 233, 0.08);
+    border-radius: 999px;
+    background: transparent;
+  }
+
+  .skoll-prev-test-quote-mark {
+    display: block;
+    width: 28px;
+    height: 28px;
+    margin: 0 0 16px;
+    background-color: #C9A84C;
+    -webkit-mask: url('paw.png') no-repeat center / contain;
+            mask: url('paw.png') no-repeat center / contain;
+  }
+
+  .skoll-prev-test-quote {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-style: italic;
+    font-size: 1rem;
+    line-height: 1.65;
+    color: #FAFAFA;
+    margin: 0 0 24px;
+  }
+
+  .skoll-prev-test-name {
+    font-family: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: #FAFAFA;
+    margin: 0 0 4px;
+  }
+
+  .skoll-prev-test-role {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 0.875rem;
+    color: #888888;
+    margin: 0 0 20px;
+  }
+
+  .skoll-prev-test-stars {
+    font-family: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    color: #C9A84C;
+    margin: 0;
+  }
+
+  .skoll-prev-test-cta-wrap {
+    text-align: center;
+    margin-top: 56px;
+  }
+
+  .skoll-prev-test-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 32px;
+    border: 1px solid rgba(201, 168, 76, 0.4);
+    border-radius: 999px;
+    background: transparent;
+    color: #C9A84C;
+    font-family: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    transition: background 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+  }
+
+  .skoll-prev-test-cta:hover {
+    background: rgba(201, 168, 76, 0.1);
+    box-shadow: 0 0 24px rgba(201, 168, 76, 0.2);
+    border-color: rgba(201, 168, 76, 0.6);
+  }
+
+  .skoll-prev-test-cta-arrow {
+    display: inline-block;
+    transition: transform 0.4s ease;
+  }
+
+  .skoll-prev-test-cta:hover .skoll-prev-test-cta-arrow {
+    transform: translateX(6px);
+  }
+
+  @media (max-width: 768px) {
+    .skoll-prev-test-wrapper {
+      padding: 80px 20px;
+    }
+
+    .skoll-prev-test-header {
+      margin-bottom: 40px;
+    }
+
+    .skoll-prev-test-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .skoll-prev-test-card {
+      padding: 32px 24px;
+    }
+
+    .skoll-prev-test-cta-wrap {
+      margin-top: 40px;
+    }
+  }
+</style>
+
+<section
+  class="skoll-prev-test-wrapper"
+  id="preview-testimonials"
+  data-section="preview-testimonials"
+>
+  <div class="skoll-prev-test-inner">
+    <header class="skoll-prev-test-header">
+      <span class="skoll-prev-test-eyebrow skoll-prev-test-anim">TESTIMONIALS</span>
+      <h2 class="skoll-prev-test-title skoll-prev-test-anim">Said by <em>them</em>. Earned by us.</h2>
+      <p class="skoll-prev-test-sub skoll-prev-test-anim">
+        What founders and leadership teams say about working with Skoll Digital
+        as a growth partner &mdash; not a vendor.
+      </p>
+    </header>
+
+    <div class="skoll-prev-test-grid">
+      <article class="skoll-prev-test-card">
+        <span class="skoll-prev-test-quote-mark" aria-hidden="true"></span>
+        <p class="skoll-prev-test-quote">
+          We&rsquo;d been stuck at Rs.2.7L for months. Inside ninety days with
+          Skoll, we were doing Rs.9L. They didn&rsquo;t sell us magic. They
+          built us a system.
+        </p>
+        <p class="skoll-prev-test-name">Founder</p>
+        <p class="skoll-prev-test-role">Bella Babe by SK</p>
+        <p class="skoll-prev-test-stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+      </article>
+
+      <article class="skoll-prev-test-card">
+        <span class="skoll-prev-test-quote-mark" aria-hidden="true"></span>
+        <p class="skoll-prev-test-quote">
+          Skoll came in when we were pre-launch and treated our product like
+          their own. They&rsquo;ve stayed in the trenches with us through every
+          launch milestone.
+        </p>
+        <p class="skoll-prev-test-name">Richard De Vaughn</p>
+        <p class="skoll-prev-test-role">Co-Founder, JaroGO Media (USA)</p>
+        <p class="skoll-prev-test-stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+      </article>
+    </div>
+
+    <div class="skoll-prev-test-cta-wrap">
+      <a href="testimonials.html" class="skoll-prev-test-cta">
+        <span>Read all testimonials</span>
+        <span class="skoll-prev-test-cta-arrow" aria-hidden="true">&rarr;</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function () {
+    function initPrevTestAnim() {
+      if (typeof window === 'undefined') return;
+      if (!window.gsap || !window.ScrollTrigger) {
+        // Fallback: just show content if GSAP isn't available
+        return;
+      }
+
+      var section = document.querySelector('#preview-testimonials');
+      if (!section) return;
+
+      // Avoid double-init
+      if (section.dataset.prevTestInit === '1') return;
+      section.dataset.prevTestInit = '1';
+
+      var gsap = window.gsap;
+      var ScrollTrigger = window.ScrollTrigger;
+      gsap.registerPlugin(ScrollTrigger);
+
+      var headerEls = section.querySelectorAll('.skoll-prev-test-anim');
+      var cards = section.querySelectorAll('.skoll-prev-test-card');
+      var cta = section.querySelector('.skoll-prev-test-cta-wrap');
+
+      gsap.set(headerEls, { opacity: 0, y: 30 });
+      gsap.set(cards, { opacity: 0, y: 30 });
+      if (cta) gsap.set(cta, { opacity: 0, y: 30 });
+
+      gsap.to(headerEls, {
+        opacity: 1,
+        y: 0,
+        duration: 0.7,
+        stagger: 0.12,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 85%',
+        },
+      });
+
+      gsap.to(cards, {
+        opacity: 1,
+        y: 0,
+        duration: 0.7,
+        stagger: 0.15,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 85%',
+        },
+      });
+
+      if (cta) {
+        gsap.to(cta, {
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+          delay: 0.3,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top 85%',
+          },
+        });
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initPrevTestAnim);
+    } else {
+      initPrevTestAnim();
+    }
+
+    // Also try after a short delay in case GSAP loads later
+    setTimeout(initPrevTestAnim, 300);
+  })();
+</script>

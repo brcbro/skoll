@@ -217,15 +217,15 @@
 
   <div class="skoll-nav-pill-wrap">
     <nav class="skoll-nav-pill" aria-label="Main navigation">
-      <a href="#home" class="skoll-nav-logo">Sk<span class="skoll-nav-logo-o">o</span>ll Digital</a>
+      <a href="index.html" class="skoll-nav-logo">Sk<span class="skoll-nav-logo-o">o</span>ll Digital</a>
       <div class="skoll-nav-links">
-        <a href="#home">Home</a>
-        <a href="#services">Services</a>
-        <a href="#work">Case Studies</a>
-        <a href="#testimonials">Testimonials</a>
-        <a href="#approach">Approach</a>
+        <a href="about.html">About</a>
+        <a href="founder.html">Founder</a>
+        <a href="services.html">Services</a>
+        <a href="case-studies.html">Case Studies</a>
+        <a href="approach.html">Approach</a>
       </div>
-      <a href="#contact" class="skoll-nav-cta">Let's Talk</a>
+      <a href="mailto:hello@skolldigital.com" class="skoll-nav-cta">Let's Talk</a>
       <button type="button" class="skoll-nav-hamburger" aria-label="Open menu" aria-expanded="false">
         <span></span>
         <span></span>
@@ -236,12 +236,14 @@
 
   <!-- Mobile full-screen overlay -->
   <div class="skoll-nav-overlay" id="skoll-nav-overlay" aria-hidden="true">
-    <a href="#home" class="skoll-nav-overlay-link">Home</a>
-    <a href="#services" class="skoll-nav-overlay-link">Services</a>
-    <a href="#work" class="skoll-nav-overlay-link">Case Studies</a>
-    <a href="#testimonials" class="skoll-nav-overlay-link">Testimonials</a>
-    <a href="#approach" class="skoll-nav-overlay-link">Approach</a>
-    <a href="#contact" class="skoll-nav-cta skoll-nav-cta-mobile">Let's Talk</a>
+    <a href="about.html" class="skoll-nav-overlay-link">About</a>
+    <a href="founder.html" class="skoll-nav-overlay-link">Founder</a>
+    <a href="services.html" class="skoll-nav-overlay-link">Services</a>
+    <a href="clientele.html" class="skoll-nav-overlay-link">Clientele</a>
+    <a href="case-studies.html" class="skoll-nav-overlay-link">Case Studies</a>
+    <a href="testimonials.html" class="skoll-nav-overlay-link">Testimonials</a>
+    <a href="approach.html" class="skoll-nav-overlay-link">Approach</a>
+    <a href="mailto:hello@skolldigital.com" class="skoll-nav-cta skoll-nav-cta-mobile">Let's Talk</a>
   </div>
 
   <script>
@@ -305,7 +307,7 @@
         window.addEventListener('scroll', onScroll, { passive: true });
 
         // Anchor scroll: map #home, #about etc. to section container ids and scroll (Lenis or native)
-        var hashToId = { home: 'hero-container', services: 'services-container', clientele: 'clientele-container', work: 'work-container', testimonials: 'testimonials-container', pillars: 'pillars-container', approach: 'pillars-container', contact: 'footer-container' };
+        var hashToId = { home: 'hero-container', about: 'about-container', founder: 'founder-container', services: 'services-container', clientele: 'clientele-container', work: 'work-container', testimonials: 'testimonials-container', pillars: 'pillars-container', approach: 'pillars-container', contact: 'footer-container' };
         wrapper.addEventListener('click', function (e) {
           var a = e.target.closest('a[href^="#"]');
           if (!a) return;

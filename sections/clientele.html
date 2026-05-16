@@ -1,95 +1,431 @@
-<!-- Skoll Digital – Standalone Clientele (HTML + scoped CSS + JS) -->
-<section class="skoll-clientele-wrapper" data-section="clientele">
+<!-- Skoll Digital – Clientele (real client roster, grouped by industry) -->
+<section class="skoll-clientele-wrapper" data-section="clientele" id="clientele">
   <style>
     .skoll-clientele-wrapper {
       --cli-bg: #0A0A0A;
       --cli-gold: #C9A84C;
       --cli-text: #FAFAFA;
+      --cli-muted: #888888;
+      --cli-glass: rgba(240, 238, 233, 0.03);
+      --cli-border: rgba(240, 238, 233, 0.06);
+      --cli-serif: 'Instrument Serif', Georgia, serif;
+      --cli-sans: 'DM Sans', system-ui, sans-serif;
+      --cli-mono: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
       background: var(--cli-bg);
-      padding: 100px 0;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .skoll-clientele-title {
-      font-family: 'Instrument Serif', Georgia, serif;
-      font-size: clamp(2rem, 4vw, 2.75rem);
-      font-weight: 400;
       color: var(--cli-text);
-      margin: 0 0 48px;
+      padding: 120px 24px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .skoll-clientele-wrapper * {
+      box-sizing: border-box;
+    }
+
+    .skoll-clientele-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+
+    /* Hero block */
+    .skoll-clientele-hero {
+      max-width: 1000px;
+      margin: 0 auto 96px;
       text-align: center;
+    }
+    .skoll-clientele-eyebrow {
+      font-family: var(--cli-mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--cli-gold);
+      margin: 0 0 24px;
       opacity: 0;
       transform: translateY(20px);
     }
-    .skoll-clientele-marquee {
-      width: 100%;
-      overflow: hidden;
-      position: relative;
-      display: flex;
-    }
-    .skoll-clientele-marquee::before,
-    .skoll-clientele-marquee::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      width: 15vw;
-      height: 100%;
-      z-index: 2;
-      pointer-events: none;
-    }
-    .skoll-clientele-marquee::before {
-      left: 0;
-      background: linear-gradient(to right, #0A0A0A 0%, rgba(10,10,10,0) 100%);
-    }
-    .skoll-clientele-marquee::after {
-      right: 0;
-      background: linear-gradient(to left, #0A0A0A 0%, rgba(10,10,10,0) 100%);
-    }
-    .skoll-clientele-track {
-      display: flex;
-      gap: 80px;
-      padding-right: 80px;
-      align-items: center;
-      will-change: transform;
-    }
-    .skoll-clientele-logo {
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 700;
-      font-size: 1.5rem;
+    .skoll-clientele-headline {
+      font-family: var(--cli-serif);
+      font-size: clamp(2.25rem, 5vw, 4rem);
+      font-weight: 400;
+      line-height: 1.05;
       color: var(--cli-text);
-      opacity: 0.4;
-      transition: opacity 0.4s ease, color 0.4s ease, transform 0.4s ease;
-      white-space: nowrap;
-      cursor: default;
+      margin: 0 0 28px;
+      letter-spacing: -0.01em;
+      opacity: 0;
+      transform: translateY(20px);
     }
-    .skoll-clientele-logo:hover {
-      opacity: 1;
+    .skoll-clientele-headline em {
+      font-style: italic;
       color: var(--cli-gold);
-      transform: scale(1.05);
+    }
+    .skoll-clientele-sub {
+      font-family: var(--cli-sans);
+      font-size: clamp(1rem, 1.4vw, 1.125rem);
+      line-height: 1.65;
+      color: var(--cli-muted);
+      max-width: 760px;
+      margin: 0 auto;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    /* Industry grid */
+    .skoll-clientele-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin: 0 0 96px;
+    }
+    .skoll-clientele-card {
+      background: var(--cli-glass);
+      border: 1px solid var(--cli-border);
+      border-radius: 24px;
+      padding: 40px 36px;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      opacity: 0;
+      transform: translateY(30px);
+      transition: border-color 0.4s ease, transform 0.4s ease;
+    }
+    .skoll-clientele-card:hover {
+      border-color: rgba(201, 168, 76, 0.25);
+    }
+    .skoll-clientele-card-label {
+      font-family: var(--cli-mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--cli-gold);
+      margin: 0 0 28px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .skoll-clientele-card-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, rgba(201, 168, 76, 0.4), transparent);
+    }
+    .skoll-clientele-list {
+      margin: 0;
+      padding: 0;
+    }
+    .skoll-clientele-list dt {
+      font-family: var(--cli-serif);
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--cli-text);
+      line-height: 1.2;
+      margin: 0 0 6px;
+    }
+    .skoll-clientele-list dd {
+      font-family: var(--cli-sans);
+      font-size: 0.95rem;
+      line-height: 1.55;
+      color: var(--cli-muted);
+      margin: 0 0 22px;
+    }
+    .skoll-clientele-list dd:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Industries pill strip */
+    .skoll-clientele-strip-wrap {
+      margin: 0 0 96px;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .skoll-clientele-strip {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 18px 0;
+      padding: 28px 24px;
+      background: var(--cli-glass);
+      border: 1px solid var(--cli-border);
+      border-radius: 24px;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+    .skoll-clientele-strip span {
+      font-family: var(--cli-mono);
+      font-size: 0.8rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--cli-text);
+      padding: 0 22px;
+      white-space: nowrap;
+    }
+    .skoll-clientele-strip span + span {
+      border-left: 1px solid var(--cli-gold);
+    }
+
+    /* What clients have in common */
+    .skoll-clientele-values-head {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 56px;
+    }
+    .skoll-clientele-values-eyebrow {
+      font-family: var(--cli-mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--cli-gold);
+      margin: 0 0 20px;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .skoll-clientele-values-title {
+      font-family: var(--cli-serif);
+      font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+      font-weight: 400;
+      line-height: 1.1;
+      color: var(--cli-text);
+      margin: 0;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .skoll-clientele-values-title em {
+      font-style: italic;
+      color: var(--cli-gold);
+    }
+    .skoll-clientele-values {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .skoll-clientele-value {
+      background: var(--cli-glass);
+      border: 1px solid var(--cli-border);
+      border-radius: 24px;
+      padding: 40px 32px;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      opacity: 0;
+      transform: translateY(30px);
+      transition: border-color 0.4s ease;
+    }
+    .skoll-clientele-value:hover {
+      border-color: rgba(201, 168, 76, 0.25);
+    }
+    .skoll-clientele-value-num {
+      font-family: var(--cli-mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      color: var(--cli-gold);
+      margin: 0 0 20px;
+    }
+    .skoll-clientele-value-title {
+      font-family: var(--cli-serif);
+      font-style: italic;
+      font-size: 1.5rem;
+      font-weight: 400;
+      line-height: 1.25;
+      color: var(--cli-gold);
+      margin: 0 0 18px;
+    }
+    .skoll-clientele-value-desc {
+      font-family: var(--cli-sans);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: var(--cli-muted);
+      margin: 0;
+    }
+
+    @media (max-width: 900px) {
+      .skoll-clientele-wrapper {
+        padding: 96px 20px;
+      }
+      .skoll-clientele-grid,
+      .skoll-clientele-values {
+        grid-template-columns: 1fr;
+      }
+      .skoll-clientele-card {
+        padding: 32px 28px;
+      }
+      .skoll-clientele-strip span + span {
+        border-left: none;
+      }
+      .skoll-clientele-strip span {
+        padding: 0 14px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .skoll-clientele-hero {
+        margin-bottom: 64px;
+      }
+      .skoll-clientele-grid,
+      .skoll-clientele-strip-wrap {
+        margin-bottom: 64px;
+      }
+      .skoll-clientele-list dt {
+        font-size: 1.25rem;
+      }
     }
   </style>
 
-  <h2 class="skoll-clientele-title" id="skoll-clientele-title">Trusted By Visionaries</h2>
-  <div class="skoll-clientele-marquee" id="skoll-clientele-marquee">
-    <div class="skoll-clientele-track" id="skoll-clientele-track1">
-      <div class="skoll-clientele-logo">NORDIC</div>
-      <div class="skoll-clientele-logo">AURA SYSTEMS</div>
-      <div class="skoll-clientele-logo">QUANTUM</div>
-      <div class="skoll-clientele-logo">VERTEX</div>
-      <div class="skoll-clientele-logo">LUMINA</div>
-      <div class="skoll-clientele-logo">ELEVATE</div>
-      <div class="skoll-clientele-logo">NOVA</div>
+  <div class="skoll-clientele-inner">
+
+    <!-- Hero -->
+    <header class="skoll-clientele-hero">
+      <p class="skoll-clientele-eyebrow" data-cli-anim="hero">Who we work with</p>
+      <h2 class="skoll-clientele-headline" data-cli-anim="hero">A decade of work. Across <em>nine industries.</em></h2>
+      <p class="skoll-clientele-sub" data-cli-anim="hero">From global FMCG giants to founder-led D2C brands. From 5-star hotels to creator economy platforms. The common thread isn't the category — it's the ambition.</p>
+    </header>
+
+    <!-- Industry groups -->
+    <div class="skoll-clientele-grid">
+
+      <article class="skoll-clientele-card" data-cli-anim="card">
+        <h3 class="skoll-clientele-card-label">Global &amp; FMCG</h3>
+        <dl class="skoll-clientele-list">
+          <dt>Gillette</dt>
+          <dd>Brand creative for P&amp;G's flagship grooming brand</dd>
+          <dt>Tinder</dt>
+          <dd>Digital campaigns for the world's most-used dating platform</dd>
+          <dt>Pee Safe</dt>
+          <dd>Brand creative for India's leading intimate hygiene brand</dd>
+        </dl>
+      </article>
+
+      <article class="skoll-clientele-card" data-cli-anim="card">
+        <h3 class="skoll-clientele-card-label">Hospitality</h3>
+        <dl class="skoll-clientele-list">
+          <dt>Pullman Hotels (Accor)</dt>
+          <dd>Performance marketing for restaurants &amp; wedding lead generation</dd>
+          <dt>Novotel (Accor)</dt>
+          <dd>Performance marketing and content for restaurant promotions</dd>
+          <dt>7 Degrees Brauhaus</dt>
+          <dd>Multi-year retainer; brand, content and campaign work</dd>
+          <dt>Norenj</dt>
+          <dd>Cinematic F&amp;B content production</dd>
+        </dl>
+      </article>
+
+      <article class="skoll-clientele-card" data-cli-anim="card">
+        <h3 class="skoll-clientele-card-label">E-Commerce &amp; D2C</h3>
+        <dl class="skoll-clientele-list">
+          <dt>Bella Babe by SK</dt>
+          <dd>Rs.2.7L &rarr; Rs.9L/month in 90 days</dd>
+          <dt>Move On Shop</dt>
+          <dd>45M+ impressions, Rs.22.5L revenue, 900 orders in 4 months</dd>
+          <dt>Hub Alhaya (Dubai)</dt>
+          <dd>20K EUR in sales in 45 days</dd>
+          <dt>Rajdhani World</dt>
+          <dd>E-commerce growth and brand work</dd>
+          <dt>Jindal Panther</dt>
+          <dd>Performance marketing for one of India's leading steel brands</dd>
+        </dl>
+      </article>
+
+      <article class="skoll-clientele-card" data-cli-anim="card">
+        <h3 class="skoll-clientele-card-label">Beauty &amp; Salons</h3>
+        <dl class="skoll-clientele-list">
+          <dt>NEU Salonz</dt>
+          <dd>In-house Marketing Head, two years of category-defining campaigns</dd>
+          <dt>Looks Salon</dt>
+          <dd>Brand and content work across multiple branches</dd>
+          <dt>Geetanjali Salon</dt>
+          <dd>Brand and digital strategy</dd>
+          <dt>Marco Aldany</dt>
+          <dd>India market entry for the Spanish premium salon chain</dd>
+          <dt>Toni &amp; Guy</dt>
+          <dd>Digital campaign work</dd>
+          <dt>Dessange Paris</dt>
+          <dd>Premium salon brand work in India</dd>
+          <dt>Headmasters</dt>
+          <dd>Digital marketing for the premium UK salon brand in India</dd>
+          <dt>Lakme Academy</dt>
+          <dd>Lead generation across 10 cities</dd>
+        </dl>
+      </article>
+
+      <article class="skoll-clientele-card" data-cli-anim="card">
+        <h3 class="skoll-clientele-card-label">Entertainment &amp; Creator Economy</h3>
+        <dl class="skoll-clientele-list">
+          <dt>JaroGO Media (USA)</dt>
+          <dd>Pre-launch to hard launch for a US creator-economy super-app</dd>
+          <dt>WatchJaro</dt>
+          <dd>OTT platform within the JaroGO ecosystem</dd>
+          <dt>Independent film distribution</dt>
+          <dd>Dual Identity, Baltimore Hustle</dd>
+        </dl>
+      </article>
+
+      <article class="skoll-clientele-card" data-cli-anim="card">
+        <h3 class="skoll-clientele-card-label">Education &amp; B2B</h3>
+        <dl class="skoll-clientele-list">
+          <dt>Lakme Academy</dt>
+          <dd>8,670 conversions at Rs.21 each across 10 cities</dd>
+          <dt>GMR Academy</dt>
+          <dd>Brand and digital work</dd>
+          <dt>MAAC Animation</dt>
+          <dd>Performance and lead generation</dd>
+          <dt>Aptech Aviation</dt>
+          <dd>Digital marketing and admissions growth</dd>
+        </dl>
+      </article>
+
     </div>
-    <div class="skoll-clientele-track" id="skoll-clientele-track2" aria-hidden="true">
-      <div class="skoll-clientele-logo">NORDIC</div>
-      <div class="skoll-clientele-logo">AURA SYSTEMS</div>
-      <div class="skoll-clientele-logo">QUANTUM</div>
-      <div class="skoll-clientele-logo">VERTEX</div>
-      <div class="skoll-clientele-logo">LUMINA</div>
-      <div class="skoll-clientele-logo">ELEVATE</div>
-      <div class="skoll-clientele-logo">NOVA</div>
+
+    <!-- Industries strip -->
+    <div class="skoll-clientele-strip-wrap" data-cli-anim="strip">
+      <div class="skoll-clientele-strip">
+        <span>FMCG</span>
+        <span>Hospitality</span>
+        <span>E-Commerce</span>
+        <span>Education</span>
+        <span>Entertainment</span>
+        <span>Beauty</span>
+        <span>Technology</span>
+        <span>Real Estate</span>
+        <span>F&amp;B</span>
+      </div>
     </div>
+
+    <!-- What our clients have in common -->
+    <header class="skoll-clientele-values-head">
+      <p class="skoll-clientele-values-eyebrow" data-cli-anim="values-head">The common thread</p>
+      <h3 class="skoll-clientele-values-title" data-cli-anim="values-head">What our clients <em>have in common.</em></h3>
+    </header>
+
+    <div class="skoll-clientele-values">
+      <article class="skoll-clientele-value" data-cli-anim="value">
+        <p class="skoll-clientele-value-num">01</p>
+        <h4 class="skoll-clientele-value-title">They think long-term.</h4>
+        <p class="skoll-clientele-value-desc">"We're not the agency for someone trying to hack a viral moment."</p>
+      </article>
+      <article class="skoll-clientele-value" data-cli-anim="value">
+        <p class="skoll-clientele-value-num">02</p>
+        <h4 class="skoll-clientele-value-title">They want a partner, not a vendor.</h4>
+        <p class="skoll-clientele-value-desc">"Every client gets direct access to the founder. No layers, no account managers translating between you and the work."</p>
+      </article>
+      <article class="skoll-clientele-value" data-cli-anim="value">
+        <p class="skoll-clientele-value-num">03</p>
+        <h4 class="skoll-clientele-value-title">They respect the diagnosis.</h4>
+        <p class="skoll-clientele-value-desc">"The clients we do our best work for are the ones who let us tell them what we actually think — even when it's not what they wanted to hear."</p>
+      </article>
+    </div>
+
+    <!-- —— Page CTA —— -->
+    <aside class="skoll-page-cta">
+      <div class="skoll-page-cta-inner">
+        <h3 class="skoll-page-cta-title">Want to be on this <em>list</em>?</h3>
+        <p class="skoll-page-cta-text">We&rsquo;re selective about who we take on. Tell us about your business and we&rsquo;ll be honest about whether we&rsquo;re the right partner.</p>
+        <a href="mailto:hello@skolldigital.com" class="skoll-page-cta-btn">Start a Conversation</a>
+      </div>
+    </aside>
+
   </div>
 
   <script>
@@ -106,30 +442,36 @@
         }
         gsap.registerPlugin(ScrollTrigger);
 
-        var title = document.getElementById('skoll-clientele-title');
-        
-        // Fade in title
-        gsap.to(title, {
-          opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
-          scrollTrigger: {
-            trigger: wrapper,
-            start: 'top 80%',
-            toggleActions: 'play none none none'
-          }
+        var heroEls = wrapper.querySelectorAll('[data-cli-anim="hero"]');
+        var cardEls = wrapper.querySelectorAll('[data-cli-anim="card"]');
+        var stripEls = wrapper.querySelectorAll('[data-cli-anim="strip"]');
+        var valueHeadEls = wrapper.querySelectorAll('[data-cli-anim="values-head"]');
+        var valueEls = wrapper.querySelectorAll('[data-cli-anim="value"]');
+
+        gsap.to(heroEls, {
+          opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', stagger: 0.12,
+          scrollTrigger: { trigger: wrapper, start: 'top 80%', toggleActions: 'play none none none' }
         });
 
-        // Marquee Animation
-        var track1 = document.getElementById('skoll-clientele-track1');
-        var track2 = document.getElementById('skoll-clientele-track2');
-        var marquee = document.getElementById('skoll-clientele-marquee');
-        
-        // GSAP loop
-        var tl = gsap.timeline({ repeat: -1, defaults: { ease: 'none' } });
-        tl.to([track1, track2], { xPercent: -100, duration: 25 });
-        
-        // Pause on hover
-        marquee.addEventListener('mouseenter', function() { tl.pause(); });
-        marquee.addEventListener('mouseleave', function() { tl.play(); });
+        gsap.to(cardEls, {
+          opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', stagger: 0.1,
+          scrollTrigger: { trigger: cardEls[0] || wrapper, start: 'top 80%', toggleActions: 'play none none none' }
+        });
+
+        gsap.to(stripEls, {
+          opacity: 1, y: 0, duration: 0.7, ease: 'power3.out',
+          scrollTrigger: { trigger: stripEls[0] || wrapper, start: 'top 85%', toggleActions: 'play none none none' }
+        });
+
+        gsap.to(valueHeadEls, {
+          opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', stagger: 0.1,
+          scrollTrigger: { trigger: valueHeadEls[0] || wrapper, start: 'top 85%', toggleActions: 'play none none none' }
+        });
+
+        gsap.to(valueEls, {
+          opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', stagger: 0.1,
+          scrollTrigger: { trigger: valueEls[0] || wrapper, start: 'top 85%', toggleActions: 'play none none none' }
+        });
       }
 
       if (document.readyState === 'loading') {

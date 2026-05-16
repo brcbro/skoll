@@ -1,0 +1,317 @@
+<!-- Skoll Digital – Landing-Page Preview Section: Case Studies Teaser -->
+<section class="skoll-prev-work-wrapper" data-section="preview-work" id="preview-work">
+  <style>
+    /* —— Scoped Preview Work Styles —— */
+    .skoll-prev-work-wrapper {
+      --pwk-bg: #0A0A0A;
+      --pwk-gold: #C9A84C;
+      --pwk-text: #FAFAFA;
+      --pwk-muted: #888888;
+      --pwk-glass: rgba(240, 238, 233, 0.03);
+      --pwk-glass-border: rgba(240, 238, 233, 0.06);
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: var(--pwk-bg);
+      padding: 100px 24px;
+      min-height: 80vh;
+    }
+    .skoll-prev-work-wrapper * {
+      box-sizing: border-box;
+    }
+
+    .skoll-prev-work-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* —— Header —— */
+    .skoll-prev-work-header {
+      max-width: 800px;
+      margin: 0 auto 64px;
+      text-align: center;
+    }
+
+    .skoll-prev-work-eyebrow {
+      display: block;
+      color: var(--pwk-gold);
+      font-family: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      margin: 0 0 20px;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .skoll-prev-work-title {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: clamp(2.75rem, 5vw, 4rem);
+      font-weight: 400;
+      color: var(--pwk-text);
+      line-height: 1;
+      margin: 0 0 24px;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .skoll-prev-work-title em {
+      color: var(--pwk-gold);
+      font-style: italic;
+    }
+
+    .skoll-prev-work-sub {
+      max-width: 640px;
+      margin: 0 auto;
+      color: var(--pwk-muted);
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 1rem;
+      line-height: 1.6;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    /* —— Grid —— */
+    .skoll-prev-work-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    @media (max-width: 768px) {
+      .skoll-prev-work-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* —— Card —— */
+    .skoll-prev-work-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-height: 320px;
+      background: var(--pwk-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--pwk-glass-border);
+      border-radius: 24px;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(32px) scale(0.96);
+      transition: border-color 0.4s ease, transform 0.4s ease;
+    }
+    .skoll-prev-work-card:hover {
+      border-color: rgba(201, 168, 76, 0.2);
+      transform: translateY(-4px);
+    }
+
+    .skoll-prev-work-card-image {
+      position: relative;
+      width: 100%;
+      flex: 0 0 60%;
+      min-height: 192px;
+      overflow: hidden;
+      background: linear-gradient(145deg, #1a1a1a 0%, #222 100%);
+    }
+    .skoll-prev-work-card-image::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+      opacity: 0.15;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .skoll-prev-work-card-image-inner {
+      width: 100%;
+      height: 100%;
+      min-height: inherit;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      transition: transform 0.6s ease;
+    }
+    .skoll-prev-work-card:hover .skoll-prev-work-card-image-inner {
+      transform: scale(1.05);
+    }
+
+    .skoll-prev-work-card[data-card="1"] .skoll-prev-work-card-image-inner {
+      background-image: url('https://img.magnific.com/free-vector/ribbed-glass-frames-with-glossy-neon-blue-glow_107791-35117.jpg');
+    }
+    .skoll-prev-work-card[data-card="2"] .skoll-prev-work-card-image-inner {
+      background-image: url('https://img.magnific.com/free-photo/fantasy-style-entryway-door-with-desert-landscape_23-2151239211.jpg');
+    }
+
+    .skoll-prev-work-card-body {
+      padding: 24px;
+    }
+    .skoll-prev-work-card-tag {
+      display: inline-block;
+      padding: 6px 14px;
+      background: var(--pwk-glass);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--pwk-glass-border);
+      border-radius: 999px;
+      font-family: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--pwk-muted);
+      letter-spacing: 0.04em;
+    }
+    .skoll-prev-work-card-title {
+      font-family: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--pwk-text);
+      margin: 10px 0 8px;
+      letter-spacing: -0.02em;
+    }
+    .skoll-prev-work-card-kpi {
+      display: block;
+      font-family: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--pwk-gold);
+      letter-spacing: 0.02em;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    /* —— CTA —— */
+    .skoll-prev-work-cta-wrap {
+      display: flex;
+      justify-content: center;
+      margin-top: 56px;
+    }
+    .skoll-prev-work-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 32px;
+      border: 1px solid rgba(201, 168, 76, 0.4);
+      border-radius: 999px;
+      background: transparent;
+      color: var(--pwk-gold);
+      font-family: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background-color 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .skoll-prev-work-cta:hover {
+      background: rgba(201, 168, 76, 0.1);
+      box-shadow: 0 0 24px rgba(201, 168, 76, 0.2);
+    }
+    .skoll-prev-work-cta-arrow {
+      display: inline-block;
+      transition: transform 0.35s ease;
+    }
+    .skoll-prev-work-cta:hover .skoll-prev-work-cta-arrow {
+      transform: translateX(6px);
+    }
+  </style>
+
+  <div class="skoll-prev-work-inner">
+    <header class="skoll-prev-work-header">
+      <span class="skoll-prev-work-eyebrow skoll-prev-work-anim">CASE STUDIES</span>
+      <h2 class="skoll-prev-work-title skoll-prev-work-anim">The work is the <em>proof</em>.</h2>
+      <p class="skoll-prev-work-sub skoll-prev-work-anim">Real work. Real numbers. Two highlights below — the full deck has six.</p>
+    </header>
+
+    <div class="skoll-prev-work-grid" id="skoll-prev-work-grid">
+      <a href="case-studies.html" class="skoll-prev-work-card" data-card="1">
+        <div class="skoll-prev-work-card-image">
+          <div class="skoll-prev-work-card-image-inner"></div>
+        </div>
+        <div class="skoll-prev-work-card-body">
+          <span class="skoll-prev-work-card-tag">E-Commerce / Performance</span>
+          <h3 class="skoll-prev-work-card-title">Bella Babe by SK</h3>
+          <span class="skoll-prev-work-card-kpi">Rs.2.7L → Rs.9L/month in 90 days · +157% conversion rate</span>
+        </div>
+      </a>
+
+      <a href="case-studies.html" class="skoll-prev-work-card" data-card="2">
+        <div class="skoll-prev-work-card-image">
+          <div class="skoll-prev-work-card-image-inner"></div>
+        </div>
+        <div class="skoll-prev-work-card-body">
+          <span class="skoll-prev-work-card-tag">5-Star Hospitality</span>
+          <h3 class="skoll-prev-work-card-title">Pullman & Novotel (Accor Hotels)</h3>
+          <span class="skoll-prev-work-card-kpi">Rs.27K spend · 133K reach · 5,800+ clicks · CPC as low as Rs.1.18</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="skoll-prev-work-cta-wrap">
+      <a href="case-studies.html" class="skoll-prev-work-cta skoll-prev-work-anim">
+        <span>See all 6 case studies</span>
+        <span class="skoll-prev-work-cta-arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var wrapper = document.querySelector('.skoll-prev-work-wrapper');
+      if (!wrapper) return;
+
+      function runPrevWorkJS() {
+        var gsap = window.gsap;
+        var ScrollTrigger = window.ScrollTrigger;
+        if (!gsap || !ScrollTrigger) {
+          setTimeout(runPrevWorkJS, 50);
+          return;
+        }
+        gsap.registerPlugin(ScrollTrigger);
+
+        var headerAnims = wrapper.querySelectorAll('.skoll-prev-work-anim');
+        var gridEl = wrapper.querySelector('#skoll-prev-work-grid');
+        var cards = gridEl ? gridEl.querySelectorAll('.skoll-prev-work-card') : [];
+
+        // —— Header elements: fade-up with stagger ——
+        if (headerAnims.length) {
+          gsap.to(headerAnims, {
+            opacity: 1,
+            y: 0,
+            duration: 0.65,
+            stagger: 0.12,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: wrapper,
+              start: 'top 85%',
+              toggleActions: 'play none none none'
+            }
+          });
+        }
+
+        // —— Cards: stagger group fade-up + scale ——
+        if (cards.length) {
+          gsap.to(cards, {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.65,
+            stagger: 0.12,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: gridEl,
+              start: 'top 85%',
+              toggleActions: 'play none none none'
+            }
+          });
+        }
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', runPrevWorkJS);
+      } else {
+        runPrevWorkJS();
+      }
+    })();
+  </script>
+</section>

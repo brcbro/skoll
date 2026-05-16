@@ -115,17 +115,18 @@
       box-shadow: 0 0 0 1px rgba(201, 168, 76, 0.1);
     }
     .skoll-process-num {
-      font-family: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
-      font-size: 5rem;
-      font-weight: 700;
-      line-height: 1;
-      color: transparent;
-      -webkit-text-stroke: 1px var(--proc-gold);
-      text-stroke: 1px var(--proc-gold);
+      width: 64px;
+      height: 64px;
+      background-color: var(--proc-gold);
+      -webkit-mask: url('paw.png') no-repeat center / contain;
+              mask: url('paw.png') no-repeat center / contain;
       margin-bottom: 20px;
       opacity: 0.6;
       transform: scale(0.9);
-      transition: opacity 0.4s ease, transform 0.4s ease;
+      transition: opacity 0.4s ease, transform 0.4s ease, filter 0.4s ease;
+    }
+    .skoll-process-card.is-active .skoll-process-num {
+      filter: drop-shadow(0 0 12px rgba(201, 168, 76, 0.45));
     }
     .skoll-process-card.is-active .skoll-process-num {
       opacity: 1;
@@ -241,7 +242,7 @@
           <div class="skoll-process-card-media">
             <img src="https://www.framer.com/creators-assets/_next/image/?url=https%3A%2F%2Fy4pdgnepgswqffpt.public.blob.vercel-storage.com%2Ftutorials%2F9%2Fcover%2Fhandoff-101%2F59a6fxc6-3zYKqElU3cNd0hgsH7ZULGXE9LZeZ8&w=3840&q=100" alt="Discover – Skoll Digital process visual 1">
           </div>
-          <div class="skoll-process-num" data-num="01">01</div>
+          <div class="skoll-process-num" aria-hidden="true"></div>
           <h3 class="skoll-process-name">Discover</h3>
           <p class="skoll-process-desc">We listen, audit, and uncover what's really going on — no assumptions.</p>
         </div>
@@ -256,7 +257,7 @@
           <div class="skoll-process-card-media">
             <img src="https://framerusercontent.com/images/PxkUK5jqtIrqaVwzma6i9rTHlfY.png" alt="Strategize – Skoll Digital process visual 2">
           </div>
-          <div class="skoll-process-num" data-num="02">02</div>
+          <div class="skoll-process-num" aria-hidden="true"></div>
           <h3 class="skoll-process-name">Strategize</h3>
           <p class="skoll-process-desc">A tailored growth blueprint. Not a template. Not a guess.</p>
         </div>
@@ -271,7 +272,7 @@
           <div class="skoll-process-card-media">
             <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/62af90a3-7459-4c4f-be9c-04149b391218_320w.jpg" alt="Build – Skoll Digital process visual 3">
           </div>
-          <div class="skoll-process-num" data-num="03">03</div>
+          <div class="skoll-process-num" aria-hidden="true"></div>
           <h3 class="skoll-process-name">Build</h3>
           <p class="skoll-process-desc">We design and develop the systems — website, funnels, brand, creative.</p>
         </div>
@@ -286,7 +287,7 @@
           <div class="skoll-process-card-media">
             <img src="https://framerusercontent.com/images/9pKTpFSaG3UuQSuNfqegfvLEPek.png" alt="Launch – Skoll Digital process visual 4">
           </div>
-          <div class="skoll-process-num" data-num="04">04</div>
+          <div class="skoll-process-num" aria-hidden="true"></div>
           <h3 class="skoll-process-name">Launch</h3>
           <p class="skoll-process-desc">Campaigns go live. Pixels fire. Data starts flowing.</p>
         </div>
@@ -301,7 +302,7 @@
           <div class="skoll-process-card-media">
             <img src="https://framerusercontent.com/images/KQ24IqVJPexbbZeWXuPj7i3Fq5Y.png" alt="Compound – Skoll Digital process visual 5">
           </div>
-          <div class="skoll-process-num" data-num="05">05</div>
+          <div class="skoll-process-num" aria-hidden="true"></div>
           <h3 class="skoll-process-name">Compound</h3>
           <p class="skoll-process-desc">We optimize, iterate, and compound — growth is a system, not a moment.</p>
         </div>

@@ -314,6 +314,85 @@ textarea {
   min-height: 1px;
 }
 
+/* --------------------------------------------------------------------------
+   9. Page CTA banner (used at the bottom of each full-page section,
+      before the global footer). Each page passes its own heading + body.
+   -------------------------------------------------------------------------- */
+.skoll-page-cta {
+  max-width: 1100px;
+  margin: 120px auto 0;
+  padding: 56px 56px;
+  background: linear-gradient(135deg, rgba(15, 25, 45, 0.92), rgba(8, 14, 28, 0.96));
+  border: 1px solid rgba(201, 168, 76, 0.18);
+  border-radius: var(--radius-lg);
+  position: relative;
+  overflow: hidden;
+}
+.skoll-page-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 100% 0%, rgba(201, 168, 76, 0.08), transparent 50%);
+  pointer-events: none;
+}
+.skoll-page-cta-inner {
+  position: relative;
+  z-index: 1;
+}
+.skoll-page-cta-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+  font-weight: 400;
+  color: var(--text-primary);
+  margin: 0 0 16px;
+  line-height: 1.15;
+}
+.skoll-page-cta-title em {
+  font-style: italic;
+  color: var(--accent-gold);
+}
+.skoll-page-cta-text {
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: #B8B8B8;
+  margin: 0 0 36px;
+  max-width: 680px;
+}
+.skoll-page-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 32px;
+  font-family: var(--font-highlight);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--bg-primary);
+  background: var(--accent-gold);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  transition: box-shadow var(--transition-default), transform var(--transition-default);
+}
+.skoll-page-cta-btn:hover {
+  box-shadow: 0 0 32px rgba(201, 168, 76, 0.45);
+  transform: translateY(-2px);
+}
+@media (max-width: 768px) {
+  .skoll-page-cta {
+    margin: 80px 24px 0;
+    padding: 40px 28px;
+  }
+  .skoll-page-cta-text {
+    margin-bottom: 28px;
+  }
+  .skoll-page-cta-btn {
+    padding: 14px 24px;
+    font-size: 0.75rem;
+  }
+}
+
 /* ==========================================================================
    Custom cursor (cursor.js)
    Hide default cursor when custom cursor is active.

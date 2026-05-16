@@ -1,0 +1,229 @@
+<!-- Skoll Digital – Landing Preview Cards (links to dedicated pages) -->
+<section class="skoll-previews-wrapper" data-section="landing-previews" id="explore">
+  <style>
+    .skoll-previews-wrapper {
+      --pv-bg: #0A0A0A;
+      --pv-gold: #C9A84C;
+      --pv-text: #FAFAFA;
+      --pv-muted: #888888;
+      --pv-glass: rgba(240, 238, 233, 0.03);
+      --pv-glass-border: rgba(240, 238, 233, 0.06);
+      background: var(--pv-bg);
+      padding: 140px 24px;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      position: relative;
+    }
+    .skoll-previews-wrapper * { box-sizing: border-box; }
+
+    .skoll-previews-inner { max-width: 1400px; margin: 0 auto; }
+
+    .skoll-previews-header {
+      max-width: 800px;
+      margin: 0 auto 80px;
+      text-align: center;
+    }
+    .skoll-previews-eyebrow {
+      display: block;
+      font-family: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--pv-gold);
+      margin-bottom: 20px;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .skoll-previews-title {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: clamp(2.75rem, 5vw, 4.25rem);
+      font-weight: 400;
+      line-height: 1.05;
+      color: var(--pv-text);
+      margin: 0 0 24px;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    .skoll-previews-title em { font-style: italic; color: var(--pv-gold); }
+    .skoll-previews-intro {
+      font-size: clamp(1rem, 1.4vw, 1.125rem);
+      line-height: 1.6;
+      color: var(--pv-muted);
+      margin: 0;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .skoll-previews-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    @media (max-width: 768px) {
+      .skoll-previews-grid { grid-template-columns: 1fr; }
+    }
+
+    .skoll-preview {
+      display: flex;
+      flex-direction: column;
+      padding: 40px 36px;
+      background: var(--pv-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--pv-glass-border);
+      border-radius: 24px;
+      text-decoration: none;
+      color: inherit;
+      min-height: 320px;
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: border-color 0.4s ease, background 0.4s ease, transform 0.4s ease;
+    }
+    .skoll-preview:hover {
+      border-color: rgba(201, 168, 76, 0.3);
+      background: rgba(240, 238, 233, 0.05);
+      transform: translateY(-6px);
+    }
+    .skoll-preview-wide {
+      grid-column: 1 / -1;
+      min-height: 260px;
+    }
+    @media (max-width: 768px) {
+      .skoll-preview-wide { grid-column: 1; }
+    }
+
+    .skoll-preview-eyebrow {
+      font-family: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--pv-gold);
+      margin: 0 0 16px;
+    }
+    .skoll-preview-title {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: clamp(1.625rem, 2.4vw, 2.125rem);
+      font-weight: 400;
+      line-height: 1.1;
+      color: var(--pv-text);
+      margin: 0 0 16px;
+    }
+    .skoll-preview-title em { font-style: italic; color: var(--pv-gold); }
+    .skoll-preview-teaser {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--pv-muted);
+      margin: 0 0 28px;
+      flex: 1;
+    }
+    .skoll-preview-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: var(--pv-gold);
+      margin-top: auto;
+    }
+    .skoll-preview-cta-arrow {
+      display: inline-block;
+      transition: transform 0.3s ease;
+    }
+    .skoll-preview:hover .skoll-preview-cta-arrow {
+      transform: translateX(6px);
+    }
+  </style>
+
+  <div class="skoll-previews-inner">
+    <div class="skoll-previews-header">
+      <span class="skoll-previews-eyebrow skoll-previews-anim">Explore</span>
+      <h2 class="skoll-previews-title skoll-previews-anim">Seven pages. One <em>system</em>.</h2>
+      <p class="skoll-previews-intro skoll-previews-anim">Each section below opens into a dedicated page with the full story. Start where it makes sense.</p>
+    </div>
+
+    <div class="skoll-previews-grid">
+      <a href="about.html" class="skoll-preview skoll-preview-anim">
+        <span class="skoll-preview-eyebrow">01 — About</span>
+        <h3 class="skoll-preview-title">Built by operators. Run by a <em>founder</em>.</h3>
+        <p class="skoll-preview-teaser">A full-stack strategic growth agency. Strategy, product, performance and brand — integrated into one system that compounds.</p>
+        <span class="skoll-preview-cta">Read full page <span class="skoll-preview-cta-arrow">→</span></span>
+      </a>
+
+      <a href="founder.html" class="skoll-preview skoll-preview-anim">
+        <span class="skoll-preview-eyebrow">02 — The Founder</span>
+        <h3 class="skoll-preview-title">No degree. No network. Just the <em>work</em>.</h3>
+        <p class="skoll-preview-teaser">A decade of marketing across FMCG, hospitality, beauty, e-commerce and entertainment — built from scratch by Harsh Bhagwani.</p>
+        <span class="skoll-preview-cta">Read full page <span class="skoll-preview-cta-arrow">→</span></span>
+      </a>
+
+      <a href="services.html" class="skoll-preview skoll-preview-anim">
+        <span class="skoll-preview-eyebrow">03 — Services</span>
+        <h3 class="skoll-preview-title">Four pillars. One <em>system</em>.</h3>
+        <p class="skoll-preview-teaser">Strategy, product, performance and brand — not a service menu, an architecture. See the full pillar breakdown and engagement models.</p>
+        <span class="skoll-preview-cta">Read full page <span class="skoll-preview-cta-arrow">→</span></span>
+      </a>
+
+      <a href="clientele.html" class="skoll-preview skoll-preview-anim">
+        <span class="skoll-preview-eyebrow">04 — Clientele</span>
+        <h3 class="skoll-preview-title">A decade of work. Across <em>nine industries</em>.</h3>
+        <p class="skoll-preview-teaser">From Gillette and Tinder to Pullman, NEU Salonz, Bella Babe and JaroGO Media. The roster, organised by industry.</p>
+        <span class="skoll-preview-cta">Read full page <span class="skoll-preview-cta-arrow">→</span></span>
+      </a>
+
+      <a href="case-studies.html" class="skoll-preview skoll-preview-wide skoll-preview-anim">
+        <span class="skoll-preview-eyebrow">05 — Case Studies</span>
+        <h3 class="skoll-preview-title">The work is the <em>proof</em>.</h3>
+        <p class="skoll-preview-teaser">Rs.2.7L to Rs.9L/month in 90 days. 8,670 conversions at Rs.21. A 5-star hotel running on Rs.27K. Real work, real numbers, real outcomes.</p>
+        <span class="skoll-preview-cta">Read all case studies <span class="skoll-preview-cta-arrow">→</span></span>
+      </a>
+
+      <a href="testimonials.html" class="skoll-preview skoll-preview-anim">
+        <span class="skoll-preview-eyebrow">06 — Testimonials</span>
+        <h3 class="skoll-preview-title">Said by <em>them</em>. Earned by us.</h3>
+        <p class="skoll-preview-teaser">What founders, CEOs and leadership teams say about working with Skoll Digital as a growth partner — not a vendor.</p>
+        <span class="skoll-preview-cta">Read full page <span class="skoll-preview-cta-arrow">→</span></span>
+      </a>
+
+      <a href="approach.html" class="skoll-preview skoll-preview-anim">
+        <span class="skoll-preview-eyebrow">07 — Approach</span>
+        <h3 class="skoll-preview-title">Four phases. One <em>compounding system</em>.</h3>
+        <p class="skoll-preview-teaser">Diagnose, Architect, Build, Compound. The way we actually work — every time. Skip a phase and the system collapses.</p>
+        <span class="skoll-preview-cta">Read full page <span class="skoll-preview-cta-arrow">→</span></span>
+      </a>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var wrapper = document.querySelector('.skoll-previews-wrapper');
+      if (!wrapper) return;
+      function runJS() {
+        var gsap = window.gsap;
+        var ScrollTrigger = window.ScrollTrigger;
+        if (!gsap || !ScrollTrigger) { setTimeout(runJS, 50); return; }
+        gsap.registerPlugin(ScrollTrigger);
+
+        var anims = wrapper.querySelectorAll('.skoll-previews-anim');
+        anims.forEach(function (el) {
+          gsap.to(el, {
+            opacity: 1, y: 0, duration: 0.9, ease: 'power3.out',
+            scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none reverse' }
+          });
+        });
+
+        var previews = wrapper.querySelectorAll('.skoll-preview-anim');
+        gsap.to(previews, {
+          opacity: 1, y: 0, duration: 0.7, stagger: 0.1, ease: 'power3.out',
+          scrollTrigger: { trigger: '.skoll-previews-grid', start: 'top 85%', toggleActions: 'play none none reverse' }
+        });
+      }
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', runJS);
+      else runJS();
+    })();
+  </script>
+</section>

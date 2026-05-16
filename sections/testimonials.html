@@ -1,5 +1,5 @@
 <!-- Skoll Digital – Standalone Testimonials Marquee (HTML + scoped CSS + JS) -->
-<section class="skoll-test-wrapper" data-section="testimonials">
+<section class="skoll-test-wrapper" data-section="testimonials" id="testimonials">
   <style>
     /* —— Scoped Testimonials Styles (infinite marquee) —— */
     .skoll-test-wrapper {
@@ -25,6 +25,18 @@
     .skoll-test-inner {
       max-width: 100%;
       margin: 0 auto 48px;
+      padding: 0 24px;
+    }
+
+    .skoll-test-eyebrow {
+      font-family: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--test-gold);
+      text-align: center;
+      margin: 0 0 24px;
     }
 
     .skoll-test-title {
@@ -34,10 +46,19 @@
       letter-spacing: -0.03em;
       color: var(--test-text);
       text-align: center;
-      margin: 0 0 56px;
+      margin: 0 0 24px;
     }
     .skoll-test-title .skoll-test-gold {
       color: var(--test-gold);
+    }
+
+    .skoll-test-subtitle {
+      font-size: 1rem;
+      line-height: 1.65;
+      color: var(--test-muted);
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 56px;
     }
 
     /* Marquee row */
@@ -76,6 +97,7 @@
     }
 
     .skoll-test-card {
+      position: relative;
       flex-shrink: 0;
       width: 350px;
       padding: 28px 24px;
@@ -116,10 +138,65 @@
       letter-spacing: 0.15em;
       color: var(--test-gold);
     }
+
+    .skoll-test-draft-badge {
+      display: inline-block;
+      margin-top: 12px;
+      font-family: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
+      font-size: 0.6875rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #666;
+      padding: 4px 8px;
+      border: 1px solid rgba(240, 238, 233, 0.08);
+      border-radius: 999px;
+    }
+
+    /* Themes strip */
+    .skoll-test-themes {
+      max-width: 1080px;
+      margin: 80px auto 0;
+      padding: 0 24px;
+    }
+    .skoll-test-themes-eyebrow {
+      font-family: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--test-gold);
+      text-align: center;
+      margin: 0 0 32px;
+    }
+    .skoll-test-themes-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .skoll-test-themes-list li {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-style: italic;
+      font-size: 0.9375rem;
+      line-height: 1.4;
+      color: var(--test-text);
+      background: var(--test-glass);
+      border: 1px solid var(--test-glass-border);
+      border-radius: 999px;
+      padding: 10px 20px;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
   </style>
 
   <div class="skoll-test-inner">
-    <h2 class="skoll-test-title">Founders <span class="skoll-test-gold">Talk</span>.</h2>
+    <p class="skoll-test-eyebrow">What Clients Say</p>
+    <h2 class="skoll-test-title">Said by <span class="skoll-test-gold">them</span>. Earned by us.</h2>
+    <p class="skoll-test-subtitle">The best testimonials aren't the loud ones. They're the ones that describe the work specifically, name the outcome honestly, and sound like the person actually wrote them.</p>
   </div>
 
   <!-- Top row: scrolls LEFT -->
@@ -138,18 +215,72 @@
     </div>
   </div>
 
+  <!-- Themes we hear most -->
+  <div class="skoll-test-themes">
+    <p class="skoll-test-themes-eyebrow">Themes We Hear Most</p>
+    <ul class="skoll-test-themes-list">
+      <li>&ldquo;They told us the truth even when it cost them the sale.&rdquo;</li>
+      <li>&ldquo;The founder is in every meeting that matters.&rdquo;</li>
+      <li>&ldquo;They thought about our business like it was theirs.&rdquo;</li>
+      <li>&ldquo;No layers, no account-manager telephone game.&rdquo;</li>
+      <li>&ldquo;They didn&rsquo;t just execute &mdash; they elevated the brief.&rdquo;</li>
+      <li>&ldquo;A team that thinks like operators, not vendors.&rdquo;</li>
+      <li>&ldquo;Numbers that compound.&rdquo;</li>
+      <li>&ldquo;Work you can show your board.&rdquo;</li>
+    </ul>
+  </div>
+
+  <!-- —— Page CTA —— -->
+  <aside class="skoll-page-cta">
+    <div class="skoll-page-cta-inner">
+      <h3 class="skoll-page-cta-title">Be the next <em>testimonial</em>.</h3>
+      <p class="skoll-page-cta-text">The clients above didn&rsquo;t expect to write us recommendations when they signed on. They wrote them because the work earned them.</p>
+      <a href="mailto:hello@skolldigital.com" class="skoll-page-cta-btn">Start a Conversation</a>
+    </div>
+  </aside>
+
   <script>
     (function () {
       var wrapper = document.querySelector('.skoll-test-wrapper');
       if (!wrapper) return;
 
       var testimonials = [
-        { quote: 'Skoll didn\'t just build us a website — they built us a growth engine.', name: 'Arjun Mehta', role: 'CEO, Aether Labs' },
-        { quote: 'First agency that actually understood unit economics before touching our ads.', name: 'Priya Sharma', role: 'Founder, Nomad Roasters' },
-        { quote: 'The brand they built for us gets more compliments than our product. That\'s a problem. A good one.', name: 'Rohan Kapoor', role: 'CTO, FinStack' },
-        { quote: 'They think like co-founders, not vendors.', name: 'Ananya Iyer', role: 'Founder, Soulspace' },
-        { quote: 'Skoll turned our $20K/mo ad spend into a $200K/mo pipeline. In 4 months.', name: 'Vikram Desai', role: 'Partner, Grindstone VC' },
-        { quote: 'We interviewed 15 agencies. Skoll was the only one that told us what we were doing wrong before pitching.', name: 'Meera Joshi', role: 'CEO, Urban Threads' }
+        {
+          quote: 'We’d been stuck at Rs.2.7L for months. Inside ninety days with Skoll, we were doing Rs.9L. What I appreciated wasn’t just the numbers — it was that they walked us through why it worked. They didn’t sell us magic. They built us a system.',
+          name: 'Founder',
+          role: 'Bella Babe by SK',
+          isDraft: true
+        },
+        {
+          quote: 'Skoll came in when we were pre-launch and treated our product like their own. They didn’t just run ads — they helped us think through our funnel, our content strategy, and how each part of the platform talks to a different audience. They’ve stayed in the trenches with us through every launch milestone.',
+          name: 'Richard De Vaughn',
+          role: 'Co-Founder, JaroGO Media (USA)',
+          isDraft: true
+        },
+        {
+          quote: 'Most agencies pitch their case studies. Skoll pitched our problem back to us better than we’d described it ourselves. The performance numbers spoke for themselves — but what kept us coming back through two wedding seasons was the way they thought about the work. Not as a vendor. As a partner.',
+          name: 'Marketing Head',
+          role: 'Pullman & Novotel, Accor Hotels',
+          isDraft: true
+        },
+        {
+          quote: 'Harsh built our marketing function from the ground up. He thought about our hair artists the way Nike thinks about athletes — and that single idea reshaped how the salon industry in Gurgaon markets itself. Game of Tones, South Point, NEUresolution — every one of those campaigns is in our company history because of him.',
+          name: 'Founder',
+          role: 'NEU Salonz',
+          isDraft: true
+        },
+        {
+          quote: 'Skoll thinks in systems. Most agencies pitched us social media calendars. They pitched us campaign universes. The Oktoberfest work alone is still referenced in our team. We weren’t hiring an agency — we’d hired a creative partner with strategic depth.',
+          name: 'Operations Head',
+          role: '7 Degrees Brauhaus',
+          isDraft: true
+        },
+        {
+          quote: 'Eight thousand six hundred and seventy conversions at twenty-one rupees each, across ten cities, over two years. The work outperformed our internal team. Skoll didn’t need to tell us they were good — the dashboard did.',
+          name: 'Regional Marketing Lead',
+          role: 'Lakme Academy',
+          isDraft: true
+        }
       ];
 
       var starsHtml = '<span class="skoll-test-stars" aria-hidden="true">★★★★★</span>';

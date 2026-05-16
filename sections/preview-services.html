@@ -1,0 +1,292 @@
+<section class="skoll-prev-svc-wrapper" data-section="preview-services" id="preview-services">
+  <div class="skoll-prev-svc-inner">
+    <header class="skoll-prev-svc-header">
+      <div class="skoll-prev-svc-eyebrow skoll-prev-svc-anim">SERVICES</div>
+      <h2 class="skoll-prev-svc-title skoll-prev-svc-anim">Four pillars. One <em>system</em>.</h2>
+      <p class="skoll-prev-svc-sub skoll-prev-svc-anim">Strategy, product, performance and brand &mdash; not a service menu, an architecture. Each pillar stands alone, but together they compound.</p>
+    </header>
+
+    <div class="skoll-prev-svc-grid">
+      <article class="skoll-prev-svc-tile skoll-prev-svc-anim skoll-prev-svc-tile-item">
+        <div class="skoll-prev-svc-tile-label">PILLAR 01</div>
+        <h3 class="skoll-prev-svc-tile-name">Strategy</h3>
+        <p class="skoll-prev-svc-tile-tag"><em>The foundation. Everything starts here.</em></p>
+      </article>
+
+      <article class="skoll-prev-svc-tile skoll-prev-svc-anim skoll-prev-svc-tile-item">
+        <div class="skoll-prev-svc-tile-label">PILLAR 02</div>
+        <h3 class="skoll-prev-svc-tile-name">Product</h3>
+        <p class="skoll-prev-svc-tile-tag"><em>Built to convert. Engineered for longevity.</em></p>
+      </article>
+
+      <article class="skoll-prev-svc-tile skoll-prev-svc-anim skoll-prev-svc-tile-item">
+        <div class="skoll-prev-svc-tile-label">PILLAR 03</div>
+        <h3 class="skoll-prev-svc-tile-name">Performance</h3>
+        <p class="skoll-prev-svc-tile-tag"><em>Every rupee accountable.</em></p>
+      </article>
+
+      <article class="skoll-prev-svc-tile skoll-prev-svc-anim skoll-prev-svc-tile-item">
+        <div class="skoll-prev-svc-tile-label">PILLAR 04</div>
+        <h3 class="skoll-prev-svc-tile-name">Brand</h3>
+        <p class="skoll-prev-svc-tile-tag"><em>Not decoration. Differentiation.</em></p>
+      </article>
+    </div>
+
+    <div class="skoll-prev-svc-cta-wrap skoll-prev-svc-anim">
+      <a href="services.html" class="skoll-prev-svc-cta">
+        <span class="skoll-prev-svc-cta-text">See the full service catalogue</span>
+        <span class="skoll-prev-svc-cta-arrow">&rarr;</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .skoll-prev-svc-wrapper {
+    background: #0A0A0A;
+    color: #FAFAFA;
+    padding: 100px 24px;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skoll-prev-svc-wrapper * {
+    box-sizing: border-box;
+  }
+
+  .skoll-prev-svc-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .skoll-prev-svc-header {
+    max-width: 800px;
+    margin: 0 auto 64px;
+    text-align: center;
+  }
+
+  .skoll-prev-svc-eyebrow {
+    font-family: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
+    font-size: 0.75rem;
+    color: #C9A84C;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    font-weight: 500;
+    margin-bottom: 24px;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .skoll-prev-svc-title {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: clamp(2.5rem, 4.5vw, 4rem);
+    line-height: 1;
+    color: #FAFAFA;
+    font-weight: 400;
+    margin: 0 0 24px;
+    letter-spacing: -0.01em;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .skoll-prev-svc-title em {
+    font-style: italic;
+    color: #C9A84C;
+  }
+
+  .skoll-prev-svc-sub {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #888888;
+    max-width: 640px;
+    margin: 0 auto;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .skoll-prev-svc-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 0;
+  }
+
+  .skoll-prev-svc-tile {
+    padding: 32px 28px;
+    background: rgba(240, 238, 233, 0.03);
+    border: 1px solid rgba(240, 238, 233, 0.06);
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    transition: border-color 0.4s ease, background 0.4s ease, transform 0.4s ease;
+    opacity: 0;
+    transform: translateY(30px);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .skoll-prev-svc-tile:hover {
+    border-color: rgba(201, 168, 76, 0.3);
+    background: rgba(240, 238, 233, 0.05);
+    transform: translateY(-4px);
+  }
+
+  .skoll-prev-svc-tile-label {
+    font-family: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
+    font-size: 0.75rem;
+    color: #C9A84C;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .skoll-prev-svc-tile-name {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: 1.625rem;
+    line-height: 1.1;
+    color: #FAFAFA;
+    font-weight: 400;
+    margin: 12px 0 8px;
+    letter-spacing: -0.01em;
+  }
+
+  .skoll-prev-svc-tile-tag {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-style: italic;
+    color: #C9A84C;
+    font-size: 0.9375rem;
+    line-height: 1.3;
+    margin: 0;
+  }
+
+  .skoll-prev-svc-tile-tag em {
+    font-style: italic;
+  }
+
+  .skoll-prev-svc-cta-wrap {
+    text-align: center;
+    margin-top: 56px;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .skoll-prev-svc-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 32px;
+    border: 1px solid rgba(201, 168, 76, 0.4);
+    border-radius: 999px;
+    background: transparent;
+    color: #C9A84C;
+    font-family: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    transition: background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    cursor: pointer;
+  }
+
+  .skoll-prev-svc-cta:hover {
+    background: rgba(201, 168, 76, 0.1);
+    box-shadow: 0 0 24px rgba(201, 168, 76, 0.2);
+    border-color: rgba(201, 168, 76, 0.6);
+  }
+
+  .skoll-prev-svc-cta-arrow {
+    display: inline-block;
+    transition: transform 0.3s ease;
+  }
+
+  .skoll-prev-svc-cta:hover .skoll-prev-svc-cta-arrow {
+    transform: translateX(6px);
+  }
+
+  @media (max-width: 960px) {
+    .skoll-prev-svc-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .skoll-prev-svc-wrapper {
+      padding: 80px 20px;
+    }
+    .skoll-prev-svc-header {
+      margin-bottom: 48px;
+    }
+    .skoll-prev-svc-grid {
+      grid-template-columns: 1fr;
+    }
+    .skoll-prev-svc-tile {
+      padding: 28px 24px;
+    }
+    .skoll-prev-svc-cta-wrap {
+      margin-top: 40px;
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    function initPrevSvc() {
+      if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+        return setTimeout(initPrevSvc, 100);
+      }
+      gsap.registerPlugin(ScrollTrigger);
+
+      var root = document.querySelector('.skoll-prev-svc-wrapper');
+      if (!root || root.dataset.prevSvcInit === '1') return;
+      root.dataset.prevSvcInit = '1';
+
+      var headerEls = root.querySelectorAll('.skoll-prev-svc-header .skoll-prev-svc-anim');
+      var tileEls = root.querySelectorAll('.skoll-prev-svc-tile-item');
+      var ctaEls = root.querySelectorAll('.skoll-prev-svc-cta-wrap');
+
+      gsap.to(headerEls, {
+        opacity: 1,
+        y: 0,
+        duration: 0.9,
+        stagger: 0.1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: root,
+          start: 'top 85%'
+        }
+      });
+
+      gsap.to(tileEls, {
+        opacity: 1,
+        y: 0,
+        duration: 0.9,
+        stagger: 0.12,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '.skoll-prev-svc-grid',
+          start: 'top 85%'
+        }
+      });
+
+      gsap.to(ctaEls, {
+        opacity: 1,
+        y: 0,
+        duration: 0.9,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '.skoll-prev-svc-cta-wrap',
+          start: 'top 90%'
+        }
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initPrevSvc);
+    } else {
+      initPrevSvc();
+    }
+  })();
+</script>

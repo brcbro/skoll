@@ -1,7 +1,7 @@
-<!-- Skoll Digital – Standalone Four Pillars (HTML + scoped CSS + JS) -->
-<section class="skoll-pillars-wrapper" data-section="pillars">
+<!-- Skoll Digital – Strategic Approach (Four-Phase Methodology) -->
+<section class="skoll-pillars-wrapper" data-section="pillars" id="approach">
   <style>
-    /* —— Scoped Pillars Styles (ultra-dark, matte glass) —— */
+    /* —— Scoped Approach Styles (ultra-dark, matte glass) —— */
     .skoll-pillars-wrapper {
       --pillars-bg: #111111;
       --pillars-gold: #C9A84C;
@@ -27,6 +27,18 @@
       margin: 0 auto 80px;
       text-align: center;
     }
+    .skoll-pillars-eyebrow {
+      display: inline-block;
+      font-family: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--pillars-gold);
+      margin: 0 0 24px;
+      opacity: 0;
+      transform: translateY(20px);
+    }
     .skoll-pillars-title {
       font-family: 'Instrument Serif', Georgia, serif;
       font-size: clamp(3.5rem, 6vw, 6rem);
@@ -37,6 +49,7 @@
       opacity: 0;
       transform: translateY(30px);
     }
+    .skoll-pillars-title em,
     .skoll-pillars-title .skoll-pillars-gold {
       font-style: italic;
       color: var(--pillars-gold);
@@ -50,7 +63,7 @@
       transform: translateY(20px);
     }
 
-    /* —— Grid —— */
+    /* —— Phase Grid —— */
     .skoll-pillars-grid {
       display: grid;
       grid-template-columns: 1fr;
@@ -75,7 +88,7 @@
     .skoll-pillars-card::before {
       content: '';
       position: absolute;
-      inset: -10%; /* Slight bleed to avoid edges */
+      inset: -10%;
       background-repeat: no-repeat;
       background-position: center;
       background-size: cover;
@@ -86,11 +99,10 @@
       z-index: 0;
       transition: opacity 0.5s ease, transform 0.8s ease;
     }
-    /* Restored Background Images */
-    .skoll-pillars-card[data-pillar="1"]::before { background-image: url('https://images.unsplash.com/photo-1673335912661-bfe525827a47?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDExfHx8ZW58MHx8fHx8'); }
-    .skoll-pillars-card[data-pillar="2"]::before { background-image: url('https://img.freepik.com/premium-psd/3d-unique-gradient-glass-shape-png-template_1204767-3127.jpg'); }
-    .skoll-pillars-card[data-pillar="3"]::before { background-image: url('https://img.freepik.com/premium-psd/3d-unique-gradient-glass-shape-png-template_1204767-3206.jpg'); }
-    .skoll-pillars-card[data-pillar="4"]::before { background-image: url('https://img.freepik.com/premium-psd/3d-unique-gradient-glass-shape-png-template_1204767-3121.jpg'); }
+    .skoll-pillars-card[data-phase="1"]::before { background-image: url('https://images.unsplash.com/photo-1673335912661-bfe525827a47?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDExfHx8ZW58MHx8fHx8'); }
+    .skoll-pillars-card[data-phase="2"]::before { background-image: url('https://img.freepik.com/premium-psd/3d-unique-gradient-glass-shape-png-template_1204767-3127.jpg'); }
+    .skoll-pillars-card[data-phase="3"]::before { background-image: url('https://img.freepik.com/premium-psd/3d-unique-gradient-glass-shape-png-template_1204767-3206.jpg'); }
+    .skoll-pillars-card[data-phase="4"]::before { background-image: url('https://img.freepik.com/premium-psd/3d-unique-gradient-glass-shape-png-template_1204767-3121.jpg'); }
 
     .skoll-pillars-card:hover {
       background: rgba(240, 238, 233, 0.04);
@@ -98,104 +110,419 @@
       transform: translateY(-8px);
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
     }
-    .skoll-pillars-card:hover::before { 
-      opacity: 0.5; 
+    .skoll-pillars-card:hover::before {
+      opacity: 0.5;
       transform: scale(1.05);
     }
 
-    /* Big faded background number */
+    /* Big faded background paw mark */
     .skoll-pillars-card-bg-num {
       position: absolute;
-      top: -20px;
-      right: -10px;
-      font-family: 'Instrument Serif', Georgia, serif;
-      font-size: 160px;
-      font-weight: 400;
-      line-height: 1;
-      color: var(--pillars-text);
-      opacity: 0.02;
+      top: 20px;
+      right: 20px;
+      width: 150px;
+      height: 150px;
+      background-color: var(--pillars-text);
+      -webkit-mask: url('paw.png') no-repeat center / contain;
+              mask: url('paw.png') no-repeat center / contain;
+      opacity: 0.04;
       z-index: 1;
       transition: opacity 0.5s ease, transform 0.5s ease;
     }
     .skoll-pillars-card:hover .skoll-pillars-card-bg-num {
-      opacity: 0.08;
-      transform: translate(-10px, 10px);
+      opacity: 0.1;
+      transform: translate(-10px, 10px) rotate(-6deg);
     }
 
     .skoll-pillars-card-content {
       position: relative;
       z-index: 2;
     }
-    
+
+    .skoll-pillars-card-phase {
+      display: block;
+      font-family: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--pillars-gold);
+      margin: 0 0 16px;
+    }
+
     .skoll-pillars-card-title {
       font-family: 'Instrument Serif', Georgia, serif;
       font-size: clamp(2.5rem, 4vw, 3.5rem);
       font-weight: 400;
       color: var(--pillars-text);
-      margin: 0 0 16px;
+      margin: 0 0 12px;
       display: flex;
       align-items: baseline;
       gap: 16px;
+      line-height: 1;
     }
     .skoll-pillars-card-prefix {
-      font-family: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
-      font-size: 0.65em; /* Significantly larger, scales with the title word */
-      font-weight: 300;
+      display: inline-block;
+      width: 0.9em;
+      height: 0.9em;
+      background-color: var(--pillars-gold);
+      -webkit-mask: url('paw.png') no-repeat center / contain;
+              mask: url('paw.png') no-repeat center / contain;
+      transform: translateY(0.05em);
+      flex-shrink: 0;
+    }
+    .skoll-pillars-card-tagline {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-style: italic;
+      font-size: 1.25rem;
       color: var(--pillars-gold);
-      letter-spacing: 0.05em;
+      margin: 0 0 20px;
+      line-height: 1.4;
     }
     .skoll-pillars-card-desc {
-      font-size: 1.125rem;
+      font-size: 1.0625rem;
       line-height: 1.6;
       color: var(--pillars-muted);
+      margin: 0 0 28px;
+    }
+
+    .skoll-pillars-produces-heading {
+      font-family: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
+      font-size: 0.6875rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--pillars-text);
+      margin: 0 0 14px;
+      opacity: 0.7;
+    }
+    .skoll-pillars-produces-list {
+      list-style: none;
+      padding: 0;
       margin: 0;
+    }
+    .skoll-pillars-produces-list li {
+      position: relative;
+      padding-left: 24px;
+      font-size: 0.9375rem;
+      line-height: 1.55;
+      color: var(--pillars-muted);
+      margin-bottom: 8px;
+    }
+    .skoll-pillars-produces-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.35em;
+      width: 14px;
+      height: 14px;
+      background-image: url('paw.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    /* —— Timeline Block —— */
+    .skoll-pillars-timeline-wrap {
+      margin-top: 120px;
+    }
+    .skoll-pillars-timeline-heading {
+      display: block;
+      font-family: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--pillars-gold);
+      margin: 0 0 40px;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .skoll-pillars-timeline {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+      position: relative;
+    }
+    @media (min-width: 900px) {
+      .skoll-pillars-timeline {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0;
+        align-items: start;
+      }
+    }
+    .skoll-pillars-timeline-step {
+      position: relative;
+      padding: 0 16px;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    @media (min-width: 900px) {
+      .skoll-pillars-timeline-step:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        top: 14px;
+        right: -8px;
+        width: calc(100% - 60px);
+        height: 1px;
+        background: linear-gradient(90deg, rgba(201, 168, 76, 0.45), rgba(201, 168, 76, 0.1));
+        left: auto;
+        transform: translateX(0);
+      }
+      .skoll-pillars-timeline-step:not(:last-child) {
+        padding-right: 24px;
+      }
+    }
+    .skoll-pillars-timeline-label {
+      display: block;
+      font-family: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--pillars-gold);
+      margin: 0 0 14px;
+    }
+    .skoll-pillars-timeline-title {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: clamp(1.75rem, 2.5vw, 2.25rem);
+      font-weight: 400;
+      color: var(--pillars-text);
+      margin: 0 0 10px;
+      line-height: 1.1;
+    }
+    .skoll-pillars-timeline-desc {
+      font-size: 0.9375rem;
+      line-height: 1.55;
+      color: var(--pillars-muted);
+      margin: 0;
+    }
+
+    /* —— Comparison Block —— */
+    .skoll-pillars-compare {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+      margin-top: 120px;
+    }
+    @media (min-width: 768px) { .skoll-pillars-compare { grid-template-columns: repeat(2, 1fr); } }
+
+    .skoll-pillars-compare-card {
+      position: relative;
+      padding: 48px 40px;
+      background: var(--pillars-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--pillars-glass-border);
+      border-radius: var(--pillars-card-radius);
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .skoll-pillars-compare-card:hover {
+      border-color: rgba(201, 168, 76, 0.2);
+      transform: translateY(-4px);
+    }
+    .skoll-pillars-compare-heading {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: clamp(1.75rem, 2.8vw, 2.25rem);
+      font-weight: 400;
+      color: var(--pillars-text);
+      margin: 0 0 28px;
+      line-height: 1.15;
+    }
+    .skoll-pillars-compare-heading em {
+      font-style: italic;
+      color: var(--pillars-gold);
+    }
+    .skoll-pillars-compare-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .skoll-pillars-compare-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      font-size: 1rem;
+      line-height: 1.55;
+      color: var(--pillars-muted);
+      margin-bottom: 16px;
+    }
+    .skoll-pillars-compare-list li:last-child { margin-bottom: 0; }
+    .skoll-pillars-compare-icon {
+      flex-shrink: 0;
+      width: 1.25em;
+      height: 1.25em;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.875rem;
+      line-height: 1;
+      margin-top: 0.15em;
+    }
+    img.skoll-pillars-compare-icon {
+      object-fit: contain;
+    }
+    .skoll-pillars-compare-card[data-variant="never"] .skoll-pillars-compare-icon {
+      color: var(--pillars-muted);
+      opacity: 0.8;
+    }
+    .skoll-pillars-compare-card[data-variant="will"] .skoll-pillars-compare-icon {
+      color: var(--pillars-gold);
+    }
+
+    @media (max-width: 767px) {
+      .skoll-pillars-wrapper { padding: 100px 20px; }
+      .skoll-pillars-header { margin-bottom: 60px; }
+      .skoll-pillars-card { padding: 36px 28px; }
+      .skoll-pillars-compare-card { padding: 36px 28px; }
+      .skoll-pillars-timeline-wrap { margin-top: 80px; }
+      .skoll-pillars-compare { margin-top: 80px; }
     }
   </style>
 
   <div class="skoll-pillars-inner">
     <div class="skoll-pillars-header">
-      <h2 class="skoll-pillars-title skoll-pillars-anim">Our <span class="skoll-pillars-gold">Strategic</span> Approach.</h2>
-      <p class="skoll-pillars-intro skoll-pillars-anim">Skoll Digital operates across four integrated pillars. These are not separate departments — they are facets of a single growth system. Every client engagement draws from one or more pillars, always in service of a unified strategy.</p>
+      <span class="skoll-pillars-eyebrow skoll-pillars-anim">How We Work</span>
+      <h2 class="skoll-pillars-title skoll-pillars-anim">Four phases. One compounding <em>system</em>.</h2>
+      <p class="skoll-pillars-intro skoll-pillars-anim">This isn't a process diagram for a pitch deck. It's the actual way we work, in order, every time. The phases compound — skip one and the whole system collapses.</p>
     </div>
 
     <div class="skoll-pillars-grid" id="skoll-pillars-grid">
-      <div class="skoll-pillars-card skoll-pillars-stagger" data-pillar="1">
-        <span class="skoll-pillars-card-bg-num">01</span>
+      <div class="skoll-pillars-card skoll-pillars-stagger" data-phase="1">
+        <span class="skoll-pillars-card-bg-num" aria-hidden="true"></span>
         <div class="skoll-pillars-card-content">
-          <h3 class="skoll-pillars-card-title"><span class="skoll-pillars-card-prefix">01</span> Strategy</h3>
-          <p class="skoll-pillars-card-desc">Market positioning, competitive intelligence, growth architecture, go-to-market frameworks. We diagnose before we prescribe. Every engagement starts here.</p>
+          <span class="skoll-pillars-card-phase">Phase 01</span>
+          <h3 class="skoll-pillars-card-title"><span class="skoll-pillars-card-prefix" aria-hidden="true"></span> Diagnose</h3>
+          <p class="skoll-pillars-card-tagline">Listen before you prescribe.</p>
+          <p class="skoll-pillars-card-desc">Most agencies pitch solutions in the first meeting. We don't. The first 2-4 weeks of any engagement are diagnostic — an audit of the business, market, audience, channels, funnel, creative, analytics, team and current systems.</p>
+          <p class="skoll-pillars-produces-heading">What this phase produces</p>
+          <ul class="skoll-pillars-produces-list">
+            <li>A complete picture of where you are</li>
+            <li>The real bottlenecks (not the symptoms)</li>
+            <li>Honest assessment of what's working</li>
+            <li>Priorities ranked by impact, not effort</li>
+            <li>A go/no-go on whether we're the right partner</li>
+          </ul>
         </div>
       </div>
 
-      <div class="skoll-pillars-card skoll-pillars-stagger" data-pillar="2">
-        <span class="skoll-pillars-card-bg-num">02</span>
+      <div class="skoll-pillars-card skoll-pillars-stagger" data-phase="2">
+        <span class="skoll-pillars-card-bg-num" aria-hidden="true"></span>
         <div class="skoll-pillars-card-content">
-          <h3 class="skoll-pillars-card-title"><span class="skoll-pillars-card-prefix">02</span> Product</h3>
-          <p class="skoll-pillars-card-desc">Websites, mobile apps, e-commerce platforms, and digital products. Built for scale, designed for conversion, engineered for longevity.</p>
+          <span class="skoll-pillars-card-phase">Phase 02</span>
+          <h3 class="skoll-pillars-card-title"><span class="skoll-pillars-card-prefix" aria-hidden="true"></span> Architect</h3>
+          <p class="skoll-pillars-card-tagline">Design the system. Then design the work.</p>
+          <p class="skoll-pillars-card-desc">Once the diagnosis is done, we architect. Not a campaign — a system. We decide which pillars apply, in what order, with what budget and against what metric.</p>
+          <p class="skoll-pillars-produces-heading">What this phase produces</p>
+          <ul class="skoll-pillars-produces-list">
+            <li>A growth architecture document (the blueprint)</li>
+            <li>Creative direction and brand voice frameworks</li>
+            <li>Channel strategy and media mix</li>
+            <li>KPI tree and measurement plan</li>
+            <li>Roadmap and milestone timeline</li>
+          </ul>
         </div>
       </div>
 
-      <div class="skoll-pillars-card skoll-pillars-stagger" data-pillar="3">
-        <span class="skoll-pillars-card-bg-num">03</span>
+      <div class="skoll-pillars-card skoll-pillars-stagger" data-phase="3">
+        <span class="skoll-pillars-card-bg-num" aria-hidden="true"></span>
         <div class="skoll-pillars-card-content">
-          <h3 class="skoll-pillars-card-title"><span class="skoll-pillars-card-prefix">03</span> Performance</h3>
-          <p class="skoll-pillars-card-desc">Google & Meta Ads, SEO, marketing automation, analytics. Measurable, accountable, compounding returns on every rupee invested.</p>
+          <span class="skoll-pillars-card-phase">Phase 03</span>
+          <h3 class="skoll-pillars-card-title"><span class="skoll-pillars-card-prefix" aria-hidden="true"></span> Build</h3>
+          <p class="skoll-pillars-card-tagline">Execute with precision.</p>
+          <p class="skoll-pillars-card-desc">This is where most agencies start. For us, it's the third phase. By the time we're building, we've earned the right to. The diagnosis told us why. The architecture told us what. Now we build.</p>
+          <p class="skoll-pillars-produces-heading">What this phase produces</p>
+          <ul class="skoll-pillars-produces-list">
+            <li>Live campaigns and content</li>
+            <li>Functional product (websites, apps, platforms)</li>
+            <li>Performance infrastructure (ad accounts, tracking, dashboards)</li>
+            <li>Brand assets and creative libraries</li>
+            <li>Operational playbooks for your team</li>
+          </ul>
         </div>
       </div>
 
-      <div class="skoll-pillars-card skoll-pillars-stagger" data-pillar="4">
-        <span class="skoll-pillars-card-bg-num">04</span>
+      <div class="skoll-pillars-card skoll-pillars-stagger" data-phase="4">
+        <span class="skoll-pillars-card-bg-num" aria-hidden="true"></span>
         <div class="skoll-pillars-card-content">
-          <h3 class="skoll-pillars-card-title"><span class="skoll-pillars-card-prefix">04</span> Brand</h3>
-          <p class="skoll-pillars-card-desc">Identity systems, creative direction, content strategy, brand narratives. We build brands that earn trust, command recognition, and create long-term equity.</p>
+          <span class="skoll-pillars-card-phase">Phase 04</span>
+          <h3 class="skoll-pillars-card-title"><span class="skoll-pillars-card-prefix" aria-hidden="true"></span> Compound</h3>
+          <p class="skoll-pillars-card-tagline">Growth isn't a spike. It's a system that gets better every month.</p>
+          <p class="skoll-pillars-card-desc">This is the phase most agencies don't have. They build, they hand off, and they move on. We compound. Daily monitoring, weekly optimisation, monthly review, quarterly strategy.</p>
+          <p class="skoll-pillars-produces-heading">What this phase produces</p>
+          <ul class="skoll-pillars-produces-list">
+            <li>Compounding performance gains</li>
+            <li>Audience pools that get warmer over time</li>
+            <li>Creative libraries that get smarter with data</li>
+            <li>Reduced CAC and improved efficiency</li>
+            <li>A business that grows on its own gravity</li>
+          </ul>
         </div>
       </div>
     </div>
+
+    <div class="skoll-pillars-timeline-wrap" id="skoll-pillars-timeline-wrap">
+      <span class="skoll-pillars-timeline-heading skoll-pillars-timeline-anim">Over 12 Months</span>
+      <div class="skoll-pillars-timeline">
+        <div class="skoll-pillars-timeline-step skoll-pillars-timeline-stagger">
+          <span class="skoll-pillars-timeline-label">Month 1</span>
+          <h4 class="skoll-pillars-timeline-title">Diagnosis</h4>
+          <p class="skoll-pillars-timeline-desc">We learn everything. You see our thinking. We decide if we're the right fit.</p>
+        </div>
+        <div class="skoll-pillars-timeline-step skoll-pillars-timeline-stagger">
+          <span class="skoll-pillars-timeline-label">Month 2-3</span>
+          <h4 class="skoll-pillars-timeline-title">Architecture</h4>
+          <p class="skoll-pillars-timeline-desc">The system blueprint is written, debated, refined and locked.</p>
+        </div>
+        <div class="skoll-pillars-timeline-step skoll-pillars-timeline-stagger">
+          <span class="skoll-pillars-timeline-label">Month 4-6</span>
+          <h4 class="skoll-pillars-timeline-title">Build</h4>
+          <p class="skoll-pillars-timeline-desc">Things go live. Performance starts. Brand work begins. Product ships.</p>
+        </div>
+        <div class="skoll-pillars-timeline-step skoll-pillars-timeline-stagger">
+          <span class="skoll-pillars-timeline-label">Month 7-12</span>
+          <h4 class="skoll-pillars-timeline-title">Compound</h4>
+          <p class="skoll-pillars-timeline-desc">Each month measurably better than the last.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="skoll-pillars-compare" id="skoll-pillars-compare">
+      <div class="skoll-pillars-compare-card skoll-pillars-compare-stagger" data-variant="never">
+        <h3 class="skoll-pillars-compare-heading">What you'll never get.</h3>
+        <ul class="skoll-pillars-compare-list">
+          <li><span class="skoll-pillars-compare-icon" aria-hidden="true">&#10005;</span><span>A 50-slide deck of recommendations we never plan to execute</span></li>
+          <li><span class="skoll-pillars-compare-icon" aria-hidden="true">&#10005;</span><span>Account managers translating between you and the people doing the work</span></li>
+          <li><span class="skoll-pillars-compare-icon" aria-hidden="true">&#10005;</span><span>A spike-then-crash performance graph dressed up as a case study</span></li>
+          <li><span class="skoll-pillars-compare-icon" aria-hidden="true">&#10005;</span><span>Strategy that lives in PDFs and never touches operations</span></li>
+        </ul>
+      </div>
+      <div class="skoll-pillars-compare-card skoll-pillars-compare-stagger" data-variant="will">
+        <h3 class="skoll-pillars-compare-heading">What you <em>will</em> get.</h3>
+        <ul class="skoll-pillars-compare-list">
+          <li><img class="skoll-pillars-compare-icon" src="paw.png" alt="" aria-hidden="true"><span>Direct access to the founder</span></li>
+          <li><img class="skoll-pillars-compare-icon" src="paw.png" alt="" aria-hidden="true"><span>Honest assessments, even when uncomfortable</span></li>
+          <li><img class="skoll-pillars-compare-icon" src="paw.png" alt="" aria-hidden="true"><span>A team that thinks like operators, not vendors</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- —— Page CTA —— -->
+    <aside class="skoll-page-cta">
+      <div class="skoll-page-cta-inner">
+        <h3 class="skoll-page-cta-title">Want to see this applied to your <em>business</em>?</h3>
+        <p class="skoll-page-cta-text">Start with the diagnosis. It&rsquo;s the most useful conversation we&rsquo;ll have either way &mdash; whether or not we end up working together.</p>
+        <a href="mailto:hello@skolldigital.com" class="skoll-page-cta-btn">Start a Conversation</a>
+      </div>
+    </aside>
   </div>
 
   <script>
     (function () {
-      var wrapper = document.querySelector('.skoll-pillars-wrapper');
+      var wrapper = document.querySelector('.skoll-pillars-wrapper[data-section="pillars"]');
       if (!wrapper) return;
 
       function runPillarsJS() {
@@ -209,21 +536,42 @@
 
         var headerElems = wrapper.querySelectorAll('.skoll-pillars-anim');
         var cards = wrapper.querySelectorAll('.skoll-pillars-stagger');
+        var timelineHeading = wrapper.querySelectorAll('.skoll-pillars-timeline-anim');
+        var timelineSteps = wrapper.querySelectorAll('.skoll-pillars-timeline-stagger');
+        var compareCards = wrapper.querySelectorAll('.skoll-pillars-compare-stagger');
 
         // Header Animations
         gsap.to(headerElems, {
-          opacity: 1, y: 0, duration: 1, stagger: 0.2, ease: 'power3.out',
+          opacity: 1, y: 0, duration: 1, stagger: 0.18, ease: 'power3.out',
           scrollTrigger: { trigger: wrapper, start: 'top 75%', toggleActions: 'play none none none' }
         });
 
-        // Cards Staggered Entry
+        // Phase Cards Staggered Entry
         gsap.to(cards, {
           opacity: 1, y: 0, duration: 0.8, stagger: 0.15, ease: 'power3.out',
           scrollTrigger: { trigger: '#skoll-pillars-grid', start: 'top 80%', toggleActions: 'play none none none' }
         });
+
+        // Timeline heading
+        gsap.to(timelineHeading, {
+          opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
+          scrollTrigger: { trigger: '#skoll-pillars-timeline-wrap', start: 'top 85%', toggleActions: 'play none none none' }
+        });
+
+        // Timeline Steps Staggered Entry
+        gsap.to(timelineSteps, {
+          opacity: 1, y: 0, duration: 0.7, stagger: 0.12, ease: 'power3.out',
+          scrollTrigger: { trigger: '#skoll-pillars-timeline-wrap', start: 'top 80%', toggleActions: 'play none none none' }
+        });
+
+        // Comparison Cards Staggered Entry
+        gsap.to(compareCards, {
+          opacity: 1, y: 0, duration: 0.8, stagger: 0.2, ease: 'power3.out',
+          scrollTrigger: { trigger: '#skoll-pillars-compare', start: 'top 85%', toggleActions: 'play none none none' }
+        });
       }
 
-      if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', runPillarsJS); } 
+      if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', runPillarsJS); }
       else { runPillarsJS(); }
     })();
   </script>

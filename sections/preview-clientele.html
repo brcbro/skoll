@@ -1,0 +1,339 @@
+<!-- Skoll Digital – Preview: Clientele (landing-page teaser, links to clientele.html) -->
+<section class="skoll-prev-cli-wrapper" data-section="preview-clientele" id="preview-clientele">
+  <style>
+    .skoll-prev-cli-wrapper {
+      --pc-bg: #111111;
+      --pc-gold: #C9A84C;
+      --pc-text: #FAFAFA;
+      --pc-muted: #888888;
+      --pc-glass: rgba(240, 238, 233, 0.03);
+      --pc-border: rgba(240, 238, 233, 0.06);
+      --pc-serif: 'Instrument Serif', Georgia, serif;
+      --pc-sans: 'DM Sans', system-ui, sans-serif;
+      --pc-mono: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
+      background: var(--pc-bg);
+      color: var(--pc-text);
+      padding: 100px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skoll-prev-cli-wrapper * {
+      box-sizing: border-box;
+    }
+
+    /* Header */
+    .skoll-prev-cli-header {
+      max-width: 800px;
+      margin: 0 auto 56px;
+      padding: 0 24px;
+      text-align: center;
+    }
+    .skoll-prev-cli-eyebrow {
+      font-family: var(--pc-mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: var(--pc-gold);
+      margin: 0 0 28px;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .skoll-prev-cli-title {
+      font-family: var(--pc-serif);
+      font-size: clamp(2.5rem, 4.5vw, 4rem);
+      font-weight: 400;
+      line-height: 1;
+      letter-spacing: -0.01em;
+      color: var(--pc-text);
+      margin: 0 0 28px;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .skoll-prev-cli-title em {
+      font-style: italic;
+      color: var(--pc-gold);
+    }
+    .skoll-prev-cli-sub {
+      font-family: var(--pc-sans);
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--pc-muted);
+      max-width: 640px;
+      margin: 0 auto;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    /* Marquee strip (full-bleed) */
+    .skoll-prev-cli-marquee {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      display: flex;
+      flex-wrap: nowrap;
+    }
+    .skoll-prev-cli-marquee::before,
+    .skoll-prev-cli-marquee::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      width: 15vw;
+      height: 100%;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .skoll-prev-cli-marquee::before {
+      left: 0;
+      background: linear-gradient(to right, #111111 0%, rgba(17,17,17,0) 100%);
+    }
+    .skoll-prev-cli-marquee::after {
+      right: 0;
+      background: linear-gradient(to left, #111111 0%, rgba(17,17,17,0) 100%);
+    }
+    .skoll-prev-cli-track1,
+    .skoll-prev-cli-track2 {
+      display: flex;
+      flex-shrink: 0;
+      gap: 80px;
+      padding-right: 80px;
+      align-items: center;
+      will-change: transform;
+    }
+    .skoll-prev-cli-logo {
+      font-family: var(--pc-mono);
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: rgba(250, 250, 250, 0.4);
+      white-space: nowrap;
+      text-transform: uppercase;
+      cursor: default;
+      transition: color 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+    }
+    .skoll-prev-cli-logo:hover {
+      color: var(--pc-gold);
+      opacity: 1;
+      transform: scale(1.05);
+    }
+
+    /* Industries pill strip */
+    .skoll-prev-cli-pills {
+      margin-top: 56px;
+      padding: 0 24px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .skoll-prev-cli-pill {
+      padding: 8px 18px;
+      background: var(--pc-glass);
+      border: 1px solid rgba(240, 238, 233, 0.08);
+      border-radius: 999px;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      font-family: var(--pc-mono);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(250, 250, 250, 0.75);
+      transition: border-color 0.3s ease, color 0.3s ease;
+    }
+    .skoll-prev-cli-pill:hover {
+      border-color: rgba(201, 168, 76, 0.35);
+      color: var(--pc-gold);
+    }
+
+    /* CTA */
+    .skoll-prev-cli-cta-wrap {
+      margin-top: 56px;
+      padding: 0 24px;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .skoll-prev-cli-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 32px;
+      background: transparent;
+      border: 1px solid rgba(201, 168, 76, 0.4);
+      border-radius: 999px;
+      font-family: var(--pc-mono);
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--pc-gold);
+      text-decoration: none;
+      transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    }
+    .skoll-prev-cli-cta .arrow {
+      display: inline-block;
+      transition: transform 0.3s ease;
+    }
+    .skoll-prev-cli-cta:hover {
+      background: rgba(201, 168, 76, 0.1);
+      border-color: rgba(201, 168, 76, 0.6);
+      box-shadow: 0 0 24px rgba(201, 168, 76, 0.2);
+    }
+    .skoll-prev-cli-cta:hover .arrow {
+      transform: translateX(6px);
+    }
+
+    @media (max-width: 640px) {
+      .skoll-prev-cli-wrapper {
+        padding: 80px 0;
+      }
+      .skoll-prev-cli-header {
+        margin: 0 auto 40px;
+      }
+      .skoll-prev-cli-logo {
+        font-size: 1.125rem;
+      }
+      .skoll-prev-cli-track1,
+      .skoll-prev-cli-track2 {
+        gap: 48px;
+        padding-right: 48px;
+      }
+      .skoll-prev-cli-pills {
+        margin-top: 40px;
+        gap: 8px;
+      }
+      .skoll-prev-cli-pill {
+        padding: 7px 14px;
+        font-size: 0.6875rem;
+        letter-spacing: 0.15em;
+      }
+      .skoll-prev-cli-cta-wrap {
+        margin-top: 40px;
+      }
+    }
+  </style>
+
+  <!-- Header -->
+  <div class="skoll-prev-cli-header">
+    <p class="skoll-prev-cli-eyebrow skoll-prev-cli-anim">Clientele</p>
+    <h2 class="skoll-prev-cli-title skoll-prev-cli-anim">A decade of work. Across <em>nine industries</em>.</h2>
+    <p class="skoll-prev-cli-sub skoll-prev-cli-anim">From Gillette and Tinder to Pullman, NEU Salonz, Bella Babe and JaroGO Media. A roster organised by industry.</p>
+  </div>
+
+  <!-- Client marquee (full bleed) -->
+  <div class="skoll-prev-cli-marquee" aria-hidden="true">
+    <div class="skoll-prev-cli-track1">
+      <div class="skoll-prev-cli-logo">GILLETTE</div>
+      <div class="skoll-prev-cli-logo">TINDER</div>
+      <div class="skoll-prev-cli-logo">PULLMAN</div>
+      <div class="skoll-prev-cli-logo">NOVOTEL</div>
+      <div class="skoll-prev-cli-logo">NEU SALONZ</div>
+      <div class="skoll-prev-cli-logo">BELLA BABE</div>
+      <div class="skoll-prev-cli-logo">JAROGO MEDIA</div>
+      <div class="skoll-prev-cli-logo">LAKME ACADEMY</div>
+      <div class="skoll-prev-cli-logo">7 DEGREES BRAUHAUS</div>
+      <div class="skoll-prev-cli-logo">MOVE ON SHOP</div>
+      <div class="skoll-prev-cli-logo">PEE SAFE</div>
+      <div class="skoll-prev-cli-logo">HUB ALHAYA</div>
+      <div class="skoll-prev-cli-logo">DESSANGE PARIS</div>
+      <div class="skoll-prev-cli-logo">HEADMASTERS</div>
+    </div>
+    <div class="skoll-prev-cli-track2">
+      <div class="skoll-prev-cli-logo">GILLETTE</div>
+      <div class="skoll-prev-cli-logo">TINDER</div>
+      <div class="skoll-prev-cli-logo">PULLMAN</div>
+      <div class="skoll-prev-cli-logo">NOVOTEL</div>
+      <div class="skoll-prev-cli-logo">NEU SALONZ</div>
+      <div class="skoll-prev-cli-logo">BELLA BABE</div>
+      <div class="skoll-prev-cli-logo">JAROGO MEDIA</div>
+      <div class="skoll-prev-cli-logo">LAKME ACADEMY</div>
+      <div class="skoll-prev-cli-logo">7 DEGREES BRAUHAUS</div>
+      <div class="skoll-prev-cli-logo">MOVE ON SHOP</div>
+      <div class="skoll-prev-cli-logo">PEE SAFE</div>
+      <div class="skoll-prev-cli-logo">HUB ALHAYA</div>
+      <div class="skoll-prev-cli-logo">DESSANGE PARIS</div>
+      <div class="skoll-prev-cli-logo">HEADMASTERS</div>
+    </div>
+  </div>
+
+  <!-- Industries pill strip -->
+  <div class="skoll-prev-cli-pills skoll-prev-cli-anim">
+    <span class="skoll-prev-cli-pill">FMCG</span>
+    <span class="skoll-prev-cli-pill">Hospitality</span>
+    <span class="skoll-prev-cli-pill">E-Commerce</span>
+    <span class="skoll-prev-cli-pill">Education</span>
+    <span class="skoll-prev-cli-pill">Entertainment</span>
+    <span class="skoll-prev-cli-pill">Beauty</span>
+    <span class="skoll-prev-cli-pill">Technology</span>
+    <span class="skoll-prev-cli-pill">Real Estate</span>
+    <span class="skoll-prev-cli-pill">F&amp;B</span>
+  </div>
+
+  <!-- CTA -->
+  <div class="skoll-prev-cli-cta-wrap skoll-prev-cli-anim">
+    <a href="clientele.html" class="skoll-prev-cli-cta">
+      <span>See the full clientele</span>
+      <span class="arrow" aria-hidden="true">&rarr;</span>
+    </a>
+  </div>
+
+  <script>
+    (function() {
+      var wrapper = document.querySelector('.skoll-prev-cli-wrapper');
+      if (!wrapper) return;
+
+      function runPrevCliJS() {
+        var gsap = window.gsap;
+        var ScrollTrigger = window.ScrollTrigger;
+        if (!gsap || !ScrollTrigger) {
+          setTimeout(runPrevCliJS, 50);
+          return;
+        }
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Fade-up for header, pills, CTA
+        var els = wrapper.querySelectorAll('.skoll-prev-cli-anim');
+        gsap.to(els, {
+          opacity: 1,
+          y: 0,
+          duration: 0.9,
+          stagger: 0.1,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: wrapper,
+            start: 'top 85%',
+            toggleActions: 'play none none none'
+          }
+        });
+
+        // Marquee
+        var track1 = wrapper.querySelector('.skoll-prev-cli-track1');
+        var track2 = wrapper.querySelector('.skoll-prev-cli-track2');
+        var marquee = wrapper.querySelector('.skoll-prev-cli-marquee');
+        if (track1 && track2 && marquee) {
+          var tl = gsap.timeline({ repeat: -1 });
+          tl.to([track1, track2], {
+            xPercent: -100,
+            duration: 30,
+            ease: 'none'
+          });
+
+          marquee.addEventListener('mouseenter', function() { tl.pause(); });
+          marquee.addEventListener('mouseleave', function() { tl.play(); });
+        }
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', runPrevCliJS);
+      } else {
+        runPrevCliJS();
+      }
+    })();
+  </script>
+</section>

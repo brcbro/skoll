@@ -1,0 +1,482 @@
+<!-- Skoll Digital – Founder's Story (HTML + scoped CSS + JS) -->
+<section class="skoll-founder-wrapper" data-section="founder" id="founder">
+  <style>
+    .skoll-founder-wrapper {
+      --fnd-bg: #111111;
+      --fnd-gold: #C9A84C;
+      --fnd-text: #FAFAFA;
+      --fnd-muted: #888888;
+      --fnd-glass: rgba(240, 238, 233, 0.03);
+      --fnd-glass-border: rgba(240, 238, 233, 0.06);
+      background: var(--fnd-bg);
+      padding: 140px 24px;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      position: relative;
+      overflow: hidden;
+    }
+    .skoll-founder-wrapper * { box-sizing: border-box; }
+
+    .skoll-founder-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .skoll-fnd-eyebrow {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--fnd-gold);
+      margin: 0 0 24px;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    /* —— Hero —— */
+    .skoll-fnd-hero {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 80px;
+      align-items: center;
+      margin-bottom: 140px;
+    }
+    @media (max-width: 1024px) {
+      .skoll-fnd-hero { grid-template-columns: 1fr; gap: 48px; margin-bottom: 100px; }
+    }
+    .skoll-fnd-hero-text {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+    .skoll-fnd-hero-title {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: clamp(3rem, 5.5vw, 5rem);
+      font-weight: 400;
+      line-height: 1;
+      color: var(--fnd-text);
+      margin: 0;
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    .skoll-fnd-hero-title em { font-style: italic; color: var(--fnd-gold); }
+    .skoll-fnd-hero-sub {
+      font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
+      line-height: 1.65;
+      color: var(--fnd-muted);
+      margin: 0;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    /* —— Founder portrait —— */
+    .skoll-fnd-portrait {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      border-radius: 24px;
+      overflow: hidden;
+      background: var(--fnd-glass);
+      border: 1px solid var(--fnd-glass-border);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+      opacity: 0;
+      transform: translateY(40px) scale(0.97);
+    }
+    .skoll-fnd-portrait img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: saturate(0.92) contrast(1.04);
+      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
+    }
+    .skoll-fnd-portrait:hover img {
+      transform: scale(1.04);
+      filter: saturate(1) contrast(1.06);
+    }
+    .skoll-fnd-portrait::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(180deg, rgba(10, 10, 10, 0) 55%, rgba(10, 10, 10, 0.55) 100%);
+    }
+    .skoll-fnd-portrait-caption {
+      position: absolute;
+      left: 24px;
+      right: 24px;
+      bottom: 20px;
+      z-index: 2;
+      font-family: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(240, 238, 233, 0.85);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .skoll-fnd-portrait-caption::before {
+      content: '';
+      display: inline-block;
+      width: 24px;
+      height: 1px;
+      background: var(--fnd-gold);
+    }
+    @media (max-width: 1024px) {
+      .skoll-fnd-portrait { max-width: 480px; margin: 0 auto; }
+    }
+
+    /* —— Quote pull —— */
+    .skoll-fnd-quote-block {
+      max-width: 1100px;
+      margin: 0 auto 140px;
+      padding: 56px 48px;
+      border-left: 3px solid var(--fnd-gold);
+      background: var(--fnd-glass);
+      border-top: 1px solid var(--fnd-glass-border);
+      border-right: 1px solid var(--fnd-glass-border);
+      border-bottom: 1px solid var(--fnd-glass-border);
+      border-radius: 0 24px 24px 0;
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+    @media (max-width: 768px) {
+      .skoll-fnd-quote-block { padding: 36px 28px; margin-bottom: 100px; }
+    }
+    .skoll-fnd-quote {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: clamp(1.5rem, 2.6vw, 2.25rem);
+      font-style: italic;
+      line-height: 1.4;
+      color: var(--fnd-text);
+      margin: 0 0 24px;
+    }
+    .skoll-fnd-quote-author {
+      font-family: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--fnd-gold);
+      margin: 0;
+    }
+
+    /* —— Chapter rows —— */
+    .skoll-fnd-chapter {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 96px;
+      margin-bottom: 120px;
+    }
+    @media (max-width: 1024px) {
+      .skoll-fnd-chapter { grid-template-columns: 1fr; gap: 32px; margin-bottom: 80px; }
+    }
+    .skoll-fnd-chapter:last-of-type { margin-bottom: 120px; }
+
+    .skoll-fnd-chapter-label {
+      font-family: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--fnd-gold);
+      margin-bottom: 12px;
+      display: block;
+    }
+    .skoll-fnd-chapter-title {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: clamp(2rem, 3.5vw, 2.75rem);
+      font-weight: 400;
+      line-height: 1.05;
+      color: var(--fnd-text);
+      margin: 0;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    .skoll-fnd-chapter-body {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .skoll-fnd-chapter-body > p {
+      font-size: clamp(1rem, 1.4vw, 1.125rem);
+      line-height: 1.7;
+      color: var(--fnd-muted);
+      margin: 0;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .skoll-fnd-chapter-body > p strong {
+      color: var(--fnd-text);
+      font-weight: 600;
+    }
+
+    /* —— Campaign list (legends) —— */
+    .skoll-fnd-legends {
+      list-style: none;
+      padding: 0;
+      margin: 16px 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .skoll-fnd-legend {
+      padding: 20px 24px;
+      background: var(--fnd-glass);
+      border: 1px solid var(--fnd-glass-border);
+      border-radius: 16px;
+      transition: border-color 0.35s ease, transform 0.35s ease;
+    }
+    .skoll-fnd-legend:hover {
+      border-color: rgba(201, 168, 76, 0.25);
+      transform: translateX(6px);
+    }
+    .skoll-fnd-legend-name {
+      font-family: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: var(--fnd-text);
+      margin: 0 0 6px;
+      letter-spacing: -0.01em;
+    }
+    .skoll-fnd-legend-name em { color: var(--fnd-gold); font-style: normal; }
+    .skoll-fnd-legend-desc {
+      font-size: 0.9375rem;
+      line-height: 1.55;
+      color: var(--fnd-muted);
+      margin: 0;
+    }
+
+    /* —— Find Him card —— */
+    .skoll-fnd-contact {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 48px 40px;
+      background: var(--fnd-glass);
+      border: 1px solid var(--fnd-glass-border);
+      border-radius: 24px;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 56px;
+      align-items: center;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    @media (max-width: 768px) {
+      .skoll-fnd-contact { grid-template-columns: 1fr; gap: 28px; padding: 36px 28px; }
+    }
+    .skoll-fnd-contact-title {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: clamp(1.75rem, 3vw, 2.25rem);
+      font-weight: 400;
+      color: var(--fnd-text);
+      margin: 0;
+      line-height: 1.1;
+    }
+    .skoll-fnd-contact-title em { font-style: italic; color: var(--fnd-gold); }
+    .skoll-fnd-contact-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .skoll-fnd-contact-list li {
+      display: flex;
+      gap: 16px;
+      align-items: baseline;
+      font-size: 1rem;
+      color: var(--fnd-muted);
+    }
+    .skoll-fnd-contact-list .skoll-fnd-contact-label {
+      flex-shrink: 0;
+      width: 90px;
+      font-family: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--fnd-gold);
+    }
+    .skoll-fnd-contact-list a {
+      color: var(--fnd-text);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+      transition: color 0.3s ease;
+    }
+    .skoll-fnd-contact-list a:hover { color: var(--fnd-gold); }
+  </style>
+
+  <div class="skoll-founder-inner">
+
+    <!-- Hero -->
+    <div class="skoll-fnd-hero">
+      <div class="skoll-fnd-hero-text">
+        <span class="skoll-fnd-eyebrow skoll-fnd-anim">The Founder</span>
+        <h2 class="skoll-fnd-hero-title skoll-fnd-anim">No degree.<br>No network.<br>Just the <em>work</em>.</h2>
+        <p class="skoll-fnd-hero-sub skoll-fnd-anim">Harsh Bhagwani founded Skoll Digital after a decade of marketing work across FMCG, hospitality, beauty, e-commerce and entertainment. He had no marketing background going in. Everything since has been built from scratch.</p>
+      </div>
+      <figure class="skoll-fnd-portrait skoll-fnd-portrait-anim">
+        <img src="Founder.jpeg" alt="Harsh Bhagwani, Founder of Skoll Digital" loading="lazy" decoding="async">
+        <figcaption class="skoll-fnd-portrait-caption">Harsh Bhagwani — Founder</figcaption>
+      </figure>
+    </div>
+
+    <!-- Pull quote -->
+    <div class="skoll-fnd-quote-block skoll-fnd-anim-x">
+      <p class="skoll-fnd-quote">"I had no marketing background — no degree, no family in the industry, no network. I started by writing Bollywood content for a digital magazine. Everything since then has been built from scratch."</p>
+      <p class="skoll-fnd-quote-author">Harsh Bhagwani, Founder</p>
+    </div>
+
+    <!-- Chapter 1: How it started -->
+    <div class="skoll-fnd-chapter">
+      <div>
+        <span class="skoll-fnd-chapter-label">Chapter 01</span>
+        <h3 class="skoll-fnd-chapter-title skoll-fnd-anim">How it started.</h3>
+      </div>
+      <div class="skoll-fnd-chapter-body">
+        <p class="skoll-fnd-anim">Harsh started in a world far from strategy decks and ad dashboards: writing Bollywood content for a digital magazine. The editor, short-staffed, asked him to also manage the magazine's social media. Something clicked.</p>
+        <p class="skoll-fnd-anim">Marketing was a thinking discipline — and one Harsh found he was unreasonably good at.</p>
+      </div>
+    </div>
+
+    <!-- Chapter 2: The break -->
+    <div class="skoll-fnd-chapter">
+      <div>
+        <span class="skoll-fnd-chapter-label">Chapter 02</span>
+        <h3 class="skoll-fnd-chapter-title skoll-fnd-anim">The break: 7 Degrees &amp; NEU Salonz.</h3>
+      </div>
+      <div class="skoll-fnd-chapter-body">
+        <p class="skoll-fnd-anim">At BrandHype in Gurgaon, Harsh acquired two clients that would shape his career: <strong>7 Degrees Brauhaus</strong>, NCR's hottest microbrewery, and <strong>NEU Salonz</strong>, a six-branch premium salon group.</p>
+        <p class="skoll-fnd-anim">The work for 7 Degrees became category-defining — Oktoberfest campaigns and branded experiential events. The work for NEU was bigger. A Valentine's Day campaign that worked so well NEU poached him as their Marketing Head.</p>
+      </div>
+    </div>
+
+    <!-- Chapter 3: Two years in-house -->
+    <div class="skoll-fnd-chapter">
+      <div>
+        <span class="skoll-fnd-chapter-label">Chapter 03</span>
+        <h3 class="skoll-fnd-chapter-title skoll-fnd-anim">Two years in-house at NEU.</h3>
+      </div>
+      <div class="skoll-fnd-chapter-body">
+        <p class="skoll-fnd-anim">For two years, Harsh ran marketing at NEU full-time. The campaigns from that period became local legends:</p>
+        <ul class="skoll-fnd-legends">
+          <li class="skoll-fnd-legend skoll-fnd-legend-anim">
+            <p class="skoll-fnd-legend-name"><em>Game of Tones</em></p>
+            <p class="skoll-fnd-legend-desc">Hair-colour campaign timed to a Game of Thrones season launch. Themed F&amp;B (DothraTEA, HODORITOS), GOT soundtrack in-salon, an iron throne photo cutout and a Joffrey dartboard. Sold a year&rsquo;s worth of hair colour in roughly two months. Nykaa later copied the campaign name.</p>
+          </li>
+          <li class="skoll-fnd-legend skoll-fnd-legend-anim">
+            <p class="skoll-fnd-legend-name"><em>South Point Mall 6th Anniversary</em></p>
+            <p class="skoll-fnd-legend-desc">Member-exclusive event. Grand decor, premium F&amp;B, curated goodies, a 7-foot selfie wall and hired photographers. &#8377;21 Lakh in sales in 3 days.</p>
+          </li>
+          <li class="skoll-fnd-legend skoll-fnd-legend-anim">
+            <p class="skoll-fnd-legend-name"><em>imNEU Membership</em></p>
+            <p class="skoll-fnd-legend-desc">Repositioned the salon membership as a lifestyle membership. PVC cards in White, Silver, Gold and Black tiers with cross-brand partnerships. 2x memberships in 30 days.</p>
+          </li>
+          <li class="skoll-fnd-legend skoll-fnd-legend-anim">
+            <p class="skoll-fnd-legend-name"><em>NEUresolution</em></p>
+            <p class="skoll-fnd-legend-desc">Annual purpose campaign. Makeovers for underprivileged children and homeless transformation films. 500K+ views on Facebook. Positioned NEU as a brand with a soul.</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Chapter 4: Reputation -->
+    <div class="skoll-fnd-chapter">
+      <div>
+        <span class="skoll-fnd-chapter-label">Chapter 04</span>
+        <h3 class="skoll-fnd-chapter-title skoll-fnd-anim">The reputation that followed.</h3>
+      </div>
+      <div class="skoll-fnd-chapter-body">
+        <p class="skoll-fnd-anim">After NEU, every major salon brand in Gurgaon came calling: <strong>Looks Salon, Geetanjali, Marco Aldany, Headmasters, Nikhil Sharma Hairdressing</strong> and <strong>Dessange Paris</strong>. Harsh didn't pitch any of them. They came to him.</p>
+        <p class="skoll-fnd-anim">The work also broadened to global giants: <strong>Gillette, Tinder, Pee Safe, Jindal Panther, Pullman</strong> and <strong>Novotel</strong>.</p>
+      </div>
+    </div>
+
+    <!-- Chapter 5: Skoll Digital -->
+    <div class="skoll-fnd-chapter">
+      <div>
+        <span class="skoll-fnd-chapter-label">Chapter 05</span>
+        <h3 class="skoll-fnd-chapter-title skoll-fnd-anim">Skoll Digital.</h3>
+      </div>
+      <div class="skoll-fnd-chapter-body">
+        <p class="skoll-fnd-anim">Founded with a specific belief: growth isn't accidental, it's engineered.</p>
+        <p class="skoll-fnd-anim">Today, Skoll works with brands across nine industries — from Hyderabad and Gurgaon to Dubai and the United States.</p>
+      </div>
+    </div>
+
+    <!-- Find Him -->
+    <div class="skoll-fnd-contact skoll-fnd-anim">
+      <h3 class="skoll-fnd-contact-title">Find <em>him</em>.</h3>
+      <ul class="skoll-fnd-contact-list">
+        <li><span class="skoll-fnd-contact-label">Email</span> <a href="mailto:harsh@skolldigital.com">harsh@skolldigital.com</a></li>
+        <li><span class="skoll-fnd-contact-label">LinkedIn</span> <a href="https://linkedin.com/in/harshbhagwani" target="_blank" rel="noopener">linkedin.com/in/harshbhagwani</a></li>
+        <li><span class="skoll-fnd-contact-label">Instagram</span> <a href="https://instagram.com/harshbhagwani" target="_blank" rel="noopener">@harshbhagwani</a></li>
+      </ul>
+    </div>
+
+    <!-- —— Page CTA —— -->
+    <aside class="skoll-page-cta">
+      <div class="skoll-page-cta-inner">
+        <h3 class="skoll-page-cta-title">Want to know if we&rsquo;re the right <em>partner</em>?</h3>
+        <p class="skoll-page-cta-text">Bring us your hardest growth problem and we&rsquo;ll tell you, honestly, whether we can help.</p>
+        <a href="mailto:harsh@skolldigital.com" class="skoll-page-cta-btn">Start a Conversation</a>
+      </div>
+    </aside>
+
+  </div>
+
+  <script>
+    (function() {
+      var wrapper = document.querySelector('.skoll-founder-wrapper');
+      if (!wrapper) return;
+
+      function runFounderJS() {
+        var gsap = window.gsap;
+        var ScrollTrigger = window.ScrollTrigger;
+        if (!gsap || !ScrollTrigger) {
+          setTimeout(runFounderJS, 50);
+          return;
+        }
+        gsap.registerPlugin(ScrollTrigger);
+
+        var anims = wrapper.querySelectorAll('.skoll-fnd-anim');
+        anims.forEach(function(el) {
+          gsap.to(el, {
+            opacity: 1, y: 0, duration: 0.9, ease: 'power3.out',
+            scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none reverse' }
+          });
+        });
+
+        var animsX = wrapper.querySelectorAll('.skoll-fnd-anim-x');
+        animsX.forEach(function(el) {
+          gsap.to(el, {
+            opacity: 1, x: 0, duration: 1, ease: 'power3.out',
+            scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none reverse' }
+          });
+        });
+
+        var portrait = wrapper.querySelector('.skoll-fnd-portrait-anim');
+        if (portrait) {
+          gsap.to(portrait, {
+            opacity: 1, y: 0, scale: 1, duration: 1.1, ease: 'power3.out',
+            scrollTrigger: { trigger: portrait, start: 'top 85%', toggleActions: 'play none none reverse' }
+          });
+        }
+
+        var legends = wrapper.querySelectorAll('.skoll-fnd-legend-anim');
+        gsap.from(legends, {
+          opacity: 0, y: 20, duration: 0.6, stagger: 0.1, ease: 'power3.out',
+          scrollTrigger: { trigger: '.skoll-fnd-legends', start: 'top 90%', toggleActions: 'play none none none' }
+        });
+      }
+
+      if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', runFounderJS); }
+      else { runFounderJS(); }
+    })();
+  </script>
+</section>

@@ -1,80 +1,76 @@
-<!-- Skoll Digital – Standalone About / Origin (HTML + scoped CSS + JS) -->
-<section class="skoll-about-wrapper" data-section="about">
+<!-- Skoll Digital – About Us (HTML + scoped CSS + JS) -->
+<section class="skoll-about-wrapper" data-section="about" id="about">
   <style>
     .skoll-about-wrapper {
       --about-bg: #0A0A0A;
       --about-gold: #C9A84C;
       --about-text: #FAFAFA;
       --about-muted: #888888;
+      --about-glass: rgba(240, 238, 233, 0.03);
+      --about-glass-border: rgba(240, 238, 233, 0.06);
       background: var(--about-bg);
-      padding: 160px 24px;
+      padding: 140px 24px;
       font-family: 'DM Sans', sans-serif;
+      position: relative;
+      overflow: hidden;
     }
     .skoll-about-wrapper * { box-sizing: border-box; }
-    
-    .skoll-about-block {
+
+    .skoll-about-inner {
       max-width: 1400px;
       margin: 0 auto;
+      position: relative;
+    }
+
+    /* —— Eyebrow tag —— */
+    .skoll-about-eyebrow {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--about-gold);
+      margin: 0 0 24px;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    /* —— Block 1: Hero —— */
+    .skoll-about-block {
+      max-width: 1400px;
+      margin: 0 auto 160px;
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 120px;
-      margin-bottom: 200px;
     }
-    .skoll-about-block:last-child {
-      margin-bottom: 0;
-    }
+    .skoll-about-block:last-child { margin-bottom: 0; }
     @media (max-width: 1024px) {
-      .skoll-about-block { grid-template-columns: 1fr; gap: 80px; margin-bottom: 120px; }
+      .skoll-about-block { grid-template-columns: 1fr; gap: 60px; margin-bottom: 100px; }
     }
 
-    .skoll-about-left {
-      position: sticky;
-      top: 200px;
-      height: max-content;
-    }
+    .skoll-about-left { position: sticky; top: 160px; height: max-content; }
     @media (max-width: 1024px) {
       .skoll-about-left { position: relative; top: 0; }
     }
+
     .skoll-about-title {
       font-family: 'Instrument Serif', Georgia, serif;
-      font-size: clamp(3.5rem, 6vw, 6rem);
+      font-size: clamp(3rem, 5.5vw, 5rem);
       font-weight: 400;
-      line-height: 0.95;
+      line-height: 1;
       color: var(--about-text);
-      margin: 0 0 40px;
+      margin: 0 0 32px;
       opacity: 0;
       transform: translateY(40px);
     }
-    .skoll-about-quote-box {
-      border-left: 2px solid var(--about-gold);
-      padding-left: 32px;
-      opacity: 0;
-      transform: translateX(-40px);
-    }
-    .skoll-about-quote {
-      font-family: 'Instrument Serif', Georgia, serif;
-      font-size: clamp(2rem, 3vw, 2.75rem);
+    .skoll-about-title em {
       font-style: italic;
       color: var(--about-gold);
-      line-height: 1.2;
-      margin: 0 0 16px;
-    }
-    .skoll-about-author {
-      font-size: 0.875rem;
-      font-weight: 600;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--about-muted);
-      margin: 0;
     }
 
-    .skoll-about-right {
-      display: flex;
-      flex-direction: column;
-      gap: 48px;
-    }
+    .skoll-about-right { display: flex; flex-direction: column; gap: 32px; }
     .skoll-about-para {
-      font-size: clamp(1.125rem, 2vw, 1.5rem);
+      font-size: clamp(1.125rem, 1.6vw, 1.375rem);
       line-height: 1.6;
       color: var(--about-muted);
       margin: 0;
@@ -84,55 +80,258 @@
     .skoll-about-para.highlight {
       color: var(--about-text);
       font-family: 'Instrument Serif', Georgia, serif;
-      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      font-size: clamp(1.5rem, 2.5vw, 2rem);
       line-height: 1.4;
     }
-    
+
+    /* —— Block 2: What We Are / What We're Not (two cards) —— */
+    .skoll-about-twocol {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin: 0 auto 160px;
+      max-width: 1400px;
+    }
+    @media (max-width: 900px) {
+      .skoll-about-twocol { grid-template-columns: 1fr; margin-bottom: 100px; }
+    }
+    .skoll-about-card {
+      padding: 48px 40px;
+      background: var(--about-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--about-glass-border);
+      border-radius: 24px;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: border-color 0.4s ease, background 0.4s ease, transform 0.4s ease;
+    }
+    .skoll-about-card:hover {
+      border-color: rgba(201, 168, 76, 0.2);
+      background: rgba(240, 238, 233, 0.05);
+      transform: translateY(-4px);
+    }
+    .skoll-about-card-label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--about-gold);
+      margin-bottom: 20px;
+    }
+    .skoll-about-card-heading {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      font-weight: 400;
+      color: var(--about-text);
+      margin: 0 0 20px;
+      line-height: 1.1;
+    }
+    .skoll-about-card-body {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--about-muted);
+      margin: 0;
+    }
+
+    /* —— Block 3: Name origin (sticky narrative) —— */
+    .skoll-about-name-block {
+      margin: 0 auto 160px;
+    }
+    @media (max-width: 1024px) {
+      .skoll-about-name-block { margin-bottom: 100px; }
+    }
     .skoll-about-phonetic {
+      display: block;
       font-family: 'DM Sans', sans-serif;
       font-size: 1rem;
       font-weight: 600;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.12em;
       color: var(--about-gold);
       text-transform: uppercase;
-      margin-top: -24px;
-      margin-bottom: 40px;
-      display: block;
+      margin-top: -16px;
+      margin-bottom: 32px;
       opacity: 0;
       transform: translateX(-20px);
     }
+
+    /* —— Block 4: Locations strip —— */
+    .skoll-about-locations {
+      max-width: 1400px;
+      margin: 0 auto 120px;
+      padding: 32px 40px;
+      background: var(--about-glass);
+      border: 1px solid var(--about-glass-border);
+      border-radius: 999px;
+      text-align: center;
+      font-family: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
+      font-size: clamp(0.875rem, 1.4vw, 1.125rem);
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--about-text);
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .skoll-about-locations span { color: var(--about-gold); padding: 0 16px; }
+    @media (max-width: 700px) {
+      .skoll-about-locations {
+        border-radius: 24px;
+        letter-spacing: 0.12em;
+        padding: 24px;
+      }
+    }
+
+    /* —— Block 5: What We Believe —— */
+    .skoll-about-believe {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .skoll-about-believe-header {
+      max-width: 800px;
+      margin: 0 auto 56px;
+      text-align: center;
+    }
+    .skoll-about-believe-title {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: clamp(2.5rem, 4.5vw, 3.75rem);
+      font-weight: 400;
+      color: var(--about-text);
+      margin: 0;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    .skoll-about-believe-title em { font-style: italic; color: var(--about-gold); }
+
+    .skoll-about-values {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    @media (max-width: 768px) { .skoll-about-values { grid-template-columns: 1fr; } }
+
+    .skoll-about-value {
+      padding: 36px 32px;
+      background: var(--about-glass);
+      border: 1px solid var(--about-glass-border);
+      border-radius: 20px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: border-color 0.35s ease, transform 0.35s ease;
+    }
+    .skoll-about-value:hover {
+      border-color: rgba(201, 168, 76, 0.25);
+      transform: translateY(-4px);
+    }
+    .skoll-about-value-num {
+      font-family: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      color: var(--about-gold);
+      margin-bottom: 16px;
+      display: block;
+    }
+    .skoll-about-value-name {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: clamp(1.5rem, 2.2vw, 1.875rem);
+      font-weight: 400;
+      color: var(--about-text);
+      margin: 0 0 12px;
+    }
+    .skoll-about-value-desc {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--about-muted);
+      margin: 0;
+    }
   </style>
 
-  <!-- Block 1: The Origin -->
-  <div class="skoll-about-block">
-    <div class="skoll-about-left">
-      <h2 class="skoll-about-title skoll-about-title-anim">The Origin.</h2>
-      <div class="skoll-about-quote-box skoll-about-quote-anim">
-        <p class="skoll-about-quote">"The wolf does not announce the hunt."</p>
-        <p class="skoll-about-author">— The Wolf's Code</p>
+  <div class="skoll-about-inner">
+
+    <!-- Block 1: Hero -->
+    <div class="skoll-about-block">
+      <div class="skoll-about-left">
+        <span class="skoll-about-eyebrow skoll-about-anim">About Skoll Digital</span>
+        <h2 class="skoll-about-title skoll-about-anim">Built by operators.<br>Run by a <em>founder</em>.</h2>
+      </div>
+      <div class="skoll-about-right">
+        <p class="skoll-about-para highlight skoll-about-anim">We're a full-stack strategic growth agency. Strategy, product, performance and brand — integrated into one system. Built for founders and leadership teams who think long-term.</p>
+        <p class="skoll-about-para skoll-about-anim">Skoll Digital is a strategic growth partner. Not a vendor. Not an agency-of-record. Not a media buying shop. We integrate four pillars into a single compounding system. That integration is the point.</p>
       </div>
     </div>
-    
-    <div class="skoll-about-right">
-      <p class="skoll-about-para highlight skoll-about-text-anim">In Norse mythology, Skoll is the wolf that chases the sun across the sky. Not out of rage. Not out of hunger. But out of an ancient, unyielding drive to pursue what others see as unreachable.</p>
-      <p class="skoll-about-para skoll-about-text-anim">That pursuit is the founding metaphor of Skoll Digital.</p>
-      <p class="skoll-about-para skoll-about-text-anim">We built this agency on a simple belief: growth isn't accidental. It's structured, engineered, and built with discipline that compounds over time. Like the wolf tracking the sun, we don't sprint toward quick wins. We pursue long-term, sustainable growth systems for founders, CEOs, and leadership teams who think beyond the next quarter.</p>
-      <p class="skoll-about-para skoll-about-text-anim">The wolf represents intent. The sun represents the vision. The chase represents the work. And the discipline of never stopping, never settling, never losing sight of the horizon — that's the Skoll way.</p>
-    </div>
-  </div>
 
-  <!-- Block 2: The Name & Symbol -->
-  <div class="skoll-about-block">
-    <div class="skoll-about-left">
-      <h2 class="skoll-about-title skoll-about-title-anim">SKOLL</h2>
-      <span class="skoll-about-phonetic skoll-about-quote-anim">/skøl/ — Norse origin</span>
+    <!-- Block 2: What We Are / What We're Not -->
+    <div class="skoll-about-twocol">
+      <div class="skoll-about-card skoll-about-anim">
+        <span class="skoll-about-card-label">What We Are</span>
+        <h3 class="skoll-about-card-heading">A growth system. Not a service menu.</h3>
+        <p class="skoll-about-card-body">Four pillars — Strategy, Product, Performance, Brand — wired together. Every engagement starts with a diagnosis, scales with your ambition, and compounds over time.</p>
+      </div>
+      <div class="skoll-about-card skoll-about-anim">
+        <span class="skoll-about-card-label">What We're Not</span>
+        <h3 class="skoll-about-card-heading">A social media agency. A buzzword shop.</h3>
+        <p class="skoll-about-card-body">We don't chase virality. We don't sell hacks. If you need someone to skyrocket your follower count by Friday, we're the wrong partner — and we'll tell you that on the first call.</p>
+      </div>
     </div>
-    
-    <div class="skoll-about-right">
-      <p class="skoll-about-para highlight skoll-about-text-anim">The name Skoll comes directly from Norse mythology. Skoll (also written as Sköll) is the great wolf who perpetually chases Sol, the sun, across the heavens.</p>
-      <p class="skoll-about-para skoll-about-text-anim">In the mythology, it is Skoll's relentless pursuit that drives the sun forward — creating the cycle of day and night, growth and renewal.</p>
-      <p class="skoll-about-para skoll-about-text-anim">We chose this name because it embodies what we do: pursue growth with the kind of relentless, strategic patience that moves entire systems forward.</p>
+
+    <!-- Block 3: Where the name comes from -->
+    <div class="skoll-about-block skoll-about-name-block">
+      <div class="skoll-about-left">
+        <span class="skoll-about-eyebrow skoll-about-anim">Where the name comes from</span>
+        <h2 class="skoll-about-title skoll-about-anim">SKOLL</h2>
+        <span class="skoll-about-phonetic skoll-about-anim">/skøl/ — Norse origin</span>
+      </div>
+      <div class="skoll-about-right">
+        <p class="skoll-about-para highlight skoll-about-anim">Skoll comes from Norse mythology. He's the wolf who chases the sun across the sky: relentlessly, strategically, never closing the gap and never giving up.</p>
+        <p class="skoll-about-para skoll-about-anim">The wolf represents intent. The sun represents the vision. The chase represents the work.</p>
+      </div>
     </div>
+
+    <!-- Block 4: Locations -->
+    <div class="skoll-about-locations skoll-about-anim">
+      Hyderabad <span>(HQ)</span> | Gurgaon <span>|</span> Working Globally
+    </div>
+
+    <!-- Block 5: What We Believe -->
+    <div class="skoll-about-believe">
+      <div class="skoll-about-believe-header">
+        <h2 class="skoll-about-believe-title skoll-about-anim">What we <em>believe</em>.</h2>
+      </div>
+      <div class="skoll-about-values">
+        <div class="skoll-about-value skoll-about-value-anim">
+          <span class="skoll-about-value-num">01</span>
+          <h3 class="skoll-about-value-name">Intent over impulse.</h3>
+          <p class="skoll-about-value-desc">Every decision is deliberate. We don't chase trends.</p>
+        </div>
+        <div class="skoll-about-value skoll-about-value-anim">
+          <span class="skoll-about-value-num">02</span>
+          <h3 class="skoll-about-value-name">Depth over breadth.</h3>
+          <p class="skoll-about-value-desc">We'd rather do four things exceptionally than twelve things mediocrely.</p>
+        </div>
+        <div class="skoll-about-value skoll-about-value-anim">
+          <span class="skoll-about-value-num">03</span>
+          <h3 class="skoll-about-value-name">Compounding over campaigning.</h3>
+          <p class="skoll-about-value-desc">We build infrastructure that grows stronger over time.</p>
+        </div>
+        <div class="skoll-about-value skoll-about-value-anim">
+          <span class="skoll-about-value-num">04</span>
+          <h3 class="skoll-about-value-name">Honesty over comfort.</h3>
+          <p class="skoll-about-value-desc">We'll tell you what you need to hear, not what you want to hear.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- —— Page CTA —— -->
+    <aside class="skoll-page-cta">
+      <div class="skoll-page-cta-inner">
+        <h3 class="skoll-page-cta-title">Want to know if we&rsquo;re the right <em>partner</em>?</h3>
+        <p class="skoll-page-cta-text">The fastest way to find out isn&rsquo;t a brochure. It&rsquo;s a conversation. Bring us your hardest growth problem and we&rsquo;ll tell you, honestly, whether we can help.</p>
+        <a href="mailto:hello@skolldigital.com" class="skoll-page-cta-btn">Start a Conversation</a>
+      </div>
+    </aside>
+
   </div>
 
   <script>
@@ -149,33 +348,22 @@
         }
         gsap.registerPlugin(ScrollTrigger);
 
-        var titles = document.querySelectorAll('.skoll-about-title-anim');
-        var quotes = document.querySelectorAll('.skoll-about-quote-anim');
-        var paras = document.querySelectorAll('.skoll-about-text-anim');
-
-        titles.forEach(function(title) {
-          gsap.to(title, {
-            opacity: 1, y: 0, duration: 1, ease: 'power3.out',
-            scrollTrigger: { trigger: title, start: 'top 80%', toggleActions: 'play none none reverse' }
+        var anims = wrapper.querySelectorAll('.skoll-about-anim');
+        anims.forEach(function(el) {
+          gsap.to(el, {
+            opacity: 1, x: 0, y: 0, duration: 0.9, ease: 'power3.out',
+            scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none reverse' }
           });
         });
 
-        quotes.forEach(function(q) {
-          gsap.to(q, {
-            opacity: 1, x: 0, duration: 1, delay: 0.2, ease: 'power3.out',
-            scrollTrigger: { trigger: q, start: 'top 80%', toggleActions: 'play none none reverse' }
-          });
-        });
-
-        paras.forEach(function(para) {
-          gsap.to(para, {
-            opacity: 1, y: 0, duration: 0.8, ease: 'power2.out',
-            scrollTrigger: { trigger: para, start: 'top 85%', toggleActions: 'play none none reverse' }
-          });
+        var values = wrapper.querySelectorAll('.skoll-about-value-anim');
+        gsap.to(values, {
+          opacity: 1, y: 0, duration: 0.7, stagger: 0.12, ease: 'power3.out',
+          scrollTrigger: { trigger: '.skoll-about-values', start: 'top 85%', toggleActions: 'play none none reverse' }
         });
       }
 
-      if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', runAboutJS); } 
+      if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', runAboutJS); }
       else { runAboutJS(); }
     })();
   </script>

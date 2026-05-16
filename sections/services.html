@@ -1,5 +1,5 @@
 <!-- Skoll Digital – Standalone Services Accordion (HTML + scoped CSS + JS) -->
-<section class="skoll-services-wrapper" data-section="services">
+<section class="skoll-services-wrapper" data-section="services" id="services">
   <style>
     /* —— Scoped Services Styles (ultra-dark, accordion) —— */
     .skoll-services-wrapper {
@@ -55,6 +55,19 @@
       margin: 0 auto;
     }
 
+    /* Header block */
+    .skoll-services-eyebrow {
+      display: block;
+      text-align: center;
+      font-family: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--svc-gold);
+      margin: 0 0 20px;
+    }
+
     .skoll-services-title {
       font-family: 'Instrument Serif', Georgia, serif;
       font-size: clamp(2rem, 4vw, 2.75rem);
@@ -62,7 +75,21 @@
       letter-spacing: -0.03em;
       color: var(--svc-text);
       text-align: center;
-      margin: 0 0 48px;
+      margin: 0 0 20px;
+    }
+    .skoll-services-title em {
+      font-style: italic;
+      color: var(--svc-gold);
+    }
+
+    .skoll-services-subtitle {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 1.0625rem;
+      line-height: 1.6;
+      color: var(--svc-muted);
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 64px;
     }
 
     .skoll-services-list {
@@ -109,26 +136,41 @@
     }
     .skoll-services-row-num {
       flex-shrink: 0;
-      font-family: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
-      font-size: 0.875rem;
-      font-weight: 600;
-      color: var(--svc-gold);
-      letter-spacing: 0.05em;
-      transition: text-shadow 0.35s ease, color 0.35s ease;
+      display: inline-block;
+      width: 28px;
+      height: 28px;
+      background-color: var(--svc-gold);
+      -webkit-mask: url('paw.png') no-repeat center / contain;
+              mask: url('paw.png') no-repeat center / contain;
+      transition: filter 0.35s ease, transform 0.35s ease;
     }
     .skoll-services-row-header:hover .skoll-services-row-num {
-      text-shadow: 0 0 20px rgba(201, 168, 76, 0.5);
-      color: var(--svc-gold);
+      filter: drop-shadow(0 0 8px rgba(201, 168, 76, 0.5));
+      transform: scale(1.08);
+    }
+    .skoll-services-row-title-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      padding: 0 16px;
     }
     .skoll-services-row-title {
-      flex: 1;
       font-family: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
       font-size: clamp(1.25rem, 2vw, 1.5rem);
       font-weight: 600;
       color: var(--svc-text);
       letter-spacing: -0.02em;
       text-align: center;
-      padding: 0 16px;
+    }
+    .skoll-services-row-tagline {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 0.9375rem;
+      font-style: italic;
+      color: var(--svc-gold);
+      text-align: center;
+      letter-spacing: -0.005em;
     }
     .skoll-services-row-toggle {
       flex-shrink: 0;
@@ -182,6 +224,112 @@
       color: var(--svc-text);
       border-color: rgba(240, 238, 233, 0.12);
     }
+
+    /* —— Why Integrated Matters block —— */
+    .skoll-services-why {
+      margin: 80px auto;
+      max-width: 800px;
+      text-align: center;
+    }
+    .skoll-services-why-title {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--svc-text);
+      margin: 0 0 32px;
+    }
+    .skoll-services-why-title em {
+      font-style: italic;
+      color: var(--svc-gold);
+    }
+    .skoll-services-why-body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 1.0625rem;
+      line-height: 1.7;
+      color: var(--svc-muted);
+      margin: 0 auto 20px;
+      max-width: 800px;
+    }
+    .skoll-services-why-body:last-child {
+      margin-bottom: 0;
+    }
+
+    /* —— Engagement Models block —— */
+    .skoll-services-engagement {
+      margin-top: 80px;
+    }
+    .skoll-services-engagement-title {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--svc-text);
+      text-align: center;
+      margin: 0 0 48px;
+    }
+    .skoll-services-engagement-title em {
+      font-style: italic;
+      color: var(--svc-gold);
+    }
+    .skoll-services-engagement-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .skoll-services-engagement-card {
+      padding: 36px 32px;
+      background: var(--svc-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--svc-glass-border);
+      border-radius: 16px;
+      opacity: 0;
+      transform: translateY(32px);
+      transition: border-color 0.35s ease, transform 0.35s ease;
+    }
+    .skoll-services-engagement-card:hover {
+      border-color: rgba(201, 168, 76, 0.25);
+    }
+    .skoll-services-engagement-label {
+      display: block;
+      font-family: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
+      font-size: 0.6875rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--svc-gold);
+      margin-bottom: 20px;
+    }
+    .skoll-services-engagement-card-title {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 1.625rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--svc-text);
+      margin: 0 0 16px;
+    }
+    .skoll-services-engagement-card-body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 0.9375rem;
+      line-height: 1.65;
+      color: var(--svc-muted);
+      margin: 0;
+    }
+
+    @media (max-width: 768px) {
+      .skoll-services-engagement-grid {
+        grid-template-columns: 1fr;
+      }
+      .skoll-services-row-title-wrap {
+        align-items: flex-start;
+        padding: 0 12px;
+      }
+      .skoll-services-row-title,
+      .skoll-services-row-tagline {
+        text-align: left;
+      }
+    }
   </style>
 
   <div class="skoll-services-shader-bg" aria-hidden="true">
@@ -198,13 +346,18 @@
   </div>
 
   <div class="skoll-services-inner">
-    <h2 class="skoll-services-title" id="skoll-services-title">What We Build.</h2>
+    <span class="skoll-services-eyebrow">WHAT WE DO</span>
+    <h2 class="skoll-services-title" id="skoll-services-title">Four pillars. One <em>system</em>.</h2>
+    <p class="skoll-services-subtitle">Most agencies sell services. We build growth infrastructure. Strategy, product, performance and brand — integrated into one system that compounds.</p>
 
     <ul class="skoll-services-list" id="skoll-services-list">
       <li class="skoll-services-row" data-row="1">
         <button type="button" class="skoll-services-row-header" aria-expanded="false" aria-controls="skoll-svc-content-1" id="skoll-svc-header-1">
-          <span class="skoll-services-row-num">01</span>
-          <span class="skoll-services-row-title">Growth Strategy & Consulting</span>
+          <span class="skoll-services-row-num" aria-hidden="true"></span>
+          <span class="skoll-services-row-title-wrap">
+            <span class="skoll-services-row-title">Strategy</span>
+            <span class="skoll-services-row-tagline">The foundation. Everything starts here.</span>
+          </span>
           <span class="skoll-services-row-toggle" aria-hidden="true">
             <span class="skoll-services-row-toggle-icon">+</span>
           </span>
@@ -212,11 +365,15 @@
         <div class="skoll-services-row-content" id="skoll-svc-content-1" role="region" aria-labelledby="skoll-svc-header-1">
           <div class="skoll-services-row-content-inner">
             <div class="skoll-services-pills">
-              <span class="skoll-services-pill">Market Research</span>
-              <span class="skoll-services-pill">GTM Strategy</span>
-              <span class="skoll-services-pill">Growth Audits</span>
-              <span class="skoll-services-pill">Funnel Architecture</span>
-              <span class="skoll-services-pill">Competitive Analysis</span>
+              <span class="skoll-services-pill">Brand and category positioning</span>
+              <span class="skoll-services-pill">Competitive intelligence and market mapping</span>
+              <span class="skoll-services-pill">Growth strategy and GTM frameworks</span>
+              <span class="skoll-services-pill">Funnel architecture and revenue modelling</span>
+              <span class="skoll-services-pill">Strategic narrative and messaging hierarchies</span>
+              <span class="skoll-services-pill">Naming, brand foundations and brand books</span>
+              <span class="skoll-services-pill">Audits: brand, digital, performance, content</span>
+              <span class="skoll-services-pill">Pitch decks, investor decks, sales decks</span>
+              <span class="skoll-services-pill">White papers and thought-leadership documents</span>
             </div>
           </div>
         </div>
@@ -224,8 +381,11 @@
 
       <li class="skoll-services-row" data-row="2">
         <button type="button" class="skoll-services-row-header" aria-expanded="false" aria-controls="skoll-svc-content-2" id="skoll-svc-header-2">
-          <span class="skoll-services-row-num">02</span>
-          <span class="skoll-services-row-title">Product Design & Development</span>
+          <span class="skoll-services-row-num" aria-hidden="true"></span>
+          <span class="skoll-services-row-title-wrap">
+            <span class="skoll-services-row-title">Product</span>
+            <span class="skoll-services-row-tagline">Built to convert. Engineered for longevity.</span>
+          </span>
           <span class="skoll-services-row-toggle" aria-hidden="true">
             <span class="skoll-services-row-toggle-icon">+</span>
           </span>
@@ -233,11 +393,14 @@
         <div class="skoll-services-row-content" id="skoll-svc-content-2" role="region" aria-labelledby="skoll-svc-header-2">
           <div class="skoll-services-row-content-inner">
             <div class="skoll-services-pills">
-              <span class="skoll-services-pill">Website Design</span>
-              <span class="skoll-services-pill">Web App Development</span>
-              <span class="skoll-services-pill">E-commerce (Shopify/Custom)</span>
-              <span class="skoll-services-pill">Mobile App UI/UX</span>
-              <span class="skoll-services-pill">Landing Pages</span>
+              <span class="skoll-services-pill">Brand websites and editorial platforms</span>
+              <span class="skoll-services-pill">E-commerce stores (Shopify, WooCommerce, custom)</span>
+              <span class="skoll-services-pill">Mobile and web applications</span>
+              <span class="skoll-services-pill">Landing pages and campaign microsites</span>
+              <span class="skoll-services-pill">UX audits and conversion architecture</span>
+              <span class="skoll-services-pill">Website migrations and re-platforming</span>
+              <span class="skoll-services-pill">CMS setup and team enablement</span>
+              <span class="skoll-services-pill">Web hosting, maintenance, optimisation</span>
             </div>
           </div>
         </div>
@@ -245,8 +408,11 @@
 
       <li class="skoll-services-row" data-row="3">
         <button type="button" class="skoll-services-row-header" aria-expanded="false" aria-controls="skoll-svc-content-3" id="skoll-svc-header-3">
-          <span class="skoll-services-row-num">03</span>
-          <span class="skoll-services-row-title">Performance Marketing</span>
+          <span class="skoll-services-row-num" aria-hidden="true"></span>
+          <span class="skoll-services-row-title-wrap">
+            <span class="skoll-services-row-title">Performance</span>
+            <span class="skoll-services-row-tagline">Every rupee accountable. Every metric intentional.</span>
+          </span>
           <span class="skoll-services-row-toggle" aria-hidden="true">
             <span class="skoll-services-row-toggle-icon">+</span>
           </span>
@@ -254,11 +420,16 @@
         <div class="skoll-services-row-content" id="skoll-svc-content-3" role="region" aria-labelledby="skoll-svc-header-3">
           <div class="skoll-services-row-content-inner">
             <div class="skoll-services-pills">
-              <span class="skoll-services-pill">Meta Ads</span>
-              <span class="skoll-services-pill">Google Ads</span>
-              <span class="skoll-services-pill">SEO & Content</span>
-              <span class="skoll-services-pill">Analytics & Dashboards</span>
-              <span class="skoll-services-pill">CRO (Conversion Rate Optimization)</span>
+              <span class="skoll-services-pill">Google Ads (Search, Display, PMax, Demand Gen, YouTube)</span>
+              <span class="skoll-services-pill">Meta Ads (Facebook, Instagram, app install, lead gen, retargeting)</span>
+              <span class="skoll-services-pill">LinkedIn Ads (B2B lead gen, brand campaigns)</span>
+              <span class="skoll-services-pill">App Store &amp; Play Store install campaigns</span>
+              <span class="skoll-services-pill">SEO: technical, on-page, content, link strategy</span>
+              <span class="skoll-services-pill">Local SEO and Google Business Profile</span>
+              <span class="skoll-services-pill">Marketing automation (HubSpot, Klaviyo, ActiveCampaign)</span>
+              <span class="skoll-services-pill">CRM workflows and lead nurture</span>
+              <span class="skoll-services-pill">Analytics &amp; dashboarding (GA4, Looker, Meta CAPI, server-side)</span>
+              <span class="skoll-services-pill">Conversion rate optimisation (CRO)</span>
             </div>
           </div>
         </div>
@@ -266,8 +437,11 @@
 
       <li class="skoll-services-row" data-row="4">
         <button type="button" class="skoll-services-row-header" aria-expanded="false" aria-controls="skoll-svc-content-4" id="skoll-svc-header-4">
-          <span class="skoll-services-row-num">04</span>
-          <span class="skoll-services-row-title">Brand Building</span>
+          <span class="skoll-services-row-num" aria-hidden="true"></span>
+          <span class="skoll-services-row-title-wrap">
+            <span class="skoll-services-row-title">Brand</span>
+            <span class="skoll-services-row-tagline">Not decoration. Differentiation.</span>
+          </span>
           <span class="skoll-services-row-toggle" aria-hidden="true">
             <span class="skoll-services-row-toggle-icon">+</span>
           </span>
@@ -275,16 +449,62 @@
         <div class="skoll-services-row-content" id="skoll-svc-content-4" role="region" aria-labelledby="skoll-svc-header-4">
           <div class="skoll-services-row-content-inner">
             <div class="skoll-services-pills">
-              <span class="skoll-services-pill">Brand Identity & Logo</span>
-              <span class="skoll-services-pill">Brand Strategy & Positioning</span>
-              <span class="skoll-services-pill">Content Systems</span>
-              <span class="skoll-services-pill">Social Media Narratives</span>
-              <span class="skoll-services-pill">Pitch Decks & Collateral</span>
+              <span class="skoll-services-pill">Brand identity: logos, marks, identity systems</span>
+              <span class="skoll-services-pill">Brand guidelines and brand books</span>
+              <span class="skoll-services-pill">Creative direction for campaigns</span>
+              <span class="skoll-services-pill">Content strategy and editorial planning</span>
+              <span class="skoll-services-pill">Social media strategy and production</span>
+              <span class="skoll-services-pill">Instagram, LinkedIn, YouTube content systems</span>
+              <span class="skoll-services-pill">Reel scripting, shooting, editing</span>
+              <span class="skoll-services-pill">Cinematic content (in-house Sony FX3A)</span>
+              <span class="skoll-services-pill">Photography direction and shoot management</span>
+              <span class="skoll-services-pill">Podcast strategy and production</span>
+              <span class="skoll-services-pill">Newsletter and email content systems</span>
+              <span class="skoll-services-pill">PR positioning and media narratives</span>
             </div>
           </div>
         </div>
       </li>
     </ul>
+
+    <!-- —— Why Integrated Matters —— -->
+    <div class="skoll-services-why" id="skoll-services-why">
+      <h3 class="skoll-services-why-title">Why integrated <em>matters</em>.</h3>
+      <p class="skoll-services-why-body">Most agencies are specialists pretending to be generalists. You hire them for one thing, then watch them fumble the next.</p>
+      <p class="skoll-services-why-body">We're built differently. Strategy informs performance. Performance feeds brand. Brand strengthens product. Product compounds strategy.</p>
+      <p class="skoll-services-why-body">When the four pillars talk to each other, growth stops being a campaign and starts being infrastructure.</p>
+    </div>
+
+    <!-- —— Engagement Models —— -->
+    <div class="skoll-services-engagement" id="skoll-services-engagement">
+      <h3 class="skoll-services-engagement-title">Engagement <em>models</em>.</h3>
+      <div class="skoll-services-engagement-grid">
+        <article class="skoll-services-engagement-card">
+          <span class="skoll-services-engagement-label">01 — RETAINERS</span>
+          <h4 class="skoll-services-engagement-card-title">Ongoing partnership.</h4>
+          <p class="skoll-services-engagement-card-body">Monthly engagement across one or more pillars. Best for brands building long-term growth systems.</p>
+        </article>
+        <article class="skoll-services-engagement-card">
+          <span class="skoll-services-engagement-label">02 — PROJECTS</span>
+          <h4 class="skoll-services-engagement-card-title">Fixed scope, fixed timeline.</h4>
+          <p class="skoll-services-engagement-card-body">Best for one-off launches, website builds, brand identity work or campaign sprints.</p>
+        </article>
+        <article class="skoll-services-engagement-card">
+          <span class="skoll-services-engagement-label">03 — AUDITS &amp; STRATEGY</span>
+          <h4 class="skoll-services-engagement-card-title">Diagnostic engagements.</h4>
+          <p class="skoll-services-engagement-card-body">We go deep, document everything, and hand you a roadmap. Best when you're not sure what you need yet.</p>
+        </article>
+      </div>
+    </div>
+
+    <!-- —— Page CTA —— -->
+    <aside class="skoll-page-cta">
+      <div class="skoll-page-cta-inner">
+        <h3 class="skoll-page-cta-title">Not sure which <em>pillar</em> you need?</h3>
+        <p class="skoll-page-cta-text">That&rsquo;s usually a sign you need the diagnosis first. Tell us what you&rsquo;re trying to grow, and we&rsquo;ll tell you where to start.</p>
+        <a href="mailto:hello@skolldigital.com" class="skoll-page-cta-btn">Start a Conversation</a>
+      </div>
+    </aside>
   </div>
 
   <script>
@@ -364,6 +584,23 @@
             else openRow(row);
           });
         });
+
+        // —— Engagement cards fade-up stagger ——
+        var engagementCards = wrapper.querySelectorAll('.skoll-services-engagement-card');
+        if (engagementCards.length) {
+          gsap.to(engagementCards, {
+            opacity: 1,
+            y: 0,
+            duration: 0.7,
+            stagger: 0.15,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: '#skoll-services-engagement',
+              start: 'top 82%',
+              toggleActions: 'play none none none'
+            }
+          });
+        }
       }
 
       if (document.readyState === 'loading') {
