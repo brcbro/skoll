@@ -50,8 +50,8 @@
       width: 18px;
       height: 18px;
       background-color: var(--pwk-gold);
-      -webkit-mask: url('paw.png') no-repeat center / contain;
-              mask: url('paw.png') no-repeat center / contain;
+      -webkit-mask: url('assets/images/paw.png') no-repeat center / contain;
+              mask: url('assets/images/paw.png') no-repeat center / contain;
       opacity: 0.85;
     }
 
@@ -196,6 +196,9 @@
       justify-content: center;
       margin-top: 56px;
     }
+    .skoll-prev-work-cta-wrap--top {
+      margin-top: 28px;
+    }
     .skoll-prev-work-cta {
       display: inline-flex;
       align-items: center;
@@ -232,11 +235,17 @@
     <header class="skoll-prev-work-header">
       <span class="skoll-prev-work-eyebrow skoll-prev-work-anim">CASE STUDIES</span>
       <h2 class="skoll-prev-work-title skoll-prev-work-anim">The work is the <em>proof</em>.</h2>
-      <p class="skoll-prev-work-sub skoll-prev-work-anim">Real work. Real numbers. Two highlights below — the full deck has six.</p>
+      <p class="skoll-prev-work-sub skoll-prev-work-anim">Real work. Real numbers.</p>
+      <div class="skoll-prev-work-cta-wrap skoll-prev-work-cta-wrap--top">
+        <a href="case-studies.html" class="skoll-prev-work-cta skoll-prev-work-anim">
+          <span>See all case studies</span>
+          <span class="skoll-prev-work-cta-arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
     </header>
 
     <div class="skoll-prev-work-grid" id="skoll-prev-work-grid">
-      <a href="case-studies.html" class="skoll-prev-work-card" data-card="1">
+      <a href="case-bella-babe.html" class="skoll-prev-work-card" data-card="1" aria-label="Read the Bella Babe by SK case study">
         <div class="skoll-prev-work-card-image">
           <div class="skoll-prev-work-card-image-inner"></div>
         </div>
@@ -247,7 +256,7 @@
         </div>
       </a>
 
-      <a href="case-studies.html" class="skoll-prev-work-card" data-card="2">
+      <a href="case-pullman-novotel.html" class="skoll-prev-work-card" data-card="2" aria-label="Read the Pullman & Novotel case study">
         <div class="skoll-prev-work-card-image">
           <div class="skoll-prev-work-card-image-inner"></div>
         </div>
@@ -259,12 +268,6 @@
       </a>
     </div>
 
-    <div class="skoll-prev-work-cta-wrap">
-      <a href="case-studies.html" class="skoll-prev-work-cta skoll-prev-work-anim">
-        <span>See all 6 case studies</span>
-        <span class="skoll-prev-work-cta-arrow" aria-hidden="true">→</span>
-      </a>
-    </div>
   </div>
 
   <script>

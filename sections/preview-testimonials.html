@@ -45,8 +45,8 @@
     width: 18px;
     height: 18px;
     background-color: #C9A84C;
-    -webkit-mask: url('paw.png') no-repeat center / contain;
-            mask: url('paw.png') no-repeat center / contain;
+    -webkit-mask: url('assets/images/paw.png') no-repeat center / contain;
+            mask: url('assets/images/paw.png') no-repeat center / contain;
     opacity: 0.85;
   }
 
@@ -74,6 +74,11 @@
     max-width: 600px;
   }
 
+  .skoll-prev-test-carousel {
+    position: relative;
+    padding: 0 72px;
+  }
+
   .skoll-prev-test-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -83,12 +88,30 @@
   .skoll-prev-test-card {
     position: relative;
     padding: 36px 32px;
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
     background: rgba(240, 238, 233, 0.03);
     border: 1px solid rgba(240, 238, 233, 0.06);
     border-radius: 24px;
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
+    overflow: hidden;
     transition: border-color 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  .skoll-prev-test-card::after {
+    content: '';
+    position: absolute;
+    bottom: 18px;
+    right: 18px;
+    width: 56px;
+    height: 56px;
+    background-color: #C9A84C;
+    -webkit-mask: url('assets/images/claw.png') no-repeat center / contain;
+            mask: url('assets/images/claw.png') no-repeat center / contain;
+    opacity: 0.35;
+    pointer-events: none;
   }
 
   .skoll-prev-test-card:hover {
@@ -110,16 +133,6 @@
     border: 1px solid rgba(240, 238, 233, 0.08);
     border-radius: 999px;
     background: transparent;
-  }
-
-  .skoll-prev-test-quote-mark {
-    display: block;
-    width: 28px;
-    height: 28px;
-    margin: 0 0 16px;
-    background-color: #C9A84C;
-    -webkit-mask: url('paw.png') no-repeat center / contain;
-            mask: url('paw.png') no-repeat center / contain;
   }
 
   .skoll-prev-test-quote {
@@ -152,6 +165,44 @@
     letter-spacing: 0.15em;
     color: #C9A84C;
     margin: 0;
+  }
+
+  .skoll-prev-test-arrow {
+    position: absolute;
+    top: 50%;
+    width: 48px;
+    height: 48px;
+    border-radius: 999px;
+    border: 1px solid rgba(201, 168, 76, 0.4);
+    background: rgba(17, 17, 17, 0.7);
+    color: #C9A84C;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transform: translateY(-50%);
+    z-index: 2;
+    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .skoll-prev-test-arrow--prev { left: 0; }
+  .skoll-prev-test-arrow--next { right: 0; }
+
+  .skoll-prev-test-arrow:hover {
+    background: rgba(201, 168, 76, 0.12);
+    border-color: rgba(201, 168, 76, 0.6);
+    box-shadow: 0 0 16px rgba(201, 168, 76, 0.2);
+  }
+
+  .skoll-prev-test-arrow:focus-visible {
+    outline: 2px solid rgba(201, 168, 76, 0.6);
+    outline-offset: 3px;
+  }
+
+  .skoll-prev-test-arrow svg {
+    width: 20px;
+    height: 20px;
   }
 
   .skoll-prev-test-cta-wrap {
@@ -200,6 +251,10 @@
       margin-bottom: 40px;
     }
 
+    .skoll-prev-test-carousel {
+      padding: 0 52px;
+    }
+
     .skoll-prev-test-grid {
       grid-template-columns: 1fr;
       gap: 20px;
@@ -207,11 +262,44 @@
 
     .skoll-prev-test-card {
       padding: 32px 24px;
+      min-height: 0;
+    }
+
+    .skoll-prev-test-card::after {
+      width: 44px;
+      height: 44px;
+      bottom: 14px;
+      right: 14px;
+    }
+
+    .skoll-prev-test-arrow {
+      width: 40px;
+      height: 40px;
+    }
+
+    .skoll-prev-test-arrow svg {
+      width: 18px;
+      height: 18px;
     }
 
     .skoll-prev-test-cta-wrap {
       margin-top: 40px;
     }
+  }
+
+  @media (max-width: 480px) {
+    .skoll-prev-test-carousel {
+      padding: 0 0 64px;
+    }
+
+    .skoll-prev-test-arrow {
+      top: auto;
+      bottom: 0;
+      transform: none;
+    }
+
+    .skoll-prev-test-arrow--prev { left: calc(50% - 56px); }
+    .skoll-prev-test-arrow--next { right: calc(50% - 56px); }
   }
 </style>
 
@@ -230,30 +318,38 @@
       </p>
     </header>
 
-    <div class="skoll-prev-test-grid">
-      <article class="skoll-prev-test-card">
-        <span class="skoll-prev-test-quote-mark" aria-hidden="true"></span>
-        <p class="skoll-prev-test-quote">
-          We&rsquo;d been stuck at Rs.2.7L for months. Inside ninety days with
-          Skoll, we were doing Rs.9L. They didn&rsquo;t sell us magic. They
-          built us a system.
-        </p>
-        <p class="skoll-prev-test-name">Founder</p>
-        <p class="skoll-prev-test-role">Bella Babe by SK</p>
-        <p class="skoll-prev-test-stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
-      </article>
+    <div class="skoll-prev-test-carousel">
+      <button type="button" class="skoll-prev-test-arrow skoll-prev-test-arrow--prev" data-test-prev aria-label="Previous testimonials">
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </button>
 
-      <article class="skoll-prev-test-card">
-        <span class="skoll-prev-test-quote-mark" aria-hidden="true"></span>
-        <p class="skoll-prev-test-quote">
-          Skoll came in when we were pre-launch and treated our product like
-          their own. They&rsquo;ve stayed in the trenches with us through every
-          launch milestone.
-        </p>
-        <p class="skoll-prev-test-name">Richard De Vaughn</p>
-        <p class="skoll-prev-test-role">Co-Founder, JaroGO Media (USA)</p>
-        <p class="skoll-prev-test-stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
-      </article>
+      <div class="skoll-prev-test-grid" id="skoll-prev-test-grid" aria-live="polite">
+        <article class="skoll-prev-test-card" data-test-card="0">
+          <p class="skoll-prev-test-quote">
+            We&rsquo;d been stuck at Rs.2.7L for months. Inside ninety days with
+            Skoll, we were doing Rs.9L. They didn&rsquo;t sell us magic. They
+            built us a system.
+          </p>
+          <p class="skoll-prev-test-name">Founder</p>
+          <p class="skoll-prev-test-role">Bella Babe by SK</p>
+          <p class="skoll-prev-test-stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+        </article>
+
+        <article class="skoll-prev-test-card" data-test-card="1">
+          <p class="skoll-prev-test-quote">
+            Skoll came in when we were pre-launch and treated our product like
+            their own. They&rsquo;ve stayed in the trenches with us through every
+            launch milestone.
+          </p>
+          <p class="skoll-prev-test-name">Richard De Vaughn</p>
+          <p class="skoll-prev-test-role">Co-Founder, JaroGO Media (USA)</p>
+          <p class="skoll-prev-test-stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+        </article>
+      </div>
+
+      <button type="button" class="skoll-prev-test-arrow skoll-prev-test-arrow--next" data-test-next aria-label="Next testimonials">
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
     </div>
 
     <div class="skoll-prev-test-cta-wrap">
@@ -287,10 +383,12 @@
 
       var headerEls = section.querySelectorAll('.skoll-prev-test-anim');
       var cards = section.querySelectorAll('.skoll-prev-test-card');
+      var arrows = section.querySelectorAll('.skoll-prev-test-arrow');
       var cta = section.querySelector('.skoll-prev-test-cta-wrap');
 
       gsap.set(headerEls, { opacity: 0, y: 30 });
       gsap.set(cards, { opacity: 0, y: 30 });
+      if (arrows.length) gsap.set(arrows, { opacity: 0 });
       if (cta) gsap.set(cta, { opacity: 0, y: 30 });
 
       gsap.to(headerEls, {
@@ -317,6 +415,19 @@
         },
       });
 
+      if (arrows.length) {
+        gsap.to(arrows, {
+          opacity: 1,
+          duration: 0.6,
+          delay: 0.35,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top 85%',
+          },
+        });
+      }
+
       if (cta) {
         gsap.to(cta, {
           opacity: 1,
@@ -332,13 +443,124 @@
       }
     }
 
+    function initPrevTestCarousel() {
+      var section = document.querySelector('#preview-testimonials');
+      if (!section) return;
+      if (section.dataset.prevTestCarouselInit === '1') return;
+
+      var grid = section.querySelector('#skoll-prev-test-grid');
+      var cardEls = section.querySelectorAll('[data-test-card]');
+      var prevBtn = section.querySelector('[data-test-prev]');
+      var nextBtn = section.querySelector('[data-test-next]');
+      if (!grid || cardEls.length !== 2 || !prevBtn || !nextBtn) return;
+
+      var testimonials = [
+        {
+          quote: 'We’d been stuck at Rs.2.7L for months. Inside ninety days with Skoll, we were doing Rs.9L. They didn’t sell us magic. They built us a system.',
+          name: 'Founder',
+          role: 'Bella Babe by SK'
+        },
+        {
+          quote: 'Skoll came in when we were pre-launch and treated our product like their own. They’ve stayed in the trenches with us through every launch milestone.',
+          name: 'Richard De Vaughn',
+          role: 'Co-Founder, JaroGO Media (USA)'
+        },
+        {
+          quote: 'Skoll pitched our problem back to us better than we’d described it ourselves. Through two wedding seasons, they thought about the work not as a vendor — as a partner.',
+          name: 'Marketing Head',
+          role: 'Pullman & Novotel, Accor Hotels'
+        },
+        {
+          quote: 'Harsh thought about our hair artists the way Nike thinks about athletes — and that single idea reshaped how the salon industry in Gurgaon markets itself.',
+          name: 'Founder',
+          role: 'NEU Salonz'
+        },
+        {
+          quote: 'Skoll thinks in systems. Most agencies pitched us social media calendars. They pitched us campaign universes — a creative partner with strategic depth.',
+          name: 'Operations Head',
+          role: '7 Degrees Brauhaus'
+        },
+        {
+          quote: 'Eight thousand six hundred seventy conversions at Rs.21 each, across ten cities, over two years. The work outperformed our internal team. The dashboard spoke for itself.',
+          name: 'Regional Marketing Lead',
+          role: 'Lakme Academy'
+        }
+      ];
+
+      var perPage = 2;
+      var totalPages = Math.ceil(testimonials.length / perPage);
+      var page = 0;
+      section.dataset.prevTestCarouselInit = '1';
+
+      function paintCard(card, t) {
+        if (!t) return;
+        var q = card.querySelector('.skoll-prev-test-quote');
+        var n = card.querySelector('.skoll-prev-test-name');
+        var r = card.querySelector('.skoll-prev-test-role');
+        if (q) q.textContent = t.quote;
+        if (n) n.textContent = t.name;
+        if (r) r.textContent = t.role;
+      }
+
+      function render() {
+        for (var i = 0; i < cardEls.length; i++) {
+          paintCard(cardEls[i], testimonials[page * perPage + i]);
+        }
+      }
+
+      var transitioning = false;
+      function go(delta) {
+        if (transitioning) return;
+        page = (page + delta + totalPages) % totalPages;
+        var gsap = window.gsap;
+        if (gsap) {
+          transitioning = true;
+          gsap.to(cardEls, {
+            opacity: 0,
+            x: 24,
+            duration: 0.4,
+            ease: 'power2.inOut',
+            stagger: 0.12,
+            onComplete: function () {
+              render();
+              gsap.fromTo(cardEls,
+                { opacity: 0, x: -24 },
+                {
+                  opacity: 1,
+                  x: 0,
+                  duration: 0.55,
+                  ease: 'power2.out',
+                  stagger: 0.12,
+                  onComplete: function () { transitioning = false; }
+                }
+              );
+            }
+          });
+        } else {
+          render();
+        }
+      }
+
+      prevBtn.addEventListener('click', function () { go(-1); });
+      nextBtn.addEventListener('click', function () { go(1); });
+
+      section.addEventListener('keydown', function (e) {
+        if (e.target !== prevBtn && e.target !== nextBtn) return;
+        if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
+        else if (e.key === 'ArrowRight') { e.preventDefault(); go(1); }
+      });
+    }
+
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', initPrevTestAnim);
+      document.addEventListener('DOMContentLoaded', initPrevTestCarousel);
     } else {
       initPrevTestAnim();
+      initPrevTestCarousel();
     }
 
     // Also try after a short delay in case GSAP loads later
     setTimeout(initPrevTestAnim, 300);
+    setTimeout(initPrevTestCarousel, 300);
   })();
 </script>

@@ -142,8 +142,10 @@
       width: 20px;
       height: 20px;
       background-color: #0A0A0A;
-      -webkit-mask: url('paw.png') no-repeat center / contain;
-              mask: url('paw.png') no-repeat center / contain;
+      -webkit-mask: url('assets/images/claw.png') no-repeat center / contain;
+              mask: url('assets/images/claw.png') no-repeat center / contain;
+      transform: scale(1.5);
+      transform-origin: center;
       transition: transform 0.3s ease;
     }
     .skoll-nav-cta:hover {
@@ -151,7 +153,7 @@
       transform: translateY(-1px);
     }
     .skoll-nav-cta:hover::after {
-      transform: translateX(2px) rotate(-8deg);
+      transform: scale(1.5) translateX(2px) rotate(-8deg);
     }
     /* Hamburger (mobile) */
     .skoll-nav-hamburger {
@@ -234,15 +236,20 @@
       color: var(--nav-gold);
     }
     .skoll-nav-overlay .skoll-nav-cta-mobile {
-      margin-top: 24px;
+      margin-top: 32px;
       display: inline-flex;
+      color: #0A0A0A;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      padding: 14px 32px;
     }
   </style>
 
   <div class="skoll-nav-pill-wrap">
     <nav class="skoll-nav-pill" aria-label="Main navigation">
       <a href="index.html" class="skoll-nav-logo" aria-label="Skoll Digital - Home">
-        <img src="assets/logo.png" alt="Skoll Digital" class="skoll-nav-logo-img">
+        <img src="assets/images/logo.png" alt="Skoll Digital" class="skoll-nav-logo-img">
       </a>
       <div class="skoll-nav-links">
         <a href="about.html">About</a>
@@ -279,7 +286,7 @@
       var pillWrap = wrapper.querySelector('.skoll-nav-pill-wrap');
       var overlay = document.getElementById('skoll-nav-overlay');
       var hamburger = wrapper.querySelector('.skoll-nav-hamburger');
-      var overlayLinks = overlay ? overlay.querySelectorAll('.skoll-nav-overlay-link') : [];
+      var overlayLinks = overlay ? overlay.querySelectorAll('.skoll-nav-overlay-link, .skoll-nav-cta-mobile') : [];
       var overlayAllLinks = overlay ? overlay.querySelectorAll('a') : [];
 
       function runNavbarJS() {

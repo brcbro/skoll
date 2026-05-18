@@ -83,6 +83,9 @@
       font-style: italic;
       color: var(--hero-gold);
     }
+    .skoll-hero-headline .skoll-hero-nowrap {
+      white-space: nowrap;
+    }
 
     .skoll-hero-subtext {
       font-size: clamp(1rem, 1.5vw, 1.25rem);
@@ -184,7 +187,7 @@
         width: 85%;
       }
       .skoll-hero-headline {
-        font-size: clamp(2.5rem, 10vw, 4rem); /* Beautiful mobile fit */
+        font-size: clamp(1.75rem, 8vw, 4rem); /* Beautiful mobile fit — scales down so single-line headline fits */
       }
       .skoll-hero-subtext {
         font-size: 1rem;
@@ -193,6 +196,65 @@
       .skoll-hero-footer p {
         font-size: 1.25rem;
       }
+      /* Lock text-button height to 48px so it matches the circular play button exactly */
+      .skoll-hero-btn {
+        height: 48px;
+        padding: 0 24px;
+        line-height: 1;
+      }
+    }
+
+    /* —— Video play/pause toggle —— */
+    /* Mobile-first: sits inline in the CTA row at an explicit 48x48 circle, matching the text-button height enforced in the mobile media query below. Desktop overrides to a centered overlay. */
+    .skoll-hero-playbtn {
+      width: 48px;
+      height: 48px;
+      flex: 0 0 48px;
+      border-radius: 999px;
+      border: 1px solid rgba(240, 238, 233, 0.28);
+      background: rgba(10, 10, 10, 0.45);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      color: var(--hero-text);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.25s ease, background 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+      padding: 0;
+    }
+    .skoll-hero-playbtn:hover {
+      border-color: var(--hero-gold);
+      color: var(--hero-gold);
+      transform: scale(1.05);
+      box-shadow: 0 0 32px rgba(201, 168, 76, 0.3);
+    }
+    .skoll-hero-playbtn:focus-visible {
+      outline: 2px solid var(--hero-gold);
+      outline-offset: 4px;
+    }
+    .skoll-hero-playbtn svg {
+      width: 18px;
+      height: 18px;
+      display: block;
+    }
+    .skoll-hero-playbtn .skoll-hero-icon-pause { display: none; }
+    .skoll-hero-playbtn[data-playing="true"] .skoll-hero-icon-play { display: none; }
+    .skoll-hero-playbtn[data-playing="true"] .skoll-hero-icon-pause { display: block; }
+    @media (min-width: 769px) {
+      .skoll-hero-playbtn {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 10;
+        width: 72px;
+        height: 72px;
+      }
+      .skoll-hero-playbtn:hover {
+        transform: translate(-50%, -50%) scale(1.05);
+      }
+      .skoll-hero-playbtn svg { width: 24px; height: 24px; }
     }
 
     /* —— Scroll hint —— */
@@ -219,8 +281,8 @@
     }
   </style>
 
-  <!-- Background video: Comp 2.mp4 on desktop, Comp 1_3.mp4 on mobile (set by JS) -->
-  <video class="skoll-hero-video" autoplay muted playsinline loop aria-hidden="true"></video>
+  <!-- Background video: hero-pc.mp4 on desktop, hero-mobile.mp4 on mobile (set by JS). User-controlled via play/pause button. -->
+  <video class="skoll-hero-video" muted playsinline loop preload="metadata" aria-hidden="true"></video>
 
   <!-- Background stack -->
   <div class="skoll-hero-bg">
@@ -231,8 +293,7 @@
   <!-- Main content -->
   <div class="skoll-hero-inner">
     <h1 class="skoll-hero-headline skoll-hero-anim">
-      We don't chase<br>
-      growth.<br>
+      <span class="skoll-hero-nowrap">We don't chase growth.</span><br>
       We <span class="skoll-hero-gold">engineer</span> it.
     </h1>
     
@@ -251,6 +312,10 @@
       <a href="case-studies.html" class="skoll-hero-btn skoll-hero-btn-ghost">
         See our work
       </a>
+      <button type="button" class="skoll-hero-playbtn" id="skoll-hero-playbtn" aria-label="Play background video" data-playing="false">
+        <svg class="skoll-hero-icon-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13L19 12 8 5.5z"/></svg>
+        <svg class="skoll-hero-icon-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg>
+      </button>
     </div>
 
     <div class="skoll-hero-footer skoll-hero-anim">
@@ -276,19 +341,64 @@
       function isMobile() { return window.innerWidth <= MOBILE_BREAKPOINT; }
       function setHeroVideoSource() {
         if (!video) return;
-        var src = isMobile() ? 'Comp%201_3.mp4' : 'Comp%202.mp4';
+        var src = isMobile() ? 'assets/videos/hero-mobile.mp4' : 'assets/videos/hero-pc.mp4';
         if (currentHeroSource === src) return;
         currentHeroSource = src;
+        var wasPlaying = !video.paused;
         video.src = src;
         video.load();
         video.muted = true;
-        video.play().catch(function () {});
+        if (wasPlaying) {
+          video.play().catch(function () {});
+        }
       }
       setHeroVideoSource();
+
+      // —— Play/pause toggle ——
+      var playBtn = document.getElementById('skoll-hero-playbtn');
+      var ctaRow = wrapper.querySelector('.skoll-hero-cta-row');
+
+      // Desktop: button must live outside .skoll-hero-cta-row, because the row has a transform applied
+      // (for the fade-up animation) which would make it the containing block for absolute children
+      // and break the centered positioning. Mobile: keep it inline next to the "See our work" CTA.
+      function placePlayBtn() {
+        if (!playBtn) return;
+        if (isMobile()) {
+          if (ctaRow && playBtn.parentNode !== ctaRow) ctaRow.appendChild(playBtn);
+        } else {
+          if (playBtn.parentNode !== wrapper) wrapper.appendChild(playBtn);
+        }
+      }
+      placePlayBtn();
+
       window.addEventListener('resize', function () {
         clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(setHeroVideoSource, 250);
+        resizeTimeout = setTimeout(function () {
+          setHeroVideoSource();
+          placePlayBtn();
+        }, 250);
       });
+      function setPlayingState(playing) {
+        if (!playBtn) return;
+        playBtn.setAttribute('data-playing', playing ? 'true' : 'false');
+        playBtn.setAttribute('aria-label', playing ? 'Pause background video' : 'Play background video');
+      }
+      if (playBtn && video) {
+        playBtn.addEventListener('click', function () {
+          if (video.paused) {
+            video.muted = true;
+            var p = video.play();
+            if (p && typeof p.then === 'function') {
+              p.catch(function () { setPlayingState(false); });
+            }
+          } else {
+            video.pause();
+          }
+        });
+        video.addEventListener('play', function () { setPlayingState(true); });
+        video.addEventListener('pause', function () { setPlayingState(false); });
+        video.addEventListener('ended', function () { setPlayingState(false); });
+      }
 
       function runHeroJS() {
         var gsap = window.gsap;
@@ -299,15 +409,6 @@
 
         var animElements = document.querySelectorAll('.skoll-hero-anim');
         var blob = document.getElementById('skoll-hero-blob');
-
-        // Ensure background video plays even when section is loaded dynamically
-        if (video) {
-          video.muted = true;
-          var playPromise = video.play();
-          if (playPromise && typeof playPromise.then === 'function') {
-            playPromise.catch(function () { /* ignore autoplay errors */ });
-          }
-        }
 
         // Custom staggered fade-up timeline
         var tl = gsap.timeline({
