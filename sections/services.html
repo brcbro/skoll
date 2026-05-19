@@ -43,9 +43,16 @@
       border-radius: inherit;
       object-fit: cover;
       object-position: center;
-      filter: saturate(0.75) contrast(1.05) brightness(0.9);
+      filter: saturate(0.6) contrast(1.05) brightness(0.3);
       transform: scale(1.05);
       transform-origin: center;
+    }
+    .skoll-services-shader-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(10, 10, 10, 0.55) 0%, rgba(10, 10, 10, 0.7) 100%);
+      pointer-events: none;
     }
 
     .skoll-services-inner {
@@ -336,11 +343,7 @@
     <img
       decoding="auto"
       sizes="100vw"
-      srcset="
-        https://framerusercontent.com/images/0o77rPWLjh7WWr9PbJ9YRchjA.jpg?scale-down-to=1024&amp;width=1000&amp;height=1250 819w,
-        https://framerusercontent.com/images/0o77rPWLjh7WWr9PbJ9YRchjA.jpg?width=1000&amp;height=1250 1000w
-      "
-      src="https://framerusercontent.com/images/0o77rPWLjh7WWr9PbJ9YRchjA.jpg?width=1000&amp;height=1250"
+      src="assets/images/skin.avif"
       alt=""
     />
   </div>

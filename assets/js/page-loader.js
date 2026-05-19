@@ -19,7 +19,6 @@
     work: 'work-container',
     testimonials: 'testimonials-container',
     pillars: 'pillars-container',
-    approach: 'pillars-container',
     explore: 'previews-container',
     contact: 'footer-container'
   };

@@ -1,0 +1,454 @@
+<!-- Skoll Digital – Contact (HTML + scoped CSS + JS) -->
+<section class="skoll-contact-wrapper" data-section="contact" id="contact">
+  <style>
+    .skoll-contact-wrapper {
+      --c-bg: #0A0A0A;
+      --c-gold: #C9A84C;
+      --c-text: #FAFAFA;
+      --c-muted: #888888;
+      --c-glass: rgba(240, 238, 233, 0.03);
+      --c-glass-strong: rgba(240, 238, 233, 0.05);
+      --c-border: rgba(240, 238, 233, 0.08);
+      --c-border-strong: rgba(240, 238, 233, 0.18);
+      background: var(--c-bg);
+      color: var(--c-text);
+      font-family: 'DM Sans', system-ui, sans-serif;
+      padding: 160px 24px 140px;
+      position: relative;
+      overflow: hidden;
+    }
+    .skoll-contact-wrapper * { box-sizing: border-box; }
+
+    /* Soft gold gradient bloom behind the section */
+    .skoll-contact-glow {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 100vmax;
+      height: 100vmax;
+      margin-left: -50vmax;
+      margin-top: -50vmax;
+      background: radial-gradient(
+        circle 45% at 50% 50%,
+        rgba(201, 168, 76, 0.10) 0%,
+        rgba(201, 168, 76, 0.04) 30%,
+        transparent 60%
+      );
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .skoll-contact-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1.05fr;
+      gap: 96px;
+      align-items: start;
+    }
+    @media (max-width: 1024px) {
+      .skoll-contact-inner { grid-template-columns: 1fr; gap: 64px; }
+    }
+
+    /* —— Left column: headline + meta —— */
+    .skoll-contact-left { position: sticky; top: 140px; height: max-content; }
+    @media (max-width: 1024px) {
+      .skoll-contact-left { position: relative; top: 0; }
+    }
+
+    .skoll-contact-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--c-gold);
+      margin: 0 0 28px;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .skoll-contact-eyebrow::before {
+      content: '';
+      width: 14px;
+      height: 14px;
+      background-color: var(--c-gold);
+      -webkit-mask: url('assets/images/paw.png') no-repeat center / contain;
+              mask: url('assets/images/paw.png') no-repeat center / contain;
+      opacity: 0.85;
+    }
+
+    .skoll-contact-title {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      font-weight: 400;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      color: var(--c-text);
+      margin: 0 0 28px;
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    .skoll-contact-title em {
+      font-style: italic;
+      color: var(--c-gold);
+    }
+
+    .skoll-contact-lede {
+      font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
+      line-height: 1.6;
+      color: var(--c-muted);
+      margin: 0 0 40px;
+      max-width: 480px;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .skoll-contact-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .skoll-contact-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .skoll-contact-meta-label {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--c-muted);
+    }
+    .skoll-contact-meta-value {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: clamp(1.25rem, 1.8vw, 1.5rem);
+      color: var(--c-text);
+      text-decoration: none;
+      transition: color 0.25s ease;
+    }
+    a.skoll-contact-meta-value:hover { color: var(--c-gold); }
+
+    /* —— Right column: form card —— */
+    .skoll-contact-form-card {
+      background: var(--c-glass);
+      border: 1px solid var(--c-border);
+      border-radius: 24px;
+      padding: 48px 44px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    @media (max-width: 600px) {
+      .skoll-contact-form-card { padding: 32px 22px; border-radius: 20px; }
+    }
+
+    .skoll-contact-form { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+    @media (max-width: 600px) { .skoll-contact-form { grid-template-columns: 1fr; } }
+    .skoll-contact-field { display: flex; flex-direction: column; gap: 8px; }
+    .skoll-contact-field-full { grid-column: 1 / -1; }
+
+    .skoll-contact-label {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--c-muted);
+    }
+
+    .skoll-contact-input,
+    .skoll-contact-select,
+    .skoll-contact-textarea {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--c-border-strong);
+      color: var(--c-text);
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 1rem;
+      font-weight: 400;
+      padding: 14px 0;
+      outline: none;
+      transition: border-color 0.3s ease, color 0.3s ease;
+    }
+    .skoll-contact-input::placeholder,
+    .skoll-contact-textarea::placeholder {
+      color: rgba(240, 238, 233, 0.35);
+    }
+    .skoll-contact-input:focus,
+    .skoll-contact-select:focus,
+    .skoll-contact-textarea:focus {
+      border-bottom-color: var(--c-gold);
+    }
+
+    .skoll-contact-select {
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3e%3cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23C9A84C' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 4px center;
+      background-size: 12px 8px;
+      padding-right: 28px;
+      cursor: pointer;
+    }
+    .skoll-contact-select option {
+      background: #141414;
+      color: var(--c-text);
+    }
+
+    .skoll-contact-textarea {
+      resize: vertical;
+      min-height: 120px;
+      line-height: 1.5;
+      padding-top: 14px;
+    }
+
+    .skoll-contact-actions {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+    .skoll-contact-fineprint {
+      font-size: 0.8125rem;
+      color: var(--c-muted);
+      max-width: 320px;
+      line-height: 1.5;
+      margin: 0;
+    }
+    .skoll-contact-fineprint em {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-style: italic;
+      color: var(--c-text);
+    }
+
+    .skoll-contact-submit {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 34px;
+      border-radius: 999px;
+      background: var(--c-gold);
+      color: #0A0A0A;
+      border: 1px solid var(--c-gold);
+      font-family: 'Söhne', 'Sohne', 'Inter', system-ui, sans-serif;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.25s ease, box-shadow 0.3s ease;
+    }
+    .skoll-contact-submit:hover {
+      box-shadow: 0 0 36px rgba(201, 168, 76, 0.45);
+      transform: translateY(-2px);
+    }
+    .skoll-contact-submit-arrow {
+      transition: transform 0.3s ease;
+    }
+    .skoll-contact-submit:hover .skoll-contact-submit-arrow {
+      transform: translateX(4px);
+    }
+
+    /* —— Success state —— */
+    .skoll-contact-success {
+      display: none;
+      text-align: center;
+      padding: 24px 0 8px;
+    }
+    .skoll-contact-success.is-visible { display: block; }
+    .skoll-contact-success-title {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: clamp(1.75rem, 3vw, 2.25rem);
+      color: var(--c-text);
+      margin: 0 0 12px;
+    }
+    .skoll-contact-success-title em { font-style: italic; color: var(--c-gold); }
+    .skoll-contact-success-msg {
+      font-size: 1rem;
+      color: var(--c-muted);
+      margin: 0;
+    }
+  </style>
+
+  <div class="skoll-contact-glow" aria-hidden="true"></div>
+
+  <div class="skoll-contact-inner">
+
+    <!-- LEFT: headline + meta -->
+    <div class="skoll-contact-left">
+      <span class="skoll-contact-eyebrow" id="skoll-contact-eyebrow">Contact</span>
+      <h1 class="skoll-contact-title" id="skoll-contact-title">
+        Let's <em>talk</em>.
+      </h1>
+      <p class="skoll-contact-lede" id="skoll-contact-lede">
+        Tell us where you are, where you want to go, and what's in the way. We'll come back with a diagnosis &mdash; not a pitch.
+      </p>
+
+      <div class="skoll-contact-meta" id="skoll-contact-meta">
+        <div class="skoll-contact-meta-item">
+          <span class="skoll-contact-meta-label">Email</span>
+          <a class="skoll-contact-meta-value" href="mailto:hello@skolldigital.com">hello@skolldigital.com</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: form -->
+    <div class="skoll-contact-form-card" id="skoll-contact-form-card">
+      <form class="skoll-contact-form" id="skoll-contact-form" novalidate>
+        <div class="skoll-contact-field">
+          <label class="skoll-contact-label" for="skoll-c-name">Name</label>
+          <input class="skoll-contact-input" id="skoll-c-name" name="name" type="text" placeholder="Your full name" required>
+        </div>
+        <div class="skoll-contact-field">
+          <label class="skoll-contact-label" for="skoll-c-company">Company</label>
+          <input class="skoll-contact-input" id="skoll-c-company" name="company" type="text" placeholder="Company name">
+        </div>
+        <div class="skoll-contact-field">
+          <label class="skoll-contact-label" for="skoll-c-email">Email</label>
+          <input class="skoll-contact-input" id="skoll-c-email" name="email" type="email" placeholder="you@company.com" required>
+        </div>
+        <div class="skoll-contact-field">
+          <label class="skoll-contact-label" for="skoll-c-phone">Phone</label>
+          <input class="skoll-contact-input" id="skoll-c-phone" name="phone" type="tel" placeholder="+91 00000 00000">
+        </div>
+        <div class="skoll-contact-field">
+          <label class="skoll-contact-label" for="skoll-c-budget">Budget Range</label>
+          <select class="skoll-contact-select" id="skoll-c-budget" name="budget">
+            <option value="">Select a range</option>
+            <option>Under &#8377;5L</option>
+            <option>&#8377;5L &ndash; &#8377;15L</option>
+            <option>&#8377;15L &ndash; &#8377;50L</option>
+            <option>&#8377;50L+</option>
+            <option>Not sure yet</option>
+          </select>
+        </div>
+        <div class="skoll-contact-field">
+          <label class="skoll-contact-label" for="skoll-c-service">Services Required</label>
+          <select class="skoll-contact-select" id="skoll-c-service" name="service">
+            <option value="">Select a service</option>
+            <option>Strategy &amp; Diagnosis</option>
+            <option>Product &amp; Web</option>
+            <option>Performance Marketing</option>
+            <option>Brand &amp; Identity</option>
+            <option>Full-stack growth partner</option>
+          </select>
+        </div>
+        <div class="skoll-contact-field skoll-contact-field-full">
+          <label class="skoll-contact-label" for="skoll-c-outcome">Primary Outcome</label>
+          <select class="skoll-contact-select" id="skoll-c-outcome" name="outcome">
+            <option value="">What are you trying to achieve?</option>
+            <option>Launch a new brand or product</option>
+            <option>Scale revenue / acquisition</option>
+            <option>Reposition or rebrand</option>
+            <option>Fix a leaky funnel</option>
+            <option>Something else &mdash; let's talk</option>
+          </select>
+        </div>
+        <div class="skoll-contact-field skoll-contact-field-full">
+          <label class="skoll-contact-label" for="skoll-c-message">Tell Us More</label>
+          <textarea class="skoll-contact-textarea" id="skoll-c-message" name="message" placeholder="A few lines on where you are and what's in the way."></textarea>
+        </div>
+
+        <div class="skoll-contact-actions">
+          <p class="skoll-contact-fineprint">
+            Diagnosis before <em>prescription</em>. We reply within one working day.
+          </p>
+          <button class="skoll-contact-submit" type="submit">
+            Start the conversation
+            <span class="skoll-contact-submit-arrow" aria-hidden="true">&rarr;</span>
+          </button>
+        </div>
+      </form>
+
+      <div class="skoll-contact-success" id="skoll-contact-success" role="status" aria-live="polite">
+        <h3 class="skoll-contact-success-title">Got it. <em>Talk soon.</em></h3>
+        <p class="skoll-contact-success-msg">Your note is on its way to us. We'll be in touch within one working day.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var wrapper = document.querySelector('.skoll-contact-wrapper');
+      if (!wrapper) return;
+
+      function runContactJS() {
+        var gsap = window.gsap;
+        var ScrollTrigger = window.ScrollTrigger;
+        if (!gsap || !ScrollTrigger) {
+          setTimeout(runContactJS, 50);
+          return;
+        }
+        gsap.registerPlugin(ScrollTrigger);
+
+        var eyebrow = document.getElementById('skoll-contact-eyebrow');
+        var title = document.getElementById('skoll-contact-title');
+        var lede = document.getElementById('skoll-contact-lede');
+        var meta = document.getElementById('skoll-contact-meta');
+        var card = document.getElementById('skoll-contact-form-card');
+
+        var tl = gsap.timeline({
+          scrollTrigger: { trigger: wrapper, start: 'top 80%', toggleActions: 'play none none none' }
+        });
+        tl.to(eyebrow, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' })
+          .to(title, { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' }, '-=0.3')
+          .to(lede, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, '-=0.5')
+          .to(meta, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, '-=0.4')
+          .to(card, { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' }, '-=0.6');
+
+        // Form submit (mailto fallback so no backend is required)
+        var form = document.getElementById('skoll-contact-form');
+        var success = document.getElementById('skoll-contact-success');
+        if (form) {
+          form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            var data = new FormData(form);
+            var name = (data.get('name') || '').toString().trim();
+            var email = (data.get('email') || '').toString().trim();
+            if (!name || !email) {
+              var firstEmpty = form.querySelector('[required]:invalid') || form.querySelector('[required]');
+              if (firstEmpty) firstEmpty.focus();
+              return;
+            }
+            var lines = [];
+            data.forEach(function (val, key) {
+              if (!val) return;
+              var label = key.charAt(0).toUpperCase() + key.slice(1);
+              lines.push(label + ': ' + val);
+            });
+            var subject = encodeURIComponent('New enquiry from ' + name + ' via skolldigital.com');
+            var body = encodeURIComponent(lines.join('\n'));
+            window.location.href = 'mailto:hello@skolldigital.com?subject=' + subject + '&body=' + body;
+
+            gsap.to(form, {
+              opacity: 0, y: -12, duration: 0.4, ease: 'power2.in',
+              onComplete: function () {
+                form.style.display = 'none';
+                success.classList.add('is-visible');
+                gsap.fromTo(success, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' });
+              }
+            });
+          });
+        }
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', runContactJS);
+      } else {
+        runContactJS();
+      }
+    })();
+  </script>
+</section>
