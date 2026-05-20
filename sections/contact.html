@@ -307,6 +307,9 @@
     <!-- RIGHT: form -->
     <div class="skoll-contact-form-card" id="skoll-contact-form-card">
       <form class="skoll-contact-form" id="skoll-contact-form" novalidate>
+        <!-- Anti-spam Honeypot -->
+        <input type="text" name="_honey" style="display:none">
+        
         <div class="skoll-contact-field">
           <label class="skoll-contact-label" for="skoll-c-name">Name</label>
           <input class="skoll-contact-input" id="skoll-c-name" name="name" type="text" placeholder="Your full name" required>
@@ -408,9 +411,12 @@
           .to(meta, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, '-=0.4')
           .to(card, { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' }, '-=0.6');
 
-        // Form submit (mailto fallback so no backend is required)
+        // Form submit (using FormSubmit.co AJAX for professional delivery)
         var form = document.getElementById('skoll-contact-form');
         var success = document.getElementById('skoll-contact-success');
+        var submitBtn = form ? form.querySelector('.skoll-contact-submit') : null;
+        var submitBtnText = submitBtn ? submitBtn.innerHTML : '';
+
         if (form) {
           form.addEventListener('submit', function (e) {
             e.preventDefault();
@@ -422,23 +428,56 @@
               if (firstEmpty) firstEmpty.focus();
               return;
             }
-            var lines = [];
-            data.forEach(function (val, key) {
-              if (!val) return;
-              var label = key.charAt(0).toUpperCase() + key.slice(1);
-              lines.push(label + ': ' + val);
-            });
-            var subject = encodeURIComponent('New enquiry from ' + name + ' via skolldigital.com');
-            var body = encodeURIComponent(lines.join('\n'));
-            window.location.href = 'mailto:hello@skolldigital.com?subject=' + subject + '&body=' + body;
 
-            gsap.to(form, {
-              opacity: 0, y: -12, duration: 0.4, ease: 'power2.in',
-              onComplete: function () {
-                form.style.display = 'none';
-                success.classList.add('is-visible');
-                gsap.fromTo(success, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' });
+            // Disable submit button & show loading state
+            if (submitBtn) {
+              submitBtn.disabled = true;
+              submitBtn.style.opacity = '0.6';
+              submitBtn.style.cursor = 'not-allowed';
+              submitBtn.innerHTML = 'Sending...';
+            }
+
+            // Construct payload and add dynamic subject line
+            var payload = {};
+            data.forEach(function (val, key) {
+              payload[key] = val;
+            });
+            payload['_subject'] = 'New Growth Enquiry from ' + name + ' | Skoll Digital';
+
+            // Send via FormSubmit.co AJAX endpoint
+            fetch('https://formsubmit.co/ajax/hello@skolldigital.com', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+              },
+              body: JSON.stringify(payload)
+            })
+            .then(function (res) {
+              if (res.ok) return res.json();
+              throw new Error('Server returned an error');
+            })
+            .then(function () {
+              // Smooth GSAP transition to success state
+              gsap.to(form, {
+                opacity: 0, y: -12, duration: 0.4, ease: 'power2.in',
+                onComplete: function () {
+                  form.style.display = 'none';
+                  success.classList.add('is-visible');
+                  gsap.fromTo(success, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' });
+                }
+              });
+            })
+            .catch(function (error) {
+              console.error('Submission error:', error);
+              // Reset submit button on failure
+              if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.style.opacity = '1';
+                submitBtn.style.cursor = 'pointer';
+                submitBtn.innerHTML = submitBtnText;
               }
+              alert('Something went wrong. Please try again or email us directly at hello@skolldigital.com');
             });
           });
         }
